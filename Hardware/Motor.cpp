@@ -11,5 +11,6 @@ namespace ハード
 
 void モータ::モータのPWM値を設定する(int PWM値)
 {
+  atom test
 }
 }  // namespace ハード
