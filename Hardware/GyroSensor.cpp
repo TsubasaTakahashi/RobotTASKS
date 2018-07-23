@@ -4,13 +4,48 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ジャイロセンサ.h"
+#include "GyroSensor.h"
+using namespace ev3api;
 
-namespace ハード
+namespace Hardware
 {
-
-int ジャイロセンサ::センサ値を取得する()
+//=============================================================================
+// Constructor
+GyroSensor::GyroSensor(ePortS port)
+:
+Sensor(port, GYRO_SENSOR),
+mOffset(DEFAULT_OFFSET)
 {
-	return 0;
+	ev3_gyro_sensor_reset(getPort());
+	(void)ev3_gyro_sensor_get_rate(getPort());
 }
+
+//=============================================================================
+// set sensor offset data at 0 [deg/sec]
+void GyroSensor::setOffset(int16_t offset)
+{
+	mOffset = offset;
+}
+
+//=============================================================================
+// Reset gyro sensor.
+void GyroSensor::reset(void)
+{
+	ev3_gyro_sensor_reset(getPort());
+}
+
+//=============================================================================
+// get anguler velocity [deg/sec]
+int16_t GyroSensor::getAnglerVelocity(void) const
+{
+	return ev3_gyro_sensor_get_rate(getPort()) - mOffset;
+}
+
+//=============================================================================
+// get angule [deg]
+int16_t GyroSensor::getAngle(void) const
+{
+	return ev3_gyro_sensor_get_angle(getPort());
+}
+
 }  // namespace ハード

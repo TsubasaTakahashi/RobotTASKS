@@ -1,5 +1,5 @@
-#ifndef ハード_カラーセンサ_H
-#define ハード_カラーセンサ_H
+#ifndef Hardware_ColorSensor_H
+#define Hardware_ColorSensor_H
 
 #include <string>
 #include <vector>
@@ -7,18 +7,39 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/センサ管理.h"
 
-namespace ハード
+namespace Hardware
 {
-class カラーセンサ : public センサ管理
+class ColorSensor
 {
-private:
-	カラーセンサ カラーセンサ;
+	public:
+		/**
+		* コンストラクタ
+		* @param port カラーセンサポート番号
+		* @return -
+		*/
+		explicit ColorSensor(ePortS port);
 
-public:
-	int センサ値を取得する();
+		/**
+		* デストラクタ
+		* @param -
+		* @return -
+		*/
+		virtual ~ColorSensor(void);
 
+		/**
+		* 環境光の強さを測定する
+		* @param -
+		* @return 環境光の強さ（0〜100）
+		*/
+		uint8_t getAmbient(void) const;
+
+		/**
+		* 反射光の強さを測定する
+		* @param -
+		* @return 反射光の強さ (0-100)
+		*/
+		int8_t getBrightness(void) const;
 };
 
 }  // namespace ハード
