@@ -4,12 +4,12 @@
 #include <iostream>
 #include <assert.h>
 
-#include "カラーセンサ.h"
+#include "ColorSensor.h"
 
-namespace ハード
+namespace Hardware
 {
 
-int カラーセンサ::センサ値を取得する()
+int ColorSensor::センサ値を取得する()
 {
 	return 0;
 }

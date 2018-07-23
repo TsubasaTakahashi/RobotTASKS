@@ -4,13 +4,29 @@
 #include <iostream>
 #include <assert.h>
 
-#include "モータ回転角度センサ.h"
+#include "MotorRaSensor.h"
 
-namespace ハード
-{
+using namespace ev3api;
 
-int モータ回転角度センサ::センサ値を取得する()
+namespace Hardware
 {
-	return 0;
+// Constructor
+Motor::Motor(ePortM port, motor_type_t type)
+:mPort(static_cast<motor_port_t>(port)),
+ mType(type),
+ mOffset(0)
+{
+	ev3_motor_config(getPort(), type);
 }
+
+// Destructor
+Motor::~Motor(void)
+{
+	ev3_motor_stop(mPort, true); // set brake to stop the motor immidiately
+}
+
+//int MotorRaSensor::センサ値を取得する()
+//{
+	//return 0;
+//}
 }  // namespace ハード

@@ -1,32 +1,67 @@
-#ifndef ハード_モータ_H
-#define ハード_モータ_H
+#ifndef Hardware_Motor_H
+#define Hardware_Motor_H
 
 #include <string>
 #include <vector>
 #include <list>
 #include <iostream>
 #include <assert.h>
+#include "Port.h"
+#include "ev3api.h"
 
-#include "走行体制御/const int.h"
-#include "走行体制御/PWM左右モータ個体差補正.h"
-#include "走行体制御/PWM電圧補正.h"
+namespace Hardware
+{
+class Motor
+{
 
-namespace ハード
-{
-class モータ
-{
+	public:
+		static const int PWM_MAX = 100;
+		static const int PWM_MIN = 100;
+
+		explicit Motor(ePortM port, bool brake = true, motor_type_t type = LARGE_MOTOR);
+
+		~Motor(void);
+
+		/**
+		* モータリセット<br>
+		* モータ停止および角位置の0リセット、オフセット初期化を行う
+		* @param -
+		* @return -
+		*/
+		inline void reset(void)
+		{
+		  ev3_motor_stop(mPort, true); // need to set brake to stop the motor immidiately
+		}
+
+		/**
+		* モータPWM値設定<br>
+		* ブレーキモードでPWM値が0の場合、モータを停止する
+		* @param pwm PWM値 (-100 - 100)
+		* @return -
+		*/
+		void setPWM(int pwm);
+
+		/**
+		* ブレーキモード設定
+		* @param brake true:ブレーキモード/false:フロートモード
+		* @return -
+		*/
+		void setBrake(bool brake);
+
+	protected:
+		/**
+		* モータ接続ポート取得
+		* @param -
+		* @return モータ接続ポート
+		*/
+		inline motor_port_t getPort(void) const { return mPort; }
+
 private:
-	走行体制御::const int PWM値の上限値;
-
-	走行体制御::const int PWM値の下限値;
-
-	走行体制御::PWM左右モータ個体差補正 pWM左右モータ個体差補正;
-	走行体制御::PWM左右モータ個体差補正 pWM左右モータ個体差補正;
-	モータ モータ;
-	走行体制御::PWM電圧補正 PWM取得;
-
-public:
-	void モータのPWM値を設定する(int PWM値);
+  motor_port_t mPort;
+  bool mBrake;
+  motor_type_t mType;
+  int mPWM;
+  //int32_t mOffset;
 
 };
 
