@@ -7,10 +7,11 @@
 #include <iostream>
 #include <assert.h>
 
+using namespace ev3api;
 
 namespace Hardware
 {
-class ColorSensor
+class ColorSensor: public Sensor
 {
 	public:
 		/**
