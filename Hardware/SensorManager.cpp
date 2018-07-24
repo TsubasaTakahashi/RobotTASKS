@@ -4,9 +4,9 @@
 #include <iostream>
 #include <assert.h>
 
-#include "センサ管理.h"
+#include "SensorManager.h"
 
-namespace ハード
+namespace Hardware
 {
 
 int センサ管理::反射光を取得する()

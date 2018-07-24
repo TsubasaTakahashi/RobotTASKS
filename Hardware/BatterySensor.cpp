@@ -4,13 +4,14 @@
 #include <iostream>
 #include <assert.h>
 
-#include "バッテリセンサ.h"
+#include "BatterySensor.h"
 
-namespace ハード
-{
+using namespace ev3api;
 
-int バッテリセンサ::センサ値を取得する()
+namespace Hardware
 {
-	return 0;
+int BatterySensor::getBatteryVoltage()
+{
+	return ev3_battery_voltage_mV();
 }
 }  // namespace ハード

@@ -1,5 +1,5 @@
-#ifndef ハード_バッテリセンサ_H
-#define ハード_バッテリセンサ_H
+#ifndef Hardware_BatterySensor_H
+#define Hardware_BatterySensor_H
 
 #include <string>
 #include <vector>
@@ -7,19 +7,16 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/モータ.h"
-#include "ハード/センサ管理.h"
-#include "走行体制御/PWM電圧補正.h"
-
-namespace ハード
+namespace Hardware
 {
-class バッテリセンサ : public モータ, public センサ管理
+class BatterySensor
 {
-private:
-	走行体制御::PWM電圧補正 pWM電圧補正;
+	explicit BatterySensor(void);
 
-public:
-	int センサ値を取得する();
+	~BatterySensor(void);
+
+	public:
+		int getBatteryVoltage();
 
 };
 

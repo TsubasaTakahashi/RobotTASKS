@@ -1,47 +1,39 @@
-﻿/******************************************************************************
- *  app.cpp (for LEGO Mindstorms EV3)
- *  Created on: 2015/01/25
- *  Implementation of the Task main_task
- *  Author: Kazuhiro.Kawachi
- *  Copyright (c) 2015 Embedded Technology Software Design Robot Contest
- *****************************************************************************/
-
 #include "app.h"
-#include "RandomWalker.h"
+#include "Senario.h"
+#include "RobotController.h"
 
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
 void *__dso_handle=0;
 
 // using宣言
-using ev3api::ColorSensor;
-using ev3api::GyroSensor;
+using Hardware::ColorSensor;
+using Hardware::GyroSensor;
+using Hardware::Motor;
+using Hardware::MotorRaSensor;
+using Hardware::BatterySensor;
+
 using ev3api::TouchSensor;
-using ev3api::Motor;
 using ev3api::Clock;
 
 // Device objects
 // オブジェクトを静的に確保する
 ColorSensor gColorSensor(PORT_3);
 GyroSensor  gGyroSensor(PORT_4);
-TouchSensor gTouchSensor(PORT_1);
 Motor       gLeftWheel(PORT_C);
 Motor       gRightWheel(PORT_B);
-Clock       gClock;
-
 Motor       gTailMotor(PORT_A);
 
+Clock       gClock;
+TouchSensor gTouchSensor(PORT_1);
+
 // オブジェクトの定義
-static BalancingWalker *gBalancingWalker;
-static Balancer        *gBalancer;
-static LineMonitor     *gLineMonitor;
-static Starter         *gStarter;
-static SimpleTimer     *gScenarioTimer;
-static SimpleTimer     *gWalkerTimer;
-static LineTracer      *gLineTracer;
-static Scenario        *gScenario;
-static ScenarioTracer  *gScenarioTracer;
-static RandomWalker    *gRandomWalker;
+static RobotControl::AttitudeController   *gAttiCtrl; //姿勢制御
+static RobotControl::LineTracerController *gLineTrCtrl; //ライントレース制御
+static RobotControl::PidController        *gPidController; //
+static RobotControl::PwmIdCorr            *gPwmIdCorr;
+
+//次回はここから
 
 // scene object
 static Scene gScenes[] = {

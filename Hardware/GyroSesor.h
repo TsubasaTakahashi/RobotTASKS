@@ -7,9 +7,11 @@
 #include <iostream>
 #include <assert.h>
 
+using namespace ev3api;
+
 namespace Hardware
 {
-class GyroSensor
+class GyroSensor: public Sensor
 {
 	public:
 		/**

@@ -41,11 +41,4 @@ int16_t GyroSensor::getAnglerVelocity(void) const
 	return ev3_gyro_sensor_get_rate(getPort()) - mOffset;
 }
 
-//=============================================================================
-// get angule [deg]
-int16_t GyroSensor::getAngle(void) const
-{
-	return ev3_gyro_sensor_get_angle(getPort());
-}
-
 }  // namespace ハード
