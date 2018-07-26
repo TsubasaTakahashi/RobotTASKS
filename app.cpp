@@ -32,8 +32,10 @@ static RobotControl::AttitudeController   *gAttiCtrl; //姿勢制御
 static RobotControl::LineTracerController *gLineTrCtrl; //ライントレース制御
 static RobotControl::PidController        *gPidController; //
 static RobotControl::PwmIdCorr            *gPwmIdCorr;
+static RobotControl::PwmVoltageCorr       *gPwmVoltageCorr;
+static RobotControl::PidController        *gPidController;
 
-//次回はここから
+
 
 // scene object
 static Scene gScenes[] = {
