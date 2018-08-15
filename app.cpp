@@ -3,6 +3,18 @@
 #include "RobotController.h"
 
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
+#define LEF_PROPORTIONAL_FACTOR 0.9 /* 比例係数 */
+#define LEF_DIFFERENTIAL_FACTOR 0.0 /* 微分制御 */
+#define LEF_INTEGRATION_FACTOR 0.0 /* 積分制御 */
+#define LEF_PID_GAIN 0
+#define LEF_PID_OFFSET 0
+
+#define TAIL_PROPORTIONAL_FACTOR 0.5 /* 比例係数 */
+#define TAIL_DIFFERENTIAL_FACTOR 0.0 /* 微分制御 */
+#define TAIL_INTEGRATION_FACTOR 0.0 /* 積分制御 */
+#define TAIL_PID_GAIN 0
+#define TAIL_PID_OFFSET 0
+
 
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
@@ -100,8 +112,16 @@ static void user_system_create() {
    gPwmVolCorrRWheel = new RobotControl::PwmVoltageCorr(gSensorManager);
    gPwmVolCorrTail   = new RobotControl::PwmVoltageCorr(gSensorManager);
 
-   gPidLine = new RobotControl::PidController(); //ライントレース用PID制御
-   gPidTail = new RobotControl::PidController(); //尻尾制御用PID制御
+   gPidLine = new RobotControl::PidController(LEF_PROPORTIONAL_FACTOR,
+                                              LEF_DIFFERENTIAL_FACTOR,
+                                              LEF_INTEGRATION_FACTOR,
+                                              LEF_PID_GAIN,
+                                              LEF_PID_OFFSET); //ライントレース用PID制御
+   gPidTail = new RobotControl::PidController(TAIL_PROPORTIONAL_FACTOR,
+                                              TAIL_DIFFERENTIAL_FACTOR,
+                                              TAIL_INTEGRATION_FACTOR,
+                                              TAIL_PID_GAIN,
+                                              TAIL_PID_OFFSET); //尻尾制御用PID制御
 
    gAttiCtrl = new RobotControl::AttitudeController(gSensorManager); //姿勢制御
    gLineTrCtrl = new RobotControl::LineTracerController(gSensorManager, gPidLine); //ライントレース制御

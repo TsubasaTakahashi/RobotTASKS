@@ -47,7 +47,7 @@ namespace Hardware
 
 	int SensorManager::getBatteryVoltage()
 	{
-		return (int)mBatterySensor.getBatteryVoltage();
+		return (int)mBatterySensor->getBatteryVoltage();
 	}
 
 }  // namespace ハード
