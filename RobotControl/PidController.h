@@ -1,5 +1,5 @@
-#ifndef 走行体制御_P_I_D制御_H
-#define 走行体制御_P_I_D制御_H
+#ifndef RobotControl_PidController_H
+#define RobotControl_PidController_H
 
 #include <string>
 #include <vector>
@@ -7,30 +7,32 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/ジャイロセンサ.h"
-
-namespace 走行体制御
+namespace RobotControl
 {
-class PID制御
+class PidController
 {
-private:
-	double Pパラメータ;
+	public:
+		explicit PidController(double Pparameter,
+													 double Iparameter,
+												   double Dparameter,
+												   double PidGain,
+												   double PidOffset);
 
-	double Iパラメータ;
+	private:
+		double mPparameter;
+		double mIparameter;
+		double mDparameter;
 
-	double Dパラメータ;
+		int mLastDiffVal;
+		int mBeforeLastDiffVal;
+		int mCumulativeSum;
 
-	int 前回の値;
+		double mPidGain; /* PID調整用のゲイン */
+		double mPidOffset; /* PID調整用のオフセット */
+		const double mDeltaT = 0.004; /* ループタスクの1回の処理時間 */
 
-	int 前々回の値;
-
-	int 累積値;
-
-	ハード::ジャイロセンサ ジャイロセンサ;
-
-public:
-	int 制御量を計算する(int 現在の値, int 目標値);
-
+	public:
+		int CalcControlVal(int iCurrentVal, int iTargetVal);
 };
 
 }  // namespace 走行体制御
