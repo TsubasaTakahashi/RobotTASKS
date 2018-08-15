@@ -2,6 +2,8 @@
 #include "Senario.h"
 #include "RobotController.h"
 
+#define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
+
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
 void *__dso_handle = 0;
@@ -65,7 +67,8 @@ static SectionLineTracer    gSection_1(0, 0, 0, 0, 0, 0); //フォワード値, 
 static SectionSenarioTracer gSection_2(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
 ///区間の数だけオブジェクトを生成する
 
-static SectionInfo gSection[]={gSection_1, gSection_2}; //例
+//ここに区間を格納する
+static SectionInfo gSection[] = {gSection_1, gSection_2}; //例
 
 /**
  * EV3システム生成
@@ -113,12 +116,13 @@ static void user_system_create() {
                                                   gTailMotor
                                                 ); //走行体制御
 
-    gSectManager = new Scenario::SectionManager(gSection);
+    gSectManager = new Scenario::SectionManager(gSection, (int)ARRAY_LENGTH(gSection));
 
     // シナリオを構築する
-    for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {
-        gScenario->add(&gScenes[i]);
-    }
+    //for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {
+    //    gScenario->add(&gScenes[i]);
+    //}
+
     // 初期化完了通知
     ev3_led_set_color(LED_ORANGE);
 }
@@ -130,17 +134,33 @@ static void user_system_destroy() {
     gLeftWheel.reset();
     gRightWheel.reset();
     gTailMotor.reset();
+    gLWheelRaSensor.reset();
+    gRWheelRaSensor.reset();
+    gTailRaSensor.reset();
 
-    delete gRandomWalker;
-    delete gScenarioTracer;
-    delete gScenario;
-    delete gLineTracer;
-    delete gWalkerTimer;
-    delete gScenarioTimer;
-    delete gLineMonitor;
-    delete gStarter;
-    delete gBalancingWalker;
-    delete gBalancer;
+    delete gAttiCtrl; //姿勢制御
+    delete gLineTrCtrl; //ライントレース制御
+
+    delete gPidLine; //ライントレース用PID制御
+    delete gPidTail; //尻尾制御用PID制御
+
+    delete gPwmVolCorrLWheel; //PWM 電圧補正　左タイヤ
+    delete gPwmVolCorrRWheel; //PWM 電圧補正　右タイヤ
+    delete gPwmVolCorrTail; //PWM 電圧補正　尻尾
+
+    delete gRobotCtrl; //走行体制御
+    delete gTailCtrl; //尻尾制御
+
+    delete gSensorManager; //センサ管理
+    delete gBatterySensor; //バッテリセンサ
+
+    delete gDetManager;
+    delete gDistDet;
+    delete gGrayDet;
+    delete gImpactDet;
+    delete gStepDet;
+
+    delete gSectManager;
 }
 
 /**
@@ -176,7 +196,7 @@ void tracer_task(intptr_t exinf) {
     if (ev3_button_is_pressed(BACK_BUTTON)) {
         wup_tsk(MAIN_TASK);  // バックボタン押下
     } else {
-        gRandomWalker->run();  // 倒立走行
+        区間管理 -> 区間に応じた走行をする();  // 倒立走行
     }
 
     ext_tsk();

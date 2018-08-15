@@ -17,22 +17,29 @@ namespace Hardware
 {
 class SensorManager
 {
-	explicit SensorManager(ePortM port, bool brake = true, motor_type_t type = LARGE_MOTOR);
+	public:
+		explicit SensorManager(BatterySensor* batterySensor,
+                           ColorSensor*   colorSensor,
+                           GyroSensor*    gyroSensor,
+                           MotorRaSensor& lWheelRaSensor,
+                           MotorRaSensor& rWheelRaSensor,
+                           MotorRaSensor& tailRaSensor);
 
-	~SensorManager(void);
+		~SensorManager(void);
 
 	private:
-		ColorSensor *gColorSensor;
-		GyroSensor *gGyroSensor;
-		BatterySensor *gBatterySensor;
-		MotorRaSensor *gMotorRaSensor[3];
+		ColorSensor* mColorSensor;
+		GyroSensor* mGyroSensor;
+		BatterySensor* mBatterySensor;
+
+		MotorRaSensor& mLWheelRaSensor;
+		MotorRaSensor& mRWheelRaSensor;
+		MotorRaSensor& mTailRaSensor;
 
 	public:
-		int getColor(); //反射光を取得する
+		int getBrightness(); //反射光を取得する
 
-		int getRightMotorRa(); //右モータの回転角度を取得する
-
-		int getLeftMotorRa(); //左モータの回転角度を取得する
+		void getTireMotorRa(int* tireMotorRa); //左右モータの回転角度を取得する
 
 		int getTailMotorRa(); //尻尾モータの回転角度を取得する
 
