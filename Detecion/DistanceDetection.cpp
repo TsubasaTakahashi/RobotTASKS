@@ -4,21 +4,47 @@
 #include <iostream>
 #include <assert.h>
 
-#include "距離検知.h"
+#include "DistanceDetection.h"
 
-namespace 検知
+namespace Detection
 {
+	DistanceDetection(int tireRadius)
+			:mTireRadius(tireRadius){}
 
-void 距離検知::進んだ距離を計算する()
-{
-}
+	int DistanceDetection::CalcDistance(int lWheelMotorRa, int rWheelMotorRa)
+	{
+		int avWheelMotorRa = 0;
+		double dbDistance = 0.0;
 
-boolean 距離検知::検知する(int 閾値, int 右モータの回転角度, int 左モータの回転角度)
-{
-	return 0;
-}
+		avWheelMotorRa = ((lWheelMotorRa - mLWheelMotorRaOffset) + (rWheelMotorRa - mRWheelMotorRaOffset)) / 2;
+		dbDistance = (double)mTireRadius * (int)avWheelMotorRa * M_PI / 180.0;
 
-void 距離検知::属性値を初期化する()
-{
-}
+		return (int)avWheelMotorRa;
+	}
+
+	void DistanceDetection::SetStartWheelCount(int lWheelMotorRa, int rWheelMotorRa)
+	{
+		mLWheelMotorRaOffset = lWheelMotorRa;
+		mRWheelMotorRaOffset = rWheelMotorRa;
+	}
+
+	bool DistanceDetection::DoDetection(int threshold, int lWheelMotorRa, int rWheelMotorRa)
+	{
+		int distance;
+
+		if(mReset == 0){ //初期タイヤ位置セット
+			SetStartWheelCount(lWheelMotorRa, rWheelMotorRa);
+			mReset = 1;
+		}
+
+		distance = DistanceDetection::CalcDistance(lWheelMotorRa, rWheelMotorRa);
+
+		if(distance => threshold){
+			mReset = 0;
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }  // namespace 検知

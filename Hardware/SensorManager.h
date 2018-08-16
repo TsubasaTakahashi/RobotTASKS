@@ -39,7 +39,7 @@ class SensorManager
 	public:
 		int getBrightness(); //反射光を取得する
 
-		void getTireMotorRa(int* tireMotorRa); //左右モータの回転角度を取得する
+		void getWheelMotorRa(int* wheelMotorRa); //左右モータの回転角度を取得する
 
 		int getTailMotorRa(); //尻尾モータの回転角度を取得する
 

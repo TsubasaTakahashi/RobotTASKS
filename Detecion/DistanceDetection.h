@@ -1,5 +1,8 @@
-#ifndef 検知_距離検知_H
-#define 検知_距離検知_H
+#ifndef Detection_DistanceDetection_H
+#define Detection_DistanceDetection_H
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #include <string>
 #include <vector>
@@ -7,29 +10,25 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/モータ.h"
-#include "ハード/センサ管理.h"
-#include "検知/検知管理.h"
-
-namespace 検知
+namespace Detection
 {
-class 距離検知 : public 検知管理
+class DistanceDetection
 {
-private:
-	int 検知開始時の左モータの回転角度;
+	public:
+		explicit DistanceDetection(int tireRadius);
 
-	int 検知開始時の右モータの回転角度;
+	private:
+		int mLWheelMotorRaOffset = 0; //検知開始時の左モータの回転角度
+		int mRWheelMotorRaOffset = 0; //検知開始時の右モータの回転角度;
 
-	ハード::モータ モータ;
-	ハード::センサ管理 モータセンサ;
+		int mTireRadius;
+		int mReset = 0;
 
-private:
-	void 進んだ距離を計算する();
+		int CalcDistance(int lWheelMotorRa, int rWheelMotorRa);
+		void SetStartWheelCount(int lWheelMotorRa, int rWheelMotorRa);
 
-public:
-	boolean 検知する(int 閾値, int 右モータの回転角度, int 左モータの回転角度);
-
-	void 属性値を初期化する();
+	public:
+		bool DoDetection(int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
 };
 

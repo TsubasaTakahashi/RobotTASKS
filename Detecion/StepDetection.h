@@ -1,5 +1,5 @@
-#ifndef 検知_段差検知_H
-#define 検知_段差検知_H
+#ifndef Detection_StepDetection_H
+#define Detection_StepDetection_H
 
 #include <string>
 #include <vector>
@@ -7,26 +7,24 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/モータ.h"
-#include "ハード/センサ管理.h"
-#include "検知/検知管理.h"
-
-namespace 検知
+namespace Detection
 {
-class 段差検知 : public 検知管理
+class StepDetection
 {
-private:
-	int 左モータの回転角度[];
+	public:
+		explicit StepDetection(int actDuration);
 
-	int 右モータの回転角度[];
+	private:
+		int mMotorAngL[2] = {0, 0}; //0:Last Value 1:Before Last Value
+		int mMotorAngR[2] = {0, 0};
+		int mActDuration; //持続時間
 
-	ハード::モータ モータ;
-	ハード::センサ管理 センサ管理;
+		int mWheelStopCount[2] = {0, 0}; // 0:left 1:right
 
-public:
-	boolean 検知する(int 閾値, int 右モータの回転角度, int 左モータの回転角度);
+		void CountActNum(int* wheelStopCount int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
-	void 属性値を初期化する();
+	public:
+		void DoDetection(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
 };
 
