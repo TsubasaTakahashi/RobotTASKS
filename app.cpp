@@ -15,7 +15,6 @@
 #define TAIL_PID_GAIN 0
 #define TAIL_PID_OFFSET 0
 
-
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
 void *__dso_handle = 0;

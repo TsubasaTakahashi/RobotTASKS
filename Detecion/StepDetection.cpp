@@ -4,17 +4,66 @@
 #include <iostream>
 #include <assert.h>
 
-#include "段差検知.h"
+#include "StepDetection.h"
 
-namespace 検知
+namespace Detection
 {
+	StepDetection():mActDuration(actDuration){}
 
-boolean 段差検知::検知する(int 閾値, int 右モータの回転角度, int 左モータの回転角度)
-{
-	return 0;
-}
+	void StepDetection::CountActNum(int* wheelStopCount int threshold, int lWheelMotorRa, int rWheelMotorRa)
+	{
+		int AbsDiffWheelAngL = 0;
+		int AbsDiffWheelAngR = 0;
 
-void 段差検知::属性値を初期化する()
-{
-}
+		/* 過去と現在のモータの回転数の取得 */
+		mMotorAngL[1] = mMotorAngL[0]; /* 過去のモータの回転数の取得 */
+		mMotorAngR[1] = mMotorAngR[0];
+
+		mMotorAngL[0] = lWheelMotorRa; /* 現在のモータの回転数の取得 */
+		mMotorAngR[0] = rWheelMotorRa;
+
+		AbsDiffWheelAngL = std::abs(mMotorAngL[1] - mMotorAngL[0]);
+		AbsDiffWheelAngR = std::abs(mMotorAngR[1] - mMotorAngR[0]);
+
+		/* 現在の値と過去の値の差の絶対値がスレッショルド以下なら、カウンタを1増やす */
+		if(AbsDiffWheelAngL <= threshold) {
+			wheelStopCount[0]++;
+		}
+		else {
+			wheelStopCount[0] = 0;
+		}
+
+		if(AbsDiffWheelAngR <= threshold) {
+			wheelStopCount[1]++;
+		}
+		else {
+			wheelStopCount[1] = 0;
+		}
+	}
+
+	void StepDetection::DoDetection(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa)
+	{
+		//属性値を初期化する
+		if((detection[0] == true) && (detection[1] == true)){
+			mMotorAngL[2] = {0, 0};
+			mMotorAngR[2] = {0, 0};
+			mWheelStopCount[2] = {0, 0};
+		}
+
+		CountActNum(mWheelStopCount, threshold, lWheelMotorRa, rWheelMotorRa);
+
+		if(mWheelStopCount[0] == mActDuration) {
+			detection[0] = true;
+		}
+		else{
+			detection[0] = false;
+		}
+
+		if(mWheelStopCount[1] == mActDuration) {
+			detection[1] = true;
+		}
+		else{
+			detection[1] = false;
+		}
+	}
 }  // namespace 検知

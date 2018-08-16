@@ -29,10 +29,10 @@ namespace Hardware
 		return (int)mColorSensor.getBrightness();
 	}
 
-	void SensorManager::getTireMotorRa(int* tireMotorRa)
+	void SensorManager::getWheelMotorRa(int* wheelMotorRa)
 	{
-		tireMotorRa[0] = mLWheelRaSensor.getCount();
-		tireMotorRa[1] = mRWheelRaSensor.getCount();
+		wheelMotorRa[0] = mLWheelRaSensor.getCount();
+		wheelMotorRa[1] = mRWheelRaSensor.getCount();
 	}
 
 	int SensorManager::getTailMotorRa()
