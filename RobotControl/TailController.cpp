@@ -4,12 +4,25 @@
 #include <iostream>
 #include <assert.h>
 
-#include "尻尾制御.h"
+#include "TailContoroller.h"
 
-namespace 走行体制御
+namespace RobotControl
 {
+  TailController(PidController* pidCtrl
+                Hardware::SensorManager* sensorManager)
+              :mPidCtrl(pidCtrl),
+              mSensorManager(sensorManager){
 
-void 尻尾制御::尻尾の角度を調整する(int 目標角度)
-{
-}
+              };
+
+  int TailContoroller::AjustTailAngle(int targetTailAng)
+  {
+    int tailPwm = 0;
+    int currentTailAng = 0;
+
+    currentTailAng = mSensorManager.getTailMotorRa();
+    tailPwm = mTailPidCtrl.CalcControlVal(currentTailAng, targetTailAng);
+
+    return tailPwm;
+  }
 }  // namespace 走行体制御

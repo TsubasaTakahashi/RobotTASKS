@@ -1,5 +1,5 @@
-#ifndef 走行体制御_ライントレース制御_H
-#define 走行体制御_ライントレース制御_H
+#ifndef RobotControl_LineTracerController_H
+#define RobotControl_LineTracerController_H
 
 #include <string>
 #include <vector>
@@ -7,25 +7,23 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/カラーセンサ.h"
-#include "ハード/センサ管理.h"
-#include "走行体制御/走行制御.h"
-#include "走行体制御/PID制御.h"
+#include "SensorManager.h"//"ハード/センサ管理.h"
+#include "PidController.h"
 
-namespace 走行体制御
+namespace RobotControl
 {
-class ライントレース制御
+class LineTracerContoroller
 {
-private:
-	走行制御 走行制御;
-	ハード::カラーセンサ 反射光取得;
-	PID制御 走行PID制御;
-	ハード::カラーセンサ カラーセンサ;
-	ハード::センサ管理 センサ管理;
-	ライントレース制御 ライントレース制御;
+	public:
+		explicit LineTracerContoroller(PidController* pidCtrl
+														Hardware::SensorManager* sensorManager);
 
-public:
-	int ターン値を調整する(int 反射光の閾値);
+	private:
+		PidController mLineTracerPidCtrl;
+		Hardware::SensorManager mSensorManager;
+
+	public:
+		int AjustTurnVal(int brightnessThreshold);
 
 };
 

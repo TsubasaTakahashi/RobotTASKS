@@ -12,8 +12,8 @@ namespace Detection
 
 	void StepDetection::CountActNum(int* wheelStopCount int threshold, int lWheelMotorRa, int rWheelMotorRa)
 	{
-		int AbsDiffWheelAngL = 0;
-		int AbsDiffWheelAngR = 0;
+		int absDiffWheelAngL = 0;
+		int absDiffWheelAngR = 0;
 
 		/* 過去と現在のモータの回転数の取得 */
 		mMotorAngL[1] = mMotorAngL[0]; /* 過去のモータの回転数の取得 */
@@ -22,18 +22,18 @@ namespace Detection
 		mMotorAngL[0] = lWheelMotorRa; /* 現在のモータの回転数の取得 */
 		mMotorAngR[0] = rWheelMotorRa;
 
-		AbsDiffWheelAngL = std::abs(mMotorAngL[1] - mMotorAngL[0]);
-		AbsDiffWheelAngR = std::abs(mMotorAngR[1] - mMotorAngR[0]);
+		absDiffWheelAngL = std::abs(mMotorAngL[1] - mMotorAngL[0]);
+		absDiffWheelAngR = std::abs(mMotorAngR[1] - mMotorAngR[0]);
 
 		/* 現在の値と過去の値の差の絶対値がスレッショルド以下なら、カウンタを1増やす */
-		if(AbsDiffWheelAngL <= threshold) {
+		if(absDiffWheelAngL <= threshold) {
 			wheelStopCount[0]++;
 		}
 		else {
 			wheelStopCount[0] = 0;
 		}
 
-		if(AbsDiffWheelAngR <= threshold) {
+		if(absDiffWheelAngR <= threshold) {
 			wheelStopCount[1]++;
 		}
 		else {

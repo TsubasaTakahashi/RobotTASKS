@@ -12,11 +12,12 @@ namespace RobotControl
 class PidController
 {
 	public:
-		explicit PidController(double Pparameter,
-													 double Iparameter,
-												   double Dparameter,
-												   double PidGain,
-												   double PidOffset);
+		explicit PidController(double pParameter,
+													 double iParameter,
+												   double dParameter,
+												   double pidGain,
+												   double pidOffset,
+												   double deltaT);
 
 	private:
 		double mPparameter;
@@ -29,7 +30,7 @@ class PidController
 
 		double mPidGain; /* PID調整用のゲイン */
 		double mPidOffset; /* PID調整用のオフセット */
-		const double mDeltaT = 0.004; /* ループタスクの1回の処理時間 */
+		double mDeltaT; /* ループタスクの1回の処理時間 */
 
 	public:
 		int CalcControlVal(int iCurrentVal, int iTargetVal);

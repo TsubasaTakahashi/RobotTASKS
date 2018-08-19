@@ -4,12 +4,26 @@
 #include <iostream>
 #include <assert.h>
 
-#include "PWM電圧補正.h"
+#include "PwmVoltageCorr.h"
 
-namespace 走行体制御
+namespace RobotControl
 {
+  PwmVoltageCorr(int refVoltage,
+                Hardware::SensorManager sensorManager)
+        :mRefVoltage(refVoltage),
+        mSensorManager(sensorManager){
 
-void PWM電圧補正::PWM値を補正して渡す(int 補正前PWM値)
-{
-}
+        }
+
+  int PwmVoltageCorr::PwmVolCorr(int nCorrPWM)
+  {
+    int motorVoltage = 0;
+    double corrPwm = 0;
+
+    motorVoltage = mSensorManager.getBatteryVoltage();
+
+    corrPwm = (double)nCorrPWM * (double)mRefVoltage / (double)motorVoltage;
+
+    return (int)corrPwm;
+  }
 }  // namespace 走行体制御

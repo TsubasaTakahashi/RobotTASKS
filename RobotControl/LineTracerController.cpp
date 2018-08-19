@@ -4,13 +4,25 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ライントレース制御.h"
+#include "LineTracerController.h"
 
-namespace 走行体制御
+namespace RobotControl
 {
+	LineTracerContoroller(PidController* pidCtrl
+								Hardware::SensorManager* sensorManager)
+							:mLineTracerPidCtrl(pidCtrl),
+							mSensorManager(sensorManager){
 
-int ライントレース制御::ターン値を調整する(int 反射光の閾値)
-{
-	return 0;
-}
+							};
+
+	int LineTracerContoroller::AjustTurnVal(int brightnessThreshold)
+	{
+		int turnVal = 0;
+		int currentBrightness = 0;
+
+		currentBrightness = mSensorManager.getBrightness();
+		turnVal = mTailPidCtrl.CalcControlVal(currentBrightness, brightnessThreshold);
+
+		return turnVal;
+	}
 }  // namespace 走行体制御

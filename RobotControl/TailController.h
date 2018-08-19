@@ -1,5 +1,5 @@
-#ifndef 走行体制御_尻尾制御_H
-#define 走行体制御_尻尾制御_H
+#ifndef RobotControl_TailController_H
+#define RobotControl_TailCont_H
 
 #include <string>
 #include <vector>
@@ -7,25 +7,23 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/モータ.h"
-#include "ハード/センサ管理.h"
-#include "走行体制御/PID制御.h"
-#include "走行体制御/PWM電圧補正.h"
+#include "SensorManager.h"//"ハード/センサ管理.h"
+#include "PidController.h"
 
-namespace 走行体制御
+namespace RobotControl
 {
-class 尻尾制御
+class TailContoroller
 {
-private:
-	PID制御 尻尾PID制御;
-	PWM電圧補正 尻尾PWM電圧補正;
-	ハード::モータ 尻尾モータ;
-	ハード::モータ モータ;
-	ハード::モータ モータ;
-	ハード::センサ管理 センサ管理;
+	public:
+		explicit TailContoroller(PidController* pidCtrl
+														Hardware::SensorManager* sensorManager);
 
-public:
-	void 尻尾の角度を調整する(int 目標角度);
+	private:
+		PidController mTailPidCtrl;
+		Hardware::SensorManager mSensorManager;
+
+	public:
+		int AjustTailAngle(int targetTailAng);
 
 };
 

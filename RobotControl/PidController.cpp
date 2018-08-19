@@ -9,19 +9,21 @@
 namespace RobotControl
 {
 
-	PidController::PidController(double Pparameter,
-												 			double Iparameter,
-												 			double Dparameter,
-												 			double PidGain,
-												 			double PidOffset)
+	PidController::PidController(double pParameter,
+												 			double iParameter,
+												 			double dParameter,
+												 			double pidGain,
+												 			double pidOffset,
+														  double deltaT)
 	:
-	mPparameter(Pparameter),
-	mIparameter(Iparameter),
-	mDparameter(Dparameter),
-	mPidGain(PidGain),
-	mPidOffset(PidOffset)
-	{
-	}
+				mPparameter(pParameter),
+				mIparameter(iParameter),
+				mDparameter(dParameter),
+				mPidGain(pidGain),
+				mPidOffset(pidOffset),
+				mDeltaT(deltaT)
+				{
+				}
 
 	int PidController::CalcControlVal(int iCurrentVal, int iTargetVal)
 	{
