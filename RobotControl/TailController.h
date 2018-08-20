@@ -19,8 +19,8 @@ class TailContoroller
 														Hardware::SensorManager* sensorManager);
 
 	private:
-		PidController mTailPidCtrl;
-		Hardware::SensorManager mSensorManager;
+		PidController* mTailPidCtrl;
+		Hardware::SensorManager* mSensorManager;
 
 	public:
 		int AjustTailAngle(int targetTailAng);

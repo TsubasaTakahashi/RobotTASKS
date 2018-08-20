@@ -22,7 +22,7 @@ class PwmVolCorr
 	private:
 		int mRefVoltage;
 
-		Hardware::SensorManager mSensorManager;
+		Hardware::SensorManager* mSensorManager;
 
 	public:
 		void PwmVolCorr(int nCorrPWM);

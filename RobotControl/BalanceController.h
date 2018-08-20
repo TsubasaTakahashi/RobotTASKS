@@ -1,5 +1,5 @@
-#ifndef 走行体制御_姿勢制御_H
-#define 走行体制御_姿勢制御_H
+#ifndef RobotControl_BalanceController_H
+#define RobotControl_BalanceController_H
 
 #include <string>
 #include <vector>
@@ -7,34 +7,35 @@
 #include <iostream>
 #include <assert.h>
 
-#include "ハード/ジャイロセンサ.h"
-#include "ハード/センサ管理.h"
-#include "ハード/モータ.h"
-#include "走行体制御/PID制御.h"
+#include "SensorManager.h" //"ハード/センサ管理.h"
+#include "BalancerCpp.h"
 
-namespace 走行体制御
+namespace RobotControl
 {
-class 姿勢制御
+class BalanceController
 {
-private:
-	int 左モータのPWM値;
+	public:
+		explicit BalanceController();
 
-	int 右モータのPWM値;
+	private:
+		int 左モータのPWM値;
 
-	PID制御 pID制御;
-	ハード::ジャイロセンサ ジャイロセンサ;
-	ハード::センサ管理 センサ管理;
-	ハード::モータ 右モータ;
-	ハード::モータ 左モータ;
-	ハード::モータ モータ;
-	ハード::センサ管理 センサ管理;
+		int 右モータのPWM値;
 
-public:
-	int 左モータのPWM値を取得する();
+		PID制御 pID制御;
+		ハード::ジャイロセンサ ジャイロセンサ;
+		ハード::センサ管理 センサ管理;
+		ハード::モータ 右モータ;
+		ハード::モータ 左モータ;
+		ハード::モータ モータ;
+		ハード::センサ管理 センサ管理;
 
-	int 右モータのPWM値を取得する();
+	public:
+		int 左モータのPWM値を取得する();
 
-	void 左右モータのPWM値を算出する(int フォワード値, int ターン値);
+		int 右モータのPWM値を取得する();
+
+		void 左右モータのPWM値を算出する(int フォワード値, int ターン値);
 
 };
 

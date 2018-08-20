@@ -1,7 +1,7 @@
 PID制御->PidController
 PWM電圧補正->PwmVoltageCorr
 ライントレース制御->LineTraceController
-姿勢制御->AttitudeController
+姿勢制御->BalanceController
 尻尾制御->TailContoroller
 走行制御->RobotController
 

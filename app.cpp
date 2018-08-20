@@ -47,15 +47,13 @@ using Scenario::SectionInfo;
 //TouchSensor gTouchSensor(PORT_1);
 
 // オブジェクトの定義:走行体制御パッケージ
-static RobotControl::AttitudeController   *gAttiCtrl; //姿勢制御
+static RobotControl::BalanceController   *gBalanceCtrl; //姿勢制御
 static RobotControl::LineTracerController *gLineTrCtrl; //ライントレース制御
 
 static RobotControl::PidController        *gPidLine; //ライントレース用PID制御
 static RobotControl::PidController        *gPidTail; //尻尾制御用PID制御
 
-static RobotControl::PwmVoltageCorr       *gPwmVolCorrLWheel; //PWM 電圧補正　左タイヤ
-static RobotControl::PwmVoltageCorr       *gPwmVolCorrRWheel; //PWM 電圧補正　右タイヤ
-static RobotControl::PwmVoltageCorr       *gPwmVolCorrTail; //PWM 電圧補正　尻尾
+static RobotControl::PwmVoltageCorr       *gPwmVolCorr; //PWM 電圧補正
 
 static RobotControl::RobotController      *gRobotCtrl; //走行体制御
 static RobotControl::TailContoroller      *gTailCtrl; //尻尾制御
@@ -81,6 +79,9 @@ static Detection::StepDetection     *gStepDet;
 
 //オブジェクトの定義:シナリオ
 static Scenario::SectionManager       *gSectManager;
+
+//オブジェクトの定義:バランサ
+static Balancer        *gBalancer;
 
 //区間例
 static SectionLineTracer    gSection_1(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
@@ -134,12 +135,8 @@ static void user_system_create() {
                                                      gImpactDet,
                                                      gStepDet);
 
-   gPwmVolCorrLWheel = new RobotControl::PwmVoltageCorr(gPwmRefVoltage,
-                                                        gSensorManager);
-   gPwmVolCorrRWheel = new RobotControl::PwmVoltageCorr(gPwmRefVoltage,
-                                                        gSensorManager);
-   gPwmVolCorrTail   = new RobotControl::PwmVoltageCorr(gPwmRefVoltage,
-                                                        gSensorManager);
+   gPwmVolCorr = new RobotControl::PwmVoltageCorr(gPwmRefVoltage,
+                                                  gSensorManager);
 
    gPidLine = new RobotControl::PidController(gLtPParameter,
                                               gLtDParameter,
@@ -154,20 +151,21 @@ static void user_system_create() {
                                               gTailPidOffset,
                                               gDeltaT); //尻尾制御用PID制御
 
-   gAttiCtrl = new RobotControl::AttitudeController(gSensorManager); //姿勢制御
+   gBalanceCtrl = new RobotControl::BalanceController(gSensorManager, gBalancer); //姿勢制御
    gLineTrCtrl = new RobotControl::LineTracerController(gPidLine, gSensorManager); //ライントレース制御
    gTailCtrl  = new RobotControl::TailContoroller(gPidTail, gSensorManager); //尻尾制御
 
-   gRobotCtrl = new RobotControl::RobotController(gAttiCtrl, gLineTrCtrl, gTailCtrl
-                                                  gPwmVolCorrLWheel,
-                                                  gPwmVolCorrRWheel,
-                                                  gPwmVolCorrTail,
+   gRobotCtrl = new RobotControl::RobotController(gBalanceCtrl, gLineTrCtrl, gTailCtrl
+                                                  gPwmVolCorr,
                                                   gLeftWheel,
                                                   gRightWheel,
                                                   gTailMotor
                                                 ); //走行体制御
 
-    gSectManager = new Scenario::SectionManager(gSection, (int)ARRAY_LENGTH(gSection));
+    gSectManager = new Scenario::SectionManager(gSection,
+                                              (int)ARRAY_LENGTH(gSection),
+                                              gDetManager,
+                                              gRobotCtrl);
 
     // シナリオを構築する
     //for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {
@@ -189,15 +187,13 @@ static void user_system_destroy() {
     gRWheelRaSensor.reset();
     gTailRaSensor.reset();
 
-    delete gAttiCtrl; //姿勢制御
+    delete gBalanceCtrl; //姿勢制御
     delete gLineTrCtrl; //ライントレース制御
 
     delete gPidLine; //ライントレース用PID制御
     delete gPidTail; //尻尾制御用PID制御
 
-    delete gPwmVolCorrLWheel; //PWM 電圧補正　左タイヤ
-    delete gPwmVolCorrRWheel; //PWM 電圧補正　右タイヤ
-    delete gPwmVolCorrTail; //PWM 電圧補正　尻尾
+    delete gPwmVolCorr; //PWM 電圧補正
 
     delete gRobotCtrl; //走行体制御
     delete gTailCtrl; //尻尾制御

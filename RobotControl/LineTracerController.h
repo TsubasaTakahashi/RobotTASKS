@@ -19,8 +19,8 @@ class LineTracerContoroller
 														Hardware::SensorManager* sensorManager);
 
 	private:
-		PidController mLineTracerPidCtrl;
-		Hardware::SensorManager mSensorManager;
+		PidController* mLineTracerPidCtrl;
+		Hardware::SensorManager* mSensorManager;
 
 	public:
 		int AjustTurnVal(int brightnessThreshold);

@@ -18,20 +18,27 @@ namespace RobotControl
 class RobotController
 {
 	public:
-		explicit RobotController();
-		
+		explicit RobotController(BalanceController* balanceCtrl,
+														LineTracerController* lineTrCtrl,
+														TailContoroller* tailCtrl,
+														PwmVoltageCorr* pwmVolCorr,
+														Motor& leftWheel,
+														Motor& rightWheel,
+														Motor& tailMotor);
+
 	private:
-		PWM電圧補正 タイヤPWM補正;
-		姿勢制御 姿勢制御;
-		尻尾制御 尻尾制御;
-		ライントレース制御 ライントレース制御;
-		ライントレース制御 ライントレース制御;
-		PWM左右モータ個体差補正 PWM左右モータ個体差補正;
+		BalanceController* mBalanceCtrl;
+		LineTracerController* mLineTrCtrl;
+		TailContoroller* mTailCtrl;
+		PwmVoltageCorr* mPwmVolCorr;
+		Hardware::Motor& mLeftWheel;
+		Hardware::Motor& mRightWheel;
+		Hardware::Motor& mTailMotor;
 
 	public:
-		void 指定値走行する(int フォワード値, int ターン値, int 尻尾の角度, boolean 姿勢);
+		void RunSpecifiedVal(int foward, int turn, int tailAngle, bool balance);
 
-		void ライントレース走行する(int フォワード値, int 反射光の閾値, int 尻尾の角度, boolean 姿勢);
+		void RunLineTracer(int foward, int brightnessThreshold, int tailAngle, bool balance);
 
 };
 
