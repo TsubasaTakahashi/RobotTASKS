@@ -7,32 +7,33 @@
 #include <iostream>
 #include <assert.h>
 
-#include "" //"走行体制御/走行制御.h"
-#include "" //"検知/衝撃検知.h"
-#include "" //"検知/距離検知.h"
-#include "" //"検知/灰色検知.h"
-#include "" //"検知/段差検知.h"
-#include "" //"検知/検知管理.h"
+#include "RobotController.h"    //"走行体制御/走行制御.h"
+#include "DetectionManager.h"   //検知管理
 
 namespace Scenario
 {
-class シナリオ
+class SectionManager
 {
+	//コンストラクタ
+public:
+	explicit
 private:
-	int シナリオ状態;
+	int mSectionStatus;          //区間状態
+	SectionInfo* mSectionInfo;   //現在の区間情報
 
-	検知::衝撃検知 衝撃検知;
-	検知::距離検知 距離検知;
-	検知::灰色検知 灰色検知;
-	検知::段差検知 段差検知;
-	走行体制御::走行制御 走行制御;
-	検知::検知管理 検知管理;
+  //いらない？↓
+	//検知::衝撃検知 衝撃検知;
+	//検知::距離検知 距離検知;
+	//検知::灰色検知 灰色検知;
+	//検知::段差検知 段差検知;
+	//走行体制御::走行制御 走行制御;
+	//検知::検知管理 検知管理;
 
 private:
-	int シナリオ遷移判定をする();
+	int JudgeSectionTransition();    //区間遷移判定をする
 
 public:
-	void シナリオを選択する();
+	void ChengeSectionRunning();     //区間に応じた走行をする
 
 };
 
