@@ -14,7 +14,7 @@
  * コンストラクタ
  */
 Balancer::Balancer()
-    : mForwardBack(0),
+    : mForward(0),
       mTurn(0),
       mOffset(0),
       mRightPwm(0),
@@ -41,7 +41,7 @@ void Balancer::update(int angle, int rwEnc, int lwEnc, int battery) {
     // 倒立振子制御APIを呼び出し、倒立走行するための
     // 左右モータ出力値を得る
     balance_control(
-        static_cast<float>(mForwardBack),
+        static_cast<float>(mForward),
         static_cast<float>(mTurn),
         static_cast<float>(angle),
         static_cast<float>(mOffset),
@@ -58,7 +58,7 @@ void Balancer::update(int angle, int rwEnc, int lwEnc, int battery) {
  * @param turn    旋回値
  */
 void Balancer::setCommand(int forward, int turn) {
-    mForwardBack = forward;
+    mForward = forward;
     mTurn    = turn;
 }
 

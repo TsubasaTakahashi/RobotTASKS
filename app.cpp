@@ -47,7 +47,7 @@ using Scenario::SectionInfo;
 //TouchSensor gTouchSensor(PORT_1);
 
 // オブジェクトの定義:走行体制御パッケージ
-static RobotControl::BalanceController   *gBalanceCtrl; //姿勢制御
+static RobotControl::BalanceController    *gBalanceCtrl; //姿勢制御
 static RobotControl::LineTracerController *gLineTrCtrl; //ライントレース制御
 
 static RobotControl::PidController        *gPidLine; //ライントレース用PID制御

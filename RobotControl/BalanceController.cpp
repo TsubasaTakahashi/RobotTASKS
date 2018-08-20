@@ -8,23 +8,44 @@
 
 namespace RobotControl
 {
-	RobotController()
-		:{
+	RobotController(SensorManager* sensorManager,
+									Balancer*	balancer)
+		:mSensorManager(sensorManager),
+		mBalancer(balancer),
+		mLeftWheelPwm(0),
+		mRightWheelPwm(0)
+		{
 
 		}
 
-	int 姿勢制御::左モータのPWM値を取得する()
+	int BalanceController::GetWheelPwm(int* wheelPwm)
 	{
-		return 0;
+		int bufWheelPwm[2];
+		bufWheelPwm[0] = mLeftWheelPwm;
+		bufWheelPwm[1] = mRightWheelPwm;
+
+		wheelPwm = bufWheelPwm;
 	}
 
-	int 姿勢制御::右モータのPWM値を取得する()
+	void BalanceController::CalcWheelPwm(int forward, int turn)
 	{
-		return 0;
-	}
+		int* wheelEnc;
+		int angle = mSensorManager.getRobotAv();  // ジャイロセンサ値
 
-	void 姿勢制御::左右モータのPWM値を算出する(int フォワード値, int ターン値)
-	{
+		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
+
+    int rightWheelEnc = wheelMotorRa[0]; // 右モータ回転角度
+    int leftWheelEnc  = wheelMotorRa[1]; // 左モータ回転角度
+
+    mBalancer -> setCommand(mForward, mTurn);
+
+    int battery = mSensorManager.getBatteryVoltage();
+
+    mBalancer -> update(angle, rightWheelEnc, leftWheelEnc, battery);
+
+    // 左右モータのPWM値を算出する
+  	mLeftWheelPwm = (mBalancer->getPwmLeft());
+  	mRightWheelPwm = (mBalancer->getPwmRight());
 	}
 
 }  // namespace 走行体制御

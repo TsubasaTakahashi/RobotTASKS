@@ -26,16 +26,16 @@ namespace RobotControl
   }
 
   void RobotController::RunSpecifiedVal(int foward, int turn, int tailAngle, bool balance){
-    int* leftMotorPwm;
-    int* rightMotorPwm;
+    int* leftWheelPwm;
+    int* rightWheelPwm;
     int tailMotorPwm = 0;
-    int corrLeftMotorPwm = 0;
-    int corrRightMotorPwm = 0;
+    int corrleftWheelPwm = 0;
+    int corrRightWheelPwm = 0;
     int corrTailMotorPwm = 0;
 
     if(balance == true){
       mBalanceCtrl.CalcWheelPwm(foward, turn); //姿勢制御の補正もいれてPWM値を算出する
-      mBalanceCtrl.GetWheelPwm(leftMotorPwm, rightMotorPwm);
+      mBalanceCtrl.GetWheelPwm(leftWheelPwm, rightWheelPwm);
     }
     else{
       //foward, turnから PWM 値を計算する
@@ -44,30 +44,30 @@ namespace RobotControl
     tailMotorPwm = mTailCtrl.AjustTailAngle(tailAngle);
 
     //PWM電圧補正
-    corrLeftMotorPwm  = mPwmVolCorr.PwmVolCorr(*leftMotorPwm);
-    corrRightMotorPwm = mPwmVolCorr.PwmVolCorr(*rightMotorPwm);
+    corrleftWheelPwm  = mPwmVolCorr.PwmVolCorr(*leftWheelPwm);
+    corrRightWheelPwm = mPwmVolCorr.PwmVolCorr(*rightWheelPwm);
     corrTailMotorPwm  = mPwmVolCorr.PwmVolCorr(tailMotorPwm);
 
-    mLeftWheel -> setPWM(corrLeftMotorPwm);
-    mRightWheel -> setPWM(corrRightMotorPwm);
+    mLeftWheel -> setPWM(corrleftWheelPwm);
+    mRightWheel -> setPWM(corrRightWheelPwm);
     mTailMotor -> setPWM(corrTailMotorPwm);
   }
 
   void RobotController::RunLineTracer(int foward, int brightnessThreshold, int tailAngle, bool balance)
   {
     int turn = 0;
-    int* leftMotorPwm;
-    int* rightMotorPwm;
+    int* leftWheelPwm;
+    int* rightWheelPwm;
     int tailMotorPwm = 0;
-    int corrLeftMotorPwm = 0;
-    int corrRightMotorPwm = 0;
+    int corrleftWheelPwm = 0;
+    int corrRightWheelPwm = 0;
     int corrTailMotorPwm = 0;
 
     turn = mLineTrCtrl.AjustTurnVal(brightnessThreshold);
 
     if(balance == true){
       mBalanceCtrl.CalcWheelPwm(foward, turn); //姿勢制御の補正もいれてPWM値を算出する
-      mBalanceCtrl.GetWheelPwm(leftMotorPwm, rightMotorPwm);
+      mBalanceCtrl.GetWheelPwm(leftWheelPwm, rightWheelPwm);
     }
     else{
       //foward, turnから PWM 値を計算する
@@ -76,12 +76,12 @@ namespace RobotControl
     tailMotorPwm = mTailCtrl.AjustTailAngle(tailAngle);
 
     //PWM電圧補正
-    corrLeftMotorPwm  = mPwmVolCorr.PwmVolCorr(*leftMotorPwm);
-    corrRightMotorPwm = mPwmVolCorr.PwmVolCorr(*rightMotorPwm);
+    corrleftWheelPwm  = mPwmVolCorr.PwmVolCorr(*leftWheelPwm);
+    corrRightWheelPwm = mPwmVolCorr.PwmVolCorr(*rightWheelPwm);
     corrTailMotorPwm  = mPwmVolCorr.PwmVolCorr(tailMotorPwm);
 
-    mLeftWheel -> setPWM(corrLeftMotorPwm);
-    mRightWheel -> setPWM(corrRightMotorPwm);
+    mLeftWheel -> setPWM(corrleftWheelPwm);
+    mRightWheel -> setPWM(corrRightWheelPwm);
     mTailMotor -> setPWM(corrTailMotorPwm);
 
   }

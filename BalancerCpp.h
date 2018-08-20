@@ -22,7 +22,7 @@ public:
     int8_t getPwmLeft();
 
 private:
-    int mForwardBack;
+    int mForward;
     int mTurn;
     int mOffset;
     int8_t mRightPwm;

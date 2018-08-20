@@ -15,27 +15,20 @@ namespace RobotControl
 class BalanceController
 {
 	public:
-		explicit BalanceController();
+		explicit BalanceController(SensorManager* sensorManager,
+															Balancer*	balancer);
 
 	private:
-		int 左モータのPWM値;
+		int mLeftWheelPwm;
+		int mRightWheelPwm;
 
-		int 右モータのPWM値;
-
-		PID制御 pID制御;
-		ハード::ジャイロセンサ ジャイロセンサ;
-		ハード::センサ管理 センサ管理;
-		ハード::モータ 右モータ;
-		ハード::モータ 左モータ;
-		ハード::モータ モータ;
-		ハード::センサ管理 センサ管理;
+		SensorManager* mSensorManager;
+		Balancer*	mBalancer;
 
 	public:
-		int 左モータのPWM値を取得する();
+		void GetWheelPwm(int* wheelPwm);
 
-		int 右モータのPWM値を取得する();
-
-		void 左右モータのPWM値を算出する(int フォワード値, int ターン値);
+		void CalcWheelPwm(int forward, int turn);
 
 };
 
