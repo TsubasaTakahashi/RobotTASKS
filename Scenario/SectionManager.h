@@ -10,16 +10,24 @@
 #include "RobotController.h"    //"走行体制御/走行制御.h"
 #include "DetectionManager.h"   //検知管理
 
+#define NUMBER_OF_DATA 5       //区間数（TBD）
+
 namespace Scenario
 {
 class SectionManager
 {
 	//コンストラクタ
 public:
-	explicit
+	explicit SectionManager(
+		int mSectionStatus,                         //区間状態
+		SectionInfo* mSectionInfo[NUMBER_OF_DATA]   //現在の区間情報
+	);
+
+~SectionManager(void)          //デストラクタ
+
 private:
-	int mSectionStatus;          //区間状態
-	SectionInfo* mSectionInfo;   //現在の区間情報
+	int mSectionStatus;                          //区間状態
+	SectionInfo* mSectionInfo[NUMBER_OF_DATA];   //現在の区間情報
 
   //いらない？↓
 	//検知::衝撃検知 衝撃検知;
