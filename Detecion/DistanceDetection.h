@@ -4,12 +4,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 namespace Detection
 {
 class DistanceDetection
@@ -28,7 +22,7 @@ class DistanceDetection
 		void SetStartWheelCount(int lWheelMotorRa, int rWheelMotorRa);
 
 	public:
-		bool DoDetection(int threshold, int lWheelMotorRa, int rWheelMotorRa);
+		bool Detect(int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
 };
 

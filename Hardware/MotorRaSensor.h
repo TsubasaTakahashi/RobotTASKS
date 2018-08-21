@@ -1,11 +1,6 @@
 #ifndef Hardware_MotorRaSensor_H
 #define Hardware_MotorRaSensor_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
 #include "Port.h"
 #include "ev3api.h"
 
@@ -46,7 +41,7 @@ class MotorRaSensor
 		* @return モータ接続ポート
 		*/
 		inline motor_port_t getPort(void) const { return mPort; }
-		
+
 	private:
 		motor_port_t mPort;
 		//bool mBrake;

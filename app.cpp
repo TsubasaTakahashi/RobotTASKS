@@ -23,6 +23,10 @@
 //PID電圧補正用パラメータ
 #define PWM_REF_VOLTAGE 300 //mv
 
+//検知用パラメータ
+#define IMP_DET_T_THRESHOLD = 15; //衝撃検知　持続時間
+#define IMP_DET_T_WIDTH = 30;
+
 
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
@@ -109,6 +113,10 @@ static double gDeltaT = DELTA_T;
 //
 static int gPwmRefVoltage = PWM_REF_VOLTAGE;
 
+//Detection
+static int gImpactDetTimeThreshold = IMP_DET_T_THRESHOLD;
+static int gImpactDetTimeWidth = IMP_DET_T_WIDTH;
+
 /**
  * EV3システム生成
  */
@@ -127,7 +135,7 @@ static void user_system_create() {
 
     gDistDet       = new Detection::DistanceDetection();
     gGrayDet       = new Detection::GrayDetection();
-    gImpactDet     = new Detection::ImpactDetection();
+    gImpactDet     = new Detection::ImpactDetection(gImpactDetTimeThreshold, gImpactDetTimeWidth);
     gStepDet       = new Detection::StepDetection();
     gDetManager    = new Detection::DetectionManager(gSensorManager,
                                                      gDistDet,

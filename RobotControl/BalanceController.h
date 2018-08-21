@@ -1,12 +1,6 @@
 #ifndef RobotControl_BalanceController_H
 #define RobotControl_BalanceController_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "SensorManager.h" //"ハード/センサ管理.h"
 #include "BalancerCpp.h"
 

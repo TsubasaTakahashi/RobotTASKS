@@ -1,35 +1,76 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
+#include "DetectionManager.h"
 
-#include "検知管理.h"
-
-namespace 検知
+namespace Detection
 {
+	SensorManager(SensorManager* sensorManager,
+								DistanceDetection* distanceDetection,
+								GrayDetection* grayDetection,
+								StepDetection* stepDetection,
+								ImpactDetection* impactDetection)
+								:mSensorManager(sensorManager),
+								mDistanceDetection(distanceDetection),
+								mGrayDetection(grayDetection),
+								mStepDetection(stepDetection),
+								mImpactDetection(impactDetection)
+								{
 
-boolean 検知管理::灰色検知する(int 閾値)
-{
-	return 0;
-}
+								}
 
-boolean 検知管理::段差検知する(int 閾値)
-{
-	return 0;
-}
+	bool DetectionManager::GrayDetect(int threshold)
+	{
+		int brightness = 0;
+		bool detection = false;
 
-boolean 検知管理::距離検知する(int 閾値)
-{
-	return 0;
-}
+		brightness = mSensorManager.getBrightness();
 
-boolean 検知管理::衝撃検知する(int 閾値)
-{
-	return 0;
-}
+		detection = mGrayDetection.Detect(threshold, brightness);
 
-void 検知管理::属性値を初期化する()
-{
-}
+		return detection;
+	}
+
+	bool DetectionManager::StepDetect(int threshold)
+	{
+		int* wheelMotorRa;
+		bool detection = false;
+
+		wheelMotorRa = (int* )malloc(sizeof(int)*2);
+		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
+
+		int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
+    int rightWheelEnc  = wheelMotorRa[1]; // 右モータ回転角度
+
+		detection = mStepDetection.Detect(threshold, leftWheelEnc, rightWheelEnc);
+
+		free(wheelMotorRa);
+		return detection;
+	}
+
+	bool DetectionManager::DistanceDetect(int threshold)
+	{
+		int* wheelMotorRa;
+		bool detection = false;
+
+		wheelMotorRa = (int* )malloc(sizeof(int)*2);
+		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
+
+		int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
+    int rightWheelEnc  = wheelMotorRa[1]; // 右モータ回転角度
+
+		detection = mDistanceDetection.Detect(threshold, leftWheelEnc, rightWheelEnc);
+
+		free(wheelMotorRa);
+		return detection;
+	}
+
+	bool DetectionManager::ImpactDetect(int threshold)
+	{
+		bool detection = false;
+		int robotAv = 0;
+
+		robotAv = mSensorManager.getRobotAv();
+		detection = mImpactDetection.Detect(threshold, robotAv);
+
+		return detection;
+	}
+
 }  // namespace 検知

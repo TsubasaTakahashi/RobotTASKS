@@ -1,12 +1,6 @@
 #ifndef RobotControl_PidController_H
 #define RobotControl_PidController_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 namespace RobotControl
 {
 class PidController

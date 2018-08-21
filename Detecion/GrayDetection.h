@@ -1,33 +1,31 @@
-#ifndef 検知_灰色検知_H
-#define 検知_灰色検知_H
-
-#include <string>
+/************************************/
+/*	概要：灰色検知クラスのヘッダ	*/
+/*	作成者：島川					*/
+/*	作成日：2018/08/14				*/
+/*	修正日：2018/08/16				*/
+/************************************/
+#pragma once
 #include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
 
-#include "ハード/カラーセンサ.h"
-#include "ハード/センサ管理.h"
-#include "検知/検知管理.h"
+using namespace std;
 
-namespace 検知
+namespace Detection
 {
-class 灰色検知 : public 検知管理
-{
-private:
-	int 反射光[];
+	class GrayDetection
+	{
+		private:
+			vector<int> iaReflectLight;				/*	今までの反射光		*/
+			const unsigned int iSampleNumber = 25;	/*	サンプル点数		*/
+			const int iGrayDetectionDuration = 200;	/*	灰色検知の持続時間	*/
+			const int iWidth = 15;					/*	灰色検知の閾値の幅	*/
+			int iAverage = 0;						/*	平均値				*/
+			const int iDefalutCounterValue = 0;		/*	カウンターの初期値	*/
 
-	ハード::カラーセンサ カラーセンサ;
-	ハード::カラーセンサ カラーセンサ;
-	ハード::センサ管理 センサ管理;
+			int CalculateAverage(void);							/*	平均値を計算する	*/
+			int Count(const int &iGrayDetectionThreshold);		/*	カウントする		*/
 
-public:
-	boolean 検知する(int 閾値, int 反射光);
-
-	void 属性値を初期化する();
-
-};
-
-}  // namespace 検知
-#endif
+		public:
+			bool Detect(const int &iGrayDetectionThreshold, int &iReflectLight);	/*	灰色検知(その1)	*/
+			bool Detect2(const int &iGrayDetectionThreshold, int &iReflectLight);	/*	灰色検知(その2)	*/
+	};
+}  /* namespace DETECTION	*/

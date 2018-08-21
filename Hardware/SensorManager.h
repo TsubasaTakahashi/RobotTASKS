@@ -1,12 +1,6 @@
 #ifndef Hardware_SensorManager_H
 #define Hardware_SensorManager_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Motor.h"	//"ハード/モータ.h"
 #include "ColorSensor.h" //"ハード/カラーセンサ.h"
 #include "GyroSensor.h" //#include "ハード/ジャイロセンサ.h"

@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "DistanceDetection.h"
 
 namespace Detection
@@ -28,7 +22,7 @@ namespace Detection
 		mRWheelMotorRaOffset = rWheelMotorRa;
 	}
 
-	bool DistanceDetection::DoDetection(int threshold, int lWheelMotorRa, int rWheelMotorRa)
+	bool DistanceDetection::Detect(int threshold, int lWheelMotorRa, int rWheelMotorRa)
 	{
 		int distance;
 

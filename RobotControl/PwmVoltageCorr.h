@@ -1,12 +1,6 @@
 #ifndef RobotControl_PwmVoltageCorr_H
 #define RobotControl_PwmVoltageCorr_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "SensorManager.h"
 
 namespace RobotControl

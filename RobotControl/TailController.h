@@ -1,12 +1,6 @@
 #ifndef RobotControl_TailController_H
 #define RobotControl_TailCont_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "SensorManager.h"//"ハード/センサ管理.h"
 #include "PidController.h"
 

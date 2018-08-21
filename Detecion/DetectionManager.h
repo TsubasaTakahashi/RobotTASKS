@@ -1,47 +1,39 @@
-#ifndef 検知_検知管理_H
-#define 検知_検知管理_H
+#ifndef Detection_DetectionManager_H
+#define Detection_DetectionManager_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
+#include "SensorManager.h"
+#include "DistanceDetection.h"
+#include "GrayDetection.h"
+#include "StepDetection.h"
+#include "ImpactDetection.h"
 
-#include "ハード/センサ管理.h"
-#include "ハード/モータ.h"
-#include "走行体制御/姿勢制御.h"
-#include "検知/距離検知.h"
-#include "検知/灰色検知.h"
-#include "検知/段差検知.h"
-#include "検知/衝撃検知.h"
-
-namespace 検知
+namespace Detection
 {
-class 検知管理 : public ハード::センサ管理, public 走行体制御::姿勢制御
+class DetectionManager
 {
-private:
-	ハード::センサ管理 センサ管理[];
-	ハード::モータ 右モータ;
-	ハード::モータ 左モータ;
-	距離検知 距離検知;
-	灰色検知 灰色検知;
-	検知管理 検知管理;
-	段差検知 段差検知;
-	衝撃検知 衝撃検知;
-	ハード::センサ管理 センサ管理;
+	public:
+		explicit SensorManager(SensorManager* sensorManager,
+													DistanceDetection* distanceDetection,
+													GrayDetection* grayDetection,
+													StepDetection* stepDetection,
+													ImpactDetection* impactDetection);
+	private:
+		SensorManager* mSensorManager;
+		DistanceDetection* mDistanceDetection;
+		GrayDetection* mGrayDetection;
+		StepDetection* mStepDetection;
+		ImpactDetection* mImpactDetection;
 
-public:
-	boolean 灰色検知する(int 閾値);
+	public:
+		bool GrayDetect(int threshold);
 
-	boolean 段差検知する(int 閾値);
+		bool StepDetect(int threshold);
 
-	boolean 距離検知する(int 閾値);
+		bool DistanceDetect(int threshold);
 
-	boolean 衝撃検知する(int 閾値);
+		bool ImpactDetect(int threshold);
 
-	void 属性値を初期化する();
-
-};
+	};
 
 }  // namespace 検知
 #endif

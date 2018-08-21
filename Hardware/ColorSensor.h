@@ -1,12 +1,7 @@
 #ifndef Hardware_ColorSensor_H
 #define Hardware_ColorSensor_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
+#include "ev3api.h"
 using namespace ev3api;
 
 namespace Hardware

@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "BalanceController.h"
 
 namespace RobotControl
@@ -29,13 +23,14 @@ namespace RobotControl
 
 	void BalanceController::CalcWheelPwm(int forward, int turn)
 	{
-		int* wheelEnc;
+		int* wheelMotorRa;
 		int angle = mSensorManager.getRobotAv();  // ジャイロセンサ値
 
+		wheelMotorRa = (int* )malloc(sizeof(int)*2);
 		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
 
-    int rightWheelEnc = wheelMotorRa[0]; // 右モータ回転角度
-    int leftWheelEnc  = wheelMotorRa[1]; // 左モータ回転角度
+    int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
+    int rightWheelEnc = wheelMotorRa[1]; // 右モータ回転角度
 
     mBalancer -> setCommand(mForward, mTurn);
 
@@ -46,6 +41,8 @@ namespace RobotControl
     // 左右モータのPWM値を算出する
   	mLeftWheelPwm = (mBalancer->getPwmLeft());
   	mRightWheelPwm = (mBalancer->getPwmRight());
+
+		free(wheelMotorRa);
 	}
 
 }  // namespace 走行体制御

@@ -1,11 +1,6 @@
 #ifndef Hardware_Motor_H
 #define Hardware_Motor_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
 #include "Port.h"
 #include "ev3api.h"
 

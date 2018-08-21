@@ -1,20 +1,34 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
+#include "ImpactDetecton.h"
 
-#include "衝撃検知.h"
-
-namespace 検知
+namespace Detection
 {
+	ImpactDetection(int timeThreshold, int timeWidth)
+									:mTimeThreshold(timeThreshold),
+									mActNum(0)
+									{
+										mRobotAv = (int*)malloc(sizeof(int) * timeWidth);
+									}
+	~ImpactDetection(void)
+	{
+		free(mRobotAv);
+	}
 
-boolean 衝撃検知::検知する(int 閾値, int 走行体の角速度)
-{
-	return 0;
-}
+	bool ImpactDetection::Detect(int threshold, int robotAv)
+	{
+		mActnNum = ImpactDetection::CountActNum(threshold, robotAv);
 
-void 衝撃検知::属性値を初期化する()
-{
-}
+		if(mActnNum >= mTimeThreshold){
+			mActnNum = 0;
+			mRobotAv = {0};
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	int ImpactDetection::CountActNum(int threshold, int robotAv)
+	{
+
+	}
 }  // namespace 検知

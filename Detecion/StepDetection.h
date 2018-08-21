@@ -1,12 +1,6 @@
 #ifndef Detection_StepDetection_H
 #define Detection_StepDetection_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 namespace Detection
 {
 class StepDetection
@@ -24,7 +18,7 @@ class StepDetection
 		void CountActNum(int* wheelStopCount int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
 	public:
-		void DoDetection(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa);
+		void Detect(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
 };
 

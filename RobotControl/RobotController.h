@@ -1,12 +1,6 @@
 #ifndef RobotControl_RobotController_H
 #define RobotControl_RobotController_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "PwmVoltageCorr.h" //"走行体制御/PWM電圧補正.h"
 #include "AttitudeController.h" //"走行体制御/姿勢制御.h"
 #include "TailController.h" //"走行体制御/尻尾制御.h"

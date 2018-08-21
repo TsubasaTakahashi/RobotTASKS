@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "StepDetection.h"
 
 namespace Detection
@@ -41,7 +35,7 @@ namespace Detection
 		}
 	}
 
-	void StepDetection::DoDetection(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa)
+	void StepDetection::Detect(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa)
 	{
 		//属性値を初期化する
 		if((detection[0] == true) && (detection[1] == true)){
