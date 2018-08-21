@@ -171,7 +171,7 @@ static void user_system_create() {
                                                 ); //走行体制御
 
     gSectManager = new Scenario::SectionManager(gSection,
-                                              (int)ARRAY_LENGTH(gSection),
+                                              //(int)ARRAY_LENGTH(gSection),
                                               gDetManager,
                                               gRobotCtrl);
 

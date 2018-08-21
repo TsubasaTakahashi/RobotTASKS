@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "SectionManager.h"
 
 #define FIRST_SECTION 0      //最初の区間

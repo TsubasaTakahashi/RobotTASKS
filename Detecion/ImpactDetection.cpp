@@ -29,6 +29,6 @@ namespace Detection
 
 	int ImpactDetection::CountActNum(int threshold, int robotAv)
 	{
-
+		//TBD
 	}
 }  // namespace 検知
