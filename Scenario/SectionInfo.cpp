@@ -1,15 +1,29 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
+#include "SectionInfo.h"
 
-#include "区間情報.h"
-
-namespace シナリオ
+namespace Scenario
 {
 
-void 区間情報::走行の属性値を取得する(int* 走行体の属性値)
-{
-}
+    SectionInfo(
+     int Forward,             //フォワード値＿引数
+     int TailAngle,           //尻尾の角度＿引数
+     int Balance,             //姿勢＿引数
+     int UsedSensor,          //使用する検知＿引数
+     int SensorThreshold      //検査の閾値＿引数
+         ):mForward(Forward),
+         mTailAngle(TailAngle),
+         mBalance(Balance),
+         mUsedSensor(UsedSensor),
+         mSensorThreshold(SensorThreshold)
+         {
+
+         }
+
+  void SectionInfo::GetRobotAttributeValue(int* RobotAttributeValue)
+  {
+    RobotAttributeValue[0] = mForward;
+    RobotAttributeValue[1] = mTailAngle;
+    RobotAttributeValue[2] = mBalance;
+    RobotAttributeValue[3] = mUsedSensor;
+    RobotAttributeValue[4] = mSensorThreshold;
+  }
 }  // namespace シナリオ

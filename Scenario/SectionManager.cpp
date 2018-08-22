@@ -1,49 +1,112 @@
 #include "SectionManager.h"
 
-#define FIRST_SECTION 0      //最初の区間
-#define LAST_SECTION 1       //最後の区間
-
-//区間情報の中身
-#define FORWARD_AT_SI 0               //フォワード値
-#define TAIL_ANGLE_AT_SI 1            //尻尾の角度
-#define BALANCE_AT_SI 2               //姿勢
-#define USED_SENSOR_AT_SI 3           //使用する検知
-#define SENSOR_THRESHOLD_AT_SI 4      //検査の閾値
-
 namespace Scenario
 {
 
 //区間情報を得る
 
+	SectionManager(
+		SectionInfo* sectionInfo,   //現在の区間情報
+		RobotControl::RobotController* robotCtrl,
+		Detection::DetectionManager* detManager
+	):mSectionStatus(0),
+	mSectionInfo(sectionInfo),
+	mRobotCtrller(robotCtrl),
+	mDetManager(detManager)
+	{
+
+	}
+
+	/*
+	*メソッド：int JudgeSectionTransition()
+	*　　区間遷移判定を行う。
+	*　　区間情報クラス"SectionInfo"より得た「使用する検知」と「検知の閾値」を用いる。
+	*　　「使用する検知」を「検知の閾値」を引数に検知管理クラス"DetectionManager"より
+	*　　呼び出して、TRUEが返ってきたら次の区間へ遷移する。
+	*/
+
+	void SectionManager::JudgeSectionTransition(int detType, int detThreshold)    //区間遷移判定をする
+	{
+		//今が最後の区間でなく
+		//「使用する検知」をもとに呼び出した「検知」がTRUEを返したら（遷移判定）
+		//「次の区間へ遷移する」を返す。
+		//それ以外なら何もしない。
+		if(detType == IMPACT_DET){
+			bool sectionTransition[2] = {false};
+
+			mDetManager.StepDetect(sectionTransition, detThreshold);
+
+			if((sectionTransition[0] == true) && (sectionTransition[1] == true)){ //検知がされた場合区間を遷移させる
+				mSectionStatus++;
+			}
+		}
+		else
+		{
+			bool sectionTransition = false; //シナリオ遷移判定
+
+			if(detType == DISTANCE_DET){
+				sectionTransition = mDetManager.DistanceDetect(detThreshold);
+			}
+			else
+			if(detType == GRAY_DET){
+				sectionTransition = mDetManager.GrayDetect(detThreshold);
+			}
+			else
+			if(detType == IMPACT_DET){
+				sectionTransition = mDetManager.ImpactDetect(detThreshold);
+			}
 
 
-/*
-*メソッド：int JudgeSectionTransition()
-*　　区間遷移判定を行う。
-*　　区間情報クラス"SectionInfo"より得た「使用する検知」と「検知の閾値」を用いる。
-*　　「使用する検知」を「検知の閾値」を引数に検知管理クラス"DetectionManager"より
-*　　呼び出して、TRUEが返ってきたら次の区間へ遷移する。
-*/
+			if(sectionTransition == true){ //検知がされた場合区間を遷移させる
+				mSectionStatus++;
+			}
+		}
 
-int SectionManager::JudgeSectionTransition()    //区間遷移判定をする
-{
-	//今が最後の区間でなく
-	//「使用する検知」をもとに呼び出した「検知」がTRUEを返したら（遷移判定）
-	//「次の区間へ遷移する」を返す。
-	//それ以外なら何もしない。
-	return 0;
-}
+		return 0;
+	}
 
-/*
-*メソッド：void ChengeSectionRunning()
-*　　区間に応じた走行をする。
-*　　区間情報クラス"SectionInfo"より得た「フォワード値」、「尻尾の角度」、「姿勢」を
-*　　引数に走行制御クラス"RobotController"を呼び出す。
-*/
+	/*
+	*メソッド：void ChengeSectionRunning()
+	*　　区間に応じた走行をする。
+	*　　区間情報クラス"SectionInfo"より得た「フォワード値」、「尻尾の角度」、「姿勢」を
+	*　　引数に走行制御クラス"RobotController"を呼び出す。
+	*/
 
-void SectionManager::ChengeSectionRunning()    //区間に応じた走行をする
-{
-	//「現在の区間情報」に対応して
-	//「フォワード値」、「尻尾の角度」、「姿勢」を
-}
+	void SectionManager::Run()    //区間に応じた走行をする
+	{
+		//「現在の区間情報」に対応して
+		//「フォワード値」、「尻尾の角度」、「姿勢」を
+		int* sectionVal; //区間情報の属性値を格納する
+
+
+		int foward = 0;               //フォワード値
+		int tailAngle = 0;           //尻尾の角度
+		int balance = 0;               //姿勢
+		int detection = 0;           //使用する検知
+		int detectionThreshold = 0;      //検査の閾値
+		int originalVal = 0; //ライントレース走行区間: 反射光の閾値, 指定値走行区間: ターン値
+
+		sectionVal = (int* )malloc(sizeof(int) * SEC_ATRB_VAL);
+
+		mSectionInfo[mSectionStatus].GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
+
+		foward = sectionVal[FORWARD_AT_SI];
+		tailAngle = sectionVal[TAIL_ANGLE_AT_SI];
+		balance = sectionVal[BALANCE_AT_SI];
+		detection = sectionVal[USED_SENSOR_AT_SI];
+		detectionThreshold = sectionVal[SENSOR_THRESHOLD_AT_SI];
+		originalVal = sectionVal[ORIGINAL_VAL];
+
+		SectionManager::JudgeSectionTransition(detection, detectionThreshold);
+
+		if(typeid(mSectionInfo[mSectionStatus]) == typeid(SectionLineTracer)){
+			mRobotCtrller.RunLineTracer(foward, originalVal, tailAngle, balance);
+		}
+		else if(typeid(mSectionInfo[mSectionStatus]) == typeid(SectionScenarioTracer)){
+			mRobotCtrller.RunSpecifiedVal(foward, originalVal, tailAngle, balance);
+		}
+
+		free(SectionVal);
+
+	}
 }  // namespace Scenario

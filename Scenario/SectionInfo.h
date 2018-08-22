@@ -1,14 +1,5 @@
-/*
-
-*/
 #ifndef Scenario_SectionInfo_H   //Japanese -> English
 #define Scenario_SectionInfo_H   //Japanese -> English
-
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
 
 namespace Scenario              //Japanese -> English
 {
@@ -24,7 +15,7 @@ public:
  	 	 int SensorThreshold      //検査の閾値＿引数
 	 );
 
-　~SectionInfo(void);   　　　//デストラクタ
+　virtual ~SectionInfo(void);   　　　//デストラクタ
 
 //メンバ変数宣言
 private:
@@ -38,7 +29,7 @@ private:
 	//区間情報 区間情報;
 
 public:
-	void GetRobotAttributeValue(int* RobotAttributeValue);     //走行の属性値を取得する
+	virtual void GetRobotAttributeValue(int* RobotAttributeValue);     //走行の属性値を取得する
 
 };
 

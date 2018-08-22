@@ -1,5 +1,5 @@
 #include "app.h"
-#include "Senario.h"
+#include "SectionManager.h"
 #include "RobotController.h"
 
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
@@ -27,6 +27,38 @@
 #define IMP_DET_T_THRESHOLD = 15; //衝撃検知　持続時間
 #define IMP_DET_T_WIDTH = 30;
 
+//検知の対応
+#define DISTANCE_DET 0
+#define GRAY_DET 1
+#define IMPACT_DET 2
+#define STEP_DET 3
+
+//検知の対応
+#define DISTANCE_DET_THRESHOLD 0
+#define GRAY_DET_THRESHOLD 0
+#define IMPACT_DET_THRESHOLD 0
+#define STEP_DET_THRESHOLD 0
+
+//姿勢
+#define BALANCE_ON 1
+#define BALANCE_OFF 0
+
+//尻尾の角度
+#define TAIL_ANGLE_STAND_UP  75 /* 完全停止時の角度[度] */
+#define TAIL_ANGLE_DRIVE      3 /* バランス走行時の角度[度] */
+
+#define LIGHT_WHITE  69         /* 白色の光センサ値 @試走会1 かなこう*/
+#define LIGHT_BLACK  2          /* 黒色の光センサ値 */
+#define TARGET_VAL_LINETRACE (LIGHT_WHITE + LIGHT_BLACK)/2 //ライントレース走行の目標反射光
+
+//フォワード値の定義
+#define NORMAL 80
+#define HIGH 100
+#define LOW 60
+#define NORMAL_N -80
+#define HIGH_N -100
+#define LOW_N -60
+#define STOP 0
 
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
@@ -88,7 +120,7 @@ static Scenario::SectionManager       *gSectManager;
 static Balancer        *gBalancer;
 
 //区間例
-static SectionLineTracer    gSection_1(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
+static SectionLineTracer    gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, IMPACT_DET, IMPACT_DET_THRESHOLD, TARGET_VAL_LINETRACE); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
 static SectionSenarioTracer gSection_2(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
 ///区間の数だけオブジェクトを生成する
 
@@ -251,7 +283,7 @@ void tracer_task(intptr_t exinf) {
     if (ev3_button_is_pressed(BACK_BUTTON)) {
         wup_tsk(MAIN_TASK);  // バックボタン押下
     } else {
-        区間管理 -> 区間に応じた走行をする();  // 倒立走行
+        gSectManager -> Run();  // 倒立走行
     }
 
     ext_tsk();
