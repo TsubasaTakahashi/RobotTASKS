@@ -2,7 +2,7 @@
 
 namespace Detection
 {
-	SensorManager(SensorManager* sensorManager,
+	DetectionManager(Hardware::SensorManager* sensorManager,
 								DistanceDetection* distanceDetection,
 								GrayDetection* grayDetection,
 								StepDetection* stepDetection,
@@ -21,9 +21,9 @@ namespace Detection
 		int brightness = 0;
 		bool detection = false;
 
-		brightness = mSensorManager.getBrightness();
+		brightness = mSensorManager->getBrightness();
 
-		detection = mGrayDetection.Detect(threshold, brightness);
+		detection = mGrayDetection->Detect(threshold, brightness);
 
 		return detection;
 	}
@@ -32,13 +32,13 @@ namespace Detection
 	{
 		int* wheelMotorRa;
 
-		wheelMotorRa = (int* )malloc(sizeof(int)*2);
-		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
+		wheelMotorRa = (int* )malloc(sizeof(int) * 2);
+		mSensorManager->getWheelMotorRa(wheelMotorRa);
 
 		int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
     int rightWheelEnc  = wheelMotorRa[1]; // 右モータ回転角度
 
-		mStepDetection.Detect(detection, threshold, leftWheelEnc, rightWheelEnc);
+		mStepDetection->Detect(detection, threshold, leftWheelEnc, rightWheelEnc);
 
 		free(wheelMotorRa);
 	}
@@ -49,12 +49,12 @@ namespace Detection
 		bool detection = false;
 
 		wheelMotorRa = (int* )malloc(sizeof(int)*2);
-		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
+		mSensorManager->getWheelMotorRa(int* wheelMotorRa);
 
 		int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
     int rightWheelEnc  = wheelMotorRa[1]; // 右モータ回転角度
 
-		detection = mDistanceDetection.Detect(threshold, leftWheelEnc, rightWheelEnc);
+		detection = mDistanceDetection->Detect(threshold, leftWheelEnc, rightWheelEnc);
 
 		free(wheelMotorRa);
 		return detection;
@@ -65,8 +65,8 @@ namespace Detection
 		bool detection = false;
 		int robotAv = 0;
 
-		robotAv = mSensorManager.getRobotAv();
-		detection = mImpactDetection.Detect(threshold, robotAv);
+		robotAv = mSensorManager->getRobotAv();
+		detection = mImpactDetection->Detect(threshold, robotAv);
 
 		return detection;
 	}

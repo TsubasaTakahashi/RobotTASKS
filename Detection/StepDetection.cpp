@@ -2,9 +2,13 @@
 
 namespace Detection
 {
-	StepDetection():mActDuration(actDuration){}
+	StepDetection(int actDuration)
+			:mActDuration(actDuration)
+			{
 
-	void StepDetection::CountActNum(int* wheelStopCount int threshold, int lWheelMotorRa, int rWheelMotorRa)
+			}
+
+	void StepDetection::CountActNum(int* wheelStopCount, int threshold, int lWheelMotorRa, int rWheelMotorRa)
 	{
 		int absDiffWheelAngL = 0;
 		int absDiffWheelAngR = 0;
@@ -16,18 +20,18 @@ namespace Detection
 		mMotorAngL[0] = lWheelMotorRa; /* 現在のモータの回転数の取得 */
 		mMotorAngR[0] = rWheelMotorRa;
 
-		absDiffWheelAngL = std::abs(mMotorAngL[1] - mMotorAngL[0]);
-		absDiffWheelAngR = std::abs(mMotorAngR[1] - mMotorAngR[0]);
+		absDiffWheelAngL = abs(mMotorAngL[1] - mMotorAngL[0]);
+		absDiffWheelAngR = abs(mMotorAngR[1] - mMotorAngR[0]);
 
 		/* 現在の値と過去の値の差の絶対値がスレッショルド以下なら、カウンタを1増やす */
-		if(absDiffWheelAngL <= threshold) {
+		if(absDiffWheelAngL =< threshold) {
 			wheelStopCount[0]++;
 		}
 		else {
 			wheelStopCount[0] = 0;
 		}
 
-		if(absDiffWheelAngR <= threshold) {
+		if(absDiffWheelAngR =< threshold) {
 			wheelStopCount[1]++;
 		}
 		else {
@@ -39,9 +43,10 @@ namespace Detection
 	{
 		//属性値を初期化する
 		if((detection[0] == true) && (detection[1] == true)){
-			mMotorAngL[2] = {0, 0};
-			mMotorAngR[2] = {0, 0};
-			mWheelStopCount[2] = {0, 0};
+			mMotorAngL[0] = 0;
+			mMotorAngL[1] = 0;
+			mWheelStopCount[0] = 0;
+			mWheelStopCount[1] = 0;
 		}
 
 		CountActNum(mWheelStopCount, threshold, lWheelMotorRa, rWheelMotorRa);

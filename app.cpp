@@ -60,6 +60,8 @@
 #define LOW_N -60
 #define STOP 0
 
+#define TIRE_RADIUS 5 /* タイヤの半径[cm] */
+
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
 void *__dso_handle = 0;
@@ -149,6 +151,10 @@ static int gPwmRefVoltage = PWM_REF_VOLTAGE;
 static int gImpactDetTimeThreshold = IMP_DET_T_THRESHOLD;
 static int gImpactDetTimeWidth = IMP_DET_T_WIDTH;
 
+//
+static int gActDuration = 15; //段差検知
+static int gTireRadius = TIRE_RADIUS;
+
 /**
  * EV3システム生成
  */
@@ -165,10 +171,10 @@ static void user_system_create() {
                                                  gRWheelRaSensor,
                                                  gTailRaSensor);
 
-    gDistDet       = new Detection::DistanceDetection();
+    gDistDet       = new Detection::DistanceDetection(gTireRadius);
     gGrayDet       = new Detection::GrayDetection();
     gImpactDet     = new Detection::ImpactDetection(gImpactDetTimeThreshold, gImpactDetTimeWidth);
-    gStepDet       = new Detection::StepDetection();
+    gStepDet       = new Detection::StepDetection(gActDuration);
     gDetManager    = new Detection::DetectionManager(gSensorManager,
                                                      gDistDet,
                                                      gGrayDet,

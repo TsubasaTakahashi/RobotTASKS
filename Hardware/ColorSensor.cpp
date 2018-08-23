@@ -1,7 +1,5 @@
 #include "ColorSensor.h"
 
-using namespace ev3api;
-
 namespace Hardware
 {
 

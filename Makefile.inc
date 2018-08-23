@@ -7,7 +7,7 @@ APPL_CXXOBJS += \
 	GrayDetection.o \
 	DistanceDetection.o \
 	ImpactDetection.o \
-	StepDetecion.o \
+	StepDetection.o \
 	SensorManager.o \
 	ColorSensor.o \
 	GyroSensor.o \

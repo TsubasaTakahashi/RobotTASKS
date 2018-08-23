@@ -61,8 +61,6 @@ namespace Scenario
 				mSectionStatus++;
 			}
 		}
-
-		return 0;
 	}
 
 	/*

@@ -1,5 +1,4 @@
 #include "GyroSensor.h"
-using namespace ev3api;
 
 namespace Hardware
 {

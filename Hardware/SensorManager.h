@@ -13,8 +13,8 @@ class SensorManager
 {
 	public:
 		explicit SensorManager(BatterySensor* batterySensor,
-                           ColorSensor*   colorSensor,
-                           GyroSensor*    gyroSensor,
+                           ColorSensor&   colorSensor,
+                           GyroSensor&    gyroSensor,
                            MotorRaSensor& lWheelRaSensor,
                            MotorRaSensor& rWheelRaSensor,
                            MotorRaSensor& tailRaSensor);
@@ -23,8 +23,8 @@ class SensorManager
 
 	private:
 		ColorSensor* mColorSensor;
-		GyroSensor* mGyroSensor;
-		BatterySensor* mBatterySensor;
+		GyroSensor& mGyroSensor;
+		BatterySensor& mBatterySensor;
 
 		MotorRaSensor& mLWheelRaSensor;
 		MotorRaSensor& mRWheelRaSensor;

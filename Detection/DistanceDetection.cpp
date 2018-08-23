@@ -3,7 +3,10 @@
 namespace Detection
 {
 	DistanceDetection(int tireRadius)
-			:mTireRadius(tireRadius){}
+			:mTireRadius(tireRadius)
+			{
+
+			}
 
 	int DistanceDetection::CalcDistance(int lWheelMotorRa, int rWheelMotorRa)
 	{
@@ -33,12 +36,11 @@ namespace Detection
 
 		distance = DistanceDetection::CalcDistance(lWheelMotorRa, rWheelMotorRa);
 
-		if(distance => threshold){
+		if(distance >= threshold){
 			mReset = 0;
 			return true;
 		}
-		else{
-			return false;
-		}
+
+		return false;
 	}
 }  // namespace 検知

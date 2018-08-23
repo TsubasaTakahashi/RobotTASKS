@@ -1,6 +1,8 @@
 #ifndef Detection_StepDetection_H
 #define Detection_StepDetection_H
 
+#include <stdlib.h>
+
 namespace Detection
 {
 class StepDetection
@@ -15,7 +17,7 @@ class StepDetection
 
 		int mWheelStopCount[2] = {0, 0}; // 0:left 1:right
 
-		void CountActNum(int* wheelStopCount int threshold, int lWheelMotorRa, int rWheelMotorRa);
+		void CountActNum(int* wheelStopCount, int threshold, int lWheelMotorRa, int rWheelMotorRa);
 
 	public:
 		void Detect(bool* detection, int threshold, int lWheelMotorRa, int rWheelMotorRa);

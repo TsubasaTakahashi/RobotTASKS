@@ -6,19 +6,20 @@
 #include "GrayDetection.h"
 #include "StepDetection.h"
 #include "ImpactDetection.h"
+#include <stdlib.h>
 
 namespace Detection
 {
 class DetectionManager
 {
 	public:
-		explicit SensorManager(SensorManager* sensorManager,
+		explicit DetectionManager(Hardware::SensorManager* sensorManager,
 													DistanceDetection* distanceDetection,
 													GrayDetection* grayDetection,
 													StepDetection* stepDetection,
 													ImpactDetection* impactDetection);
 	private:
-		SensorManager* mSensorManager;
+		Hardware::SensorManager* mSensorManager;
 		DistanceDetection* mDistanceDetection;
 		GrayDetection* mGrayDetection;
 		StepDetection* mStepDetection;

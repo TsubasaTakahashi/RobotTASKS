@@ -12,7 +12,7 @@ class MotorRaSensor
 
 		explicit MotorRaSensor(ePortM port, motor_type_t type = LARGE_MOTOR);
 
-		~Motor(void);
+		~MotorRaSensor(void);
 
 		/**
 		 * モータリセット<br>
