@@ -5,7 +5,7 @@ namespace Scenario
 
 //区間情報を得る
 
-	SectionManager(
+	SectionManager::SectionManager(
 		SectionInfo* sectionInfo,   //現在の区間情報
 		RobotControl::RobotController* robotCtrl,
 		Detection::DetectionManager* detManager

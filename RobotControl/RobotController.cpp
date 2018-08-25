@@ -2,7 +2,7 @@
 
 namespace RobotControl
 {
-  RobotController(BalanceController* balanceCtrl,
+  RobotController::RobotController(BalanceController* balanceCtrl,
                           LineTracerController* lineTrCtrl,
                           TailContoroller* tailCtrl,
                           PwmVoltageCorr* pwmVolCorr,

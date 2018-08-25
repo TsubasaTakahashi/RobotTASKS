@@ -3,7 +3,7 @@
 namespace Scenario
 {
 
-    SectionInfo(
+    SectionInfo::SectionInfo(
      int Forward,             //フォワード値＿引数
      int TailAngle,           //尻尾の角度＿引数
      int Balance,             //姿勢＿引数

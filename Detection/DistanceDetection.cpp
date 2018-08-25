@@ -2,7 +2,7 @@
 
 namespace Detection
 {
-	DistanceDetection(int tireRadius)
+	DistanceDetection::DistanceDetection(int tireRadius)
 			:mTireRadius(tireRadius)
 			{
 

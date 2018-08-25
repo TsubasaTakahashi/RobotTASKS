@@ -5,7 +5,7 @@ using namespace ev3api;
 namespace Hardware
 {
 // Constructor
-Motor::Motor(ePortM port, motor_type_t type)
+MotorRaSensor::MotorRaSensor(ePortM port, motor_type_t type)
 :mPort(static_cast<motor_port_t>(port)),
  mType(type),
  mOffset(0)
@@ -14,7 +14,7 @@ Motor::Motor(ePortM port, motor_type_t type)
 }
 
 // Destructor
-Motor::~Motor(void)
+MotorRaSensor::~MotorRaSensor(void)
 {
 	ev3_motor_stop(mPort, true); // set brake to stop the motor immidiately
 }

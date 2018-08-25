@@ -2,7 +2,7 @@
 
 namespace RobotControl
 {
-  PwmVoltageCorr(int refVoltage,
+  PwmVoltageCorr::PwmVoltageCorr(int refVoltage,
                 Hardware::SensorManager sensorManager)
         :mRefVoltage(refVoltage),
         mSensorManager(sensorManager){

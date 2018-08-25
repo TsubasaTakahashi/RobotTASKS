@@ -3,7 +3,7 @@
 namespace Hardware
 {
 
-	SensorManager(BatterySensor* batterySensor,
+	SensorManager::SensorManager(BatterySensor* batterySensor,
 								ColorSensor&  colorSensor,
 								GyroSensor& gyroSensor,
 								MotorRaSensor& lWheelRaSensor,

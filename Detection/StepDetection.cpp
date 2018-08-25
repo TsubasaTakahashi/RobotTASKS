@@ -2,7 +2,7 @@
 
 namespace Detection
 {
-	StepDetection(int actDuration)
+	StepDetection::StepDetection(int actDuration)
 			:mActDuration(actDuration)
 			{
 

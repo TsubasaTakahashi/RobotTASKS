@@ -2,7 +2,7 @@
 
 namespace RobotControl
 {
-	BalanceController(SensorManager* sensorManager,
+	BalanceController::BalanceController(SensorManager* sensorManager,
 									Balancer*	balancer)
 		:mSensorManager(sensorManager),
 		mBalancer(balancer),

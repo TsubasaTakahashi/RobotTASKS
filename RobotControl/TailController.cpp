@@ -2,7 +2,7 @@
 
 namespace RobotControl
 {
-  TailController(PidController* pidCtrl
+  TailController::TailController(PidController* pidCtrl
                 Hardware::SensorManager* sensorManager)
               :mPidCtrl(pidCtrl),
               mSensorManager(sensorManager){

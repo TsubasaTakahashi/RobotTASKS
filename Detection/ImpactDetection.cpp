@@ -2,14 +2,14 @@
 
 namespace Detection
 {
-	ImpactDetection(int timeThreshold, int timeWidth)
+	ImpactDetection::ImpactDetection(int timeThreshold, int timeWidth)
 									:mTimeThreshold(timeThreshold),
 									mActNum(0)
 									{
 										mRobotAv = (int*)malloc(sizeof(int) * timeWidth);
 									}
-									
-	~ImpactDetection(void)
+
+	ImpactDetection::~ImpactDetection(void)
 	{
 		free(mRobotAv);
 	}

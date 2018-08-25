@@ -2,7 +2,7 @@
 
 namespace Detection
 {
-	DetectionManager(Hardware::SensorManager* sensorManager,
+	DetectionManager::DetectionManager(Hardware::SensorManager* sensorManager,
 								DistanceDetection* distanceDetection,
 								GrayDetection* grayDetection,
 								StepDetection* stepDetection,
