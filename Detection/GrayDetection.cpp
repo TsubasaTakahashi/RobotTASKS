@@ -1,8 +1,8 @@
 /****************************/
-/*	�T�v�F�D�F���m�N���X	*/
-/*	�쐬�ҁF����			*/
-/*	�쐬���F2018/08/14		*/
-/*	�C�����F2018/08/25		*/
+/*	概要：灰色検知クラス	*/
+/*	作成者：島川			*/
+/*	作成日：2018/08/14		*/
+/*	修正日：2018/08/25		*/
 /****************************/
 #pragma once
 #include "GrayDetection.h"
@@ -10,11 +10,11 @@
 namespace Detection
 {
 	/********************************/
-	/*	���ˌ��̕��ϒl���v�Z����	*/
+	/*	反射光の平均値を計算する	*/
 	/********************************/
 	int GrayDetection::CalculateAverage(void)
 	{
-		/*	���ˌ��̕��ϒl���v�Z����	*/
+		/*	反射光の平均値を計算する	*/
 		for (const auto &i : iaReflectLight) {
 			iAverage = iAverage + i;
 		}
@@ -24,27 +24,32 @@ namespace Detection
 	}
 
 	/****************************************************/
-	/*	���ˌ��̕��ϒl��臒l���ɂ��邩���J�E���g����	*/
+	/*	反射光の平均値が閾値内にあるかをカウントする	*/
+	/*	引数：											*/
+	/*		Threshold：灰色検知の閾値					*/
 	/****************************************************/
-	int GrayDetection::Count(const int &iGrayDetectionThreshold)
+	int GrayDetection::Count(const int &Threshold)
 	{
 		int iAverage = CalculateAverage();
 		static int iCounter = iDefalutCounterValue;
 
-		if ((iAverage >= (iGrayDetectionThreshold - iWidth))		/*	���ˌ��̕��ϒl���A	*/
-			&& (iAverage <= (iGrayDetectionThreshold + iWidth))) {	/*	臒l�͈͓̔��Ȃ��A	*/
-			iCounter++;												/*	�J�E���g�����B		*/
+		if ((iAverage <= (Threshold + iWidth))			/*	反射光の平均値が、	*/
+			&& (iAverage >= (Threshold - iWidth))) {	/*	閾値の範囲内なら、	*/
+			iCounter++;									/*	カウントする。		*/
 		}
-		else {														/*	�����łȂ��Ȃ��A		*/
-			iCounter = iDefalutCounterValue;						/*	�J�E���g�������l�ɖ߂�	*/
+		else {											/*	そうでないなら、			*/
+			iCounter = iDefalutCounterValue;			/*	カウントを初期値に戻す。	*/
 		}
 
 		return iCounter;
 	}
 
-	/********************/
-	/*	�R���X�g���N�^	*/
-	/********************/
+	/****************************************/
+	/*	コンストラクタ						*/
+	/*	引数：								*/
+	/*		Duration：灰色検知の持続時間	*/
+	/*		Width：閾値の幅					*/
+	/****************************************/
 	GrayDetection::GrayDetection(const int &Duration, const int &Width)
 	{
 		iGrayDetectionDuration = Duration;
@@ -52,33 +57,33 @@ namespace Detection
 	}
 
 	/********************************************************************/
-	/*	�D�F���m������(����1)											*/
-	/*	�����@�F														*/
-	/*		�E�擾�������ˌ����w�肵�����i�[���ꂽ���J�E���g�������B	*/
-	/*		�E���ˌ��͏����X�V�����Ă����B								*/
-	/*		�E�J�E���g���������Ԉȏ��ɂȂ�����true���Ԃ��B				*/
-	/*	�����F															*/
-	/*		iGrayDetectionThreshold�F�D�F���m��臒l						*/
-	/*		iReflectLight�F�擾�������ˌ�								*/
+	/*	検知する(その1)													*/
+	/*	判定法：														*/
+	/*		・取得した反射光が指定した個数格納されたらカウントをする。	*/
+	/*		・反射光は順次更新されていく。								*/
+	/*		・カウントが持続時間以上になったらtrueを返す。				*/
+	/*	引数：															*/
+	/*		Threshold：灰色検知の閾値									*/
+	/*		ReflectLight：取得した反射光								*/
 	/********************************************************************/
-	bool GrayDetection::DetectGrayLine(const int &Threshold, const unsigned int &SampleNumber, int &ReflectLight)
+	bool GrayDetection::Detect(const int &Threshold, const unsigned int &SampleNumber, const int &ReflectLight)
 	{
 		uiSampleNumber = SampleNumber;
 
-		/*	���ˌ����z���Ɋi�[���Ă���	*/
+		/*	反射光を配列に格納していく	*/
 		if (iaReflectLight.size() < uiSampleNumber) {
 			iaReflectLight.push_back(ReflectLight);
 		}
 
-		/*	���ˌ����X�V���Ă���	*/
+		/*	反射光を更新していく	*/
 		else if (iaReflectLight.size() == uiSampleNumber) {
 			iaReflectLight.erase(iaReflectLight.begin());
 			iaReflectLight.push_back(ReflectLight);
 		}
 
-		/*	�D�F���m���s��	*/
+		/*	灰色検知を行う	*/
 		if (iaReflectLight.size() == uiSampleNumber) {
-			if (Count(Threshold) == iGrayDetectionDuration) {
+			if (Count(Threshold) >= iGrayDetectionDuration) {
 				return true;
 			}
 		}
@@ -87,30 +92,29 @@ namespace Detection
 	}
 
 	/************************************************************/
-	/*	�D�F���m������(����2)									*/
-	/*	�����@�F												*/
-	/*		�E�擾�������ˌ���臒l���Ȃ��J�E���g�A�b�v�����B	*/
-	/*		�E臒l�O�Ȃ��J�E���g��0�ɂ����B						*/
-	/*		�E�J�E���g���������Ԉȏ��ɂȂ�����true���Ԃ��B		*/
-	/*	�����F													*/
-	/*		Threshold�F�D�F���m��臒l							*/
-	/*		ReflectLight�F�擾�������ˌ�						*/
+	/*	検知する(その2)											*/
+	/*	判定法：												*/
+	/*		・取得した反射光が閾値内ならカウントアップする。	*/
+	/*		・閾値外ならカウントを0にする。						*/
+	/*		・カウントが持続時間以上になったらtrueを返す。		*/
+	/*	引数：													*/
+	/*		Threshold：灰色検知の閾値							*/
+	/*		ReflectLight：取得した反射光						*/
 	/************************************************************/
-	bool GrayDetection::DetectGrayLine2(const int &Threshold, const int &ReflectLight)
+	bool GrayDetection::Detect2(const int &Threshold, const int &ReflectLight)
 	{
 		static int iCounter = iDefalutCounterValue;
 
-		if (ReflectLight <= (Threshold + iWidth)
-			&& (ReflectLight >= (Threshold - iWidth))) {
-			iCounter++;
+		if (ReflectLight <= (Threshold + iWidth)	/*	取得した反射光値が		*/
+			&& (ReflectLight >= (Threshold))) {		/*	閾値の範囲内ならば、	*/
+			iCounter++;								/*	カウントアップする。	*/
 		}
-		else {
-			iCounter = iDefalutCounterValue;
+		else {										/*	閾値の範囲外なら、	*/
+			iCounter = iDefalutCounterValue;		/*	カウントを0に戻す。	*/
 		}
-		iCount = iCounter;
 
-		if (iCounter >= iGrayDetectionDuration) {
-			return true;
+		if (iCounter >= iGrayDetectionDuration) {	/*	カウントが持続時間以上になれば、	*/
+			return true;							/*	trueを返す。						*/
 		}
 
 		return false;

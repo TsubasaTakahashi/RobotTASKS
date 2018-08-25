@@ -1,8 +1,8 @@
 /****************************/
-/*	�T�v�F�D�F���m�N���X	*/
-/*	�쐬�ҁF����			*/
-/*	�쐬���F2018/08/14		*/
-/*	�C�����F2018/08/25		*/
+/*	概要：灰色検知クラス	*/
+/*	作成者：島川			*/
+/*	作成日：2018/08/14		*/
+/*	修正日：2018/08/25		*/
 /****************************/
 #pragma once
 #include <vector>
@@ -14,21 +14,19 @@ namespace Detection
 	class GrayDetection
 	{
 	private:
-		int iGrayDetectionDuration;			/*	�D�F���m�̎�������	*/
-		int iWidth;							/*	�D�F���m��臒l�̕�	*/
-		vector<int> iaReflectLight;			/*	���܂ł̔��ˌ�		*/
-		const int iDefalutCounterValue = 0;	/*	�J�E���^�[�̏����l	*/
-		unsigned int uiSampleNumber;		/*	�T���v���_��		*/
-		int iAverage = 0;					/*	���ϒl				*/
+		int iGrayDetectionDuration;			/*	灰色検知の持続時間	*/
+		int iWidth;							/*	灰色検知の閾値の幅	*/
+		vector<int> iaReflectLight;			/*	今までの反射光		*/
+		const int iDefalutCounterValue = 0;	/*	カウンターの初期値	*/
+		unsigned int uiSampleNumber;		/*	サンプル点数		*/
+		int iAverage = 0;					/*	平均値				*/
 
-		int CalculateAverage(void);						/*	���ϒl���v�Z����	*/
-		int Count(const int &iGrayDetectionThreshold);	/*	�J�E���g����		*/
+		int CalculateAverage(void);			/*	平均値を計算する	*/
+		int Count(const int &Threshold);	/*	カウントする		*/
 
 	public:
-		int iCount;	/*	���O�p�̃J�E���g�l	*/
-
-		GrayDetection(const int &Duration, const int &Width);											/*	�R���X�g���N�^	*/
-		bool DetectGrayLine(const int &Threshold, const unsigned int &SampleNumber, int &ReflectLight);	/*	�D�F���m(����1)	*/
-		bool DetectGrayLine2(const int &Threshold, const int &ReflectLight);							/*	�D�F���m(����2)	*/
+		GrayDetection(const int &Duration, const int &Width);											/*	コンストラクタ	*/
+		bool Detect(const int &Threshold, const unsigned int &SampleNumber, const int &ReflectLight);	/*	検知する(その1)	*/
+		bool Detect2(const int &Threshold, const int &ReflectLight);									/*	検知する(その2)	*/
 	};
 }  /* namespace DETECTION	*/
