@@ -29,3 +29,4 @@ namespace Scenario
    virtual void GetRobotAttributeValue(int* RobotAttributeValue);     //走行の属性値を取得する
  };
 }
+#endif

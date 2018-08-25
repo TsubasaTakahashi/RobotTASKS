@@ -1,20 +1,20 @@
 /****************************/
-/*	ЉT—vЃFЉDђFЊџ’mѓNѓ‰ѓX	*/
-/*	Ќмђ¬ЋТЃF“‡ђм			*/
-/*	Ќмђ¬“ъЃF2018/08/14		*/
-/*	ЏCђі“ъЃF2018/08/25		*/
+/*	пїЅTпїЅvпїЅFпїЅDпїЅFпїЅпїЅпїЅmпїЅNпїЅпїЅпїЅX	*/
+/*	пїЅмђ¬пїЅТЃFпїЅпїЅпїЅпїЅ			*/
+/*	пїЅмђ¬пїЅпїЅпїЅF2018/08/14		*/
+/*	пїЅCпїЅпїЅпїЅпїЅпїЅF2018/08/25		*/
 /****************************/
 #pragma once
 #include "GrayDetection.h"
 
-namespace DETECTION
+namespace Detection
 {
 	/********************************/
-	/*	”ЅЋЛЊх‚М•Ѕ‹П’l‚рЊvЋZ‚·‚й	*/
+	/*	пїЅпїЅпїЅЛЊпїЅпїЅМ•пїЅпїЅП’lпїЅпїЅпїЅvпїЅZпїЅпїЅпїЅпїЅ	*/
 	/********************************/
 	int GrayDetection::CalculateAverage(void)
 	{
-		/*	”ЅЋЛЊх‚М•Ѕ‹П’l‚рЊvЋZ‚·‚й	*/
+		/*	пїЅпїЅпїЅЛЊпїЅпїЅМ•пїЅпїЅП’lпїЅпїЅпїЅvпїЅZпїЅпїЅпїЅпїЅ	*/
 		for (const auto &i : iaReflectLight) {
 			iAverage = iAverage + i;
 		}
@@ -24,26 +24,26 @@ namespace DETECTION
 	}
 
 	/****************************************************/
-	/*	”ЅЋЛЊх‚М•Ѕ‹П’l‚Єи‡’l“а‚Й‚ ‚й‚©‚рѓJѓEѓ“ѓg‚·‚й	*/
+	/*	пїЅпїЅпїЅЛЊпїЅпїЅМ•пїЅпїЅП’lпїЅпїЅи‡’lпїЅпїЅпїЅЙ‚пїЅпїЅй‚©пїЅпїЅпїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅ	*/
 	/****************************************************/
 	int GrayDetection::Count(const int &iGrayDetectionThreshold)
 	{
 		int iAverage = CalculateAverage();
 		static int iCounter = iDefalutCounterValue;
 
-		if ((iAverage >= (iGrayDetectionThreshold - iWidth))		/*	”ЅЋЛЊх‚М•Ѕ‹П’l‚ЄЃA	*/
-			&& (iAverage <= (iGrayDetectionThreshold + iWidth))) {	/*	и‡’l‚М”Н€Н“а‚И‚зЃA	*/
-			iCounter++;												/*	ѓJѓEѓ“ѓg‚·‚йЃB		*/
+		if ((iAverage >= (iGrayDetectionThreshold - iWidth))		/*	пїЅпїЅпїЅЛЊпїЅпїЅМ•пїЅпїЅП’lпїЅпїЅпїЅA	*/
+			&& (iAverage <= (iGrayDetectionThreshold + iWidth))) {	/*	и‡’lпїЅМ”Н€Н“пїЅпїЅИ‚пїЅпїЅA	*/
+			iCounter++;												/*	пїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅпїЅB		*/
 		}
-		else {														/*	‚»‚¤‚Е‚И‚ў‚И‚зЃA		*/
-			iCounter = iDefalutCounterValue;						/*	ѓJѓEѓ“ѓg‚рЏ‰Љъ’l‚Й–Я‚·	*/
+		else {														/*	пїЅпїЅпїЅпїЅпїЅЕ‚И‚пїЅпїЅИ‚пїЅпїЅA		*/
+			iCounter = iDefalutCounterValue;						/*	пїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅпїЅпїЅпїЅlпїЅЙ–Я‚пїЅ	*/
 		}
 
 		return iCounter;
 	}
 
 	/********************/
-	/*	ѓRѓ“ѓXѓgѓ‰ѓNѓ^	*/
+	/*	пїЅRпїЅпїЅпїЅXпїЅgпїЅпїЅпїЅNпїЅ^	*/
 	/********************/
 	GrayDetection::GrayDetection(const int &Duration, const int &Width)
 	{
@@ -52,31 +52,31 @@ namespace DETECTION
 	}
 
 	/********************************************************************/
-	/*	ЉDђFЊџ’m‚р‚·‚й(‚»‚М1)											*/
-	/*	”»’и–@ЃF														*/
-	/*		ЃEЋж“ѕ‚µ‚Ѕ”ЅЋЛЊх‚ЄЋw’и‚µ‚ЅЊВђ”Љi”[‚і‚к‚Ѕ‚зѓJѓEѓ“ѓg‚р‚·‚йЃB	*/
-	/*		ЃE”ЅЋЛЊх‚НЏ‡ЋџЌXђV‚і‚к‚Д‚ў‚­ЃB								*/
-	/*		ЃEѓJѓEѓ“ѓg‚ЄЋќ‘±ЋћЉФ€ИЏг‚Й‚И‚Б‚Ѕ‚зtrue‚р•Ф‚·ЃB				*/
-	/*	€шђ”ЃF															*/
-	/*		iGrayDetectionThresholdЃFЉDђFЊџ’m‚Ми‡’l						*/
-	/*		iReflectLightЃFЋж“ѕ‚µ‚Ѕ”ЅЋЛЊх								*/
+	/*	пїЅDпїЅFпїЅпїЅпїЅmпїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅ1)											*/
+	/*	пїЅпїЅпїЅпїЅпїЅ@пїЅF														*/
+	/*		пїЅEпїЅж“ѕпїЅпїЅпїЅпїЅпїЅпїЅпїЅЛЊпїЅпїЅпїЅпїЅwпїЅи‚µпїЅпїЅпїЅВђпїЅпїЅiпїЅ[пїЅпїЅпїЅк‚ЅпїЅпїЅпїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅпїЅпїЅпїЅB	*/
+	/*		пїЅEпїЅпїЅпїЅЛЊпїЅпїЅНЏпїЅпїЅпїЅпїЅXпїЅVпїЅпїЅпїЅпїЅпїЅД‚пїЅпїЅпїЅпїЅB								*/
+	/*		пїЅEпїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅФ€ИЏпїЅпїЅЙ‚И‚пїЅпїЅпїЅпїЅпїЅtrueпїЅпїЅпїЅФ‚пїЅпїЅB				*/
+	/*	пїЅпїЅпїЅпїЅпїЅF															*/
+	/*		iGrayDetectionThresholdпїЅFпїЅDпїЅFпїЅпїЅпїЅmпїЅпїЅи‡’l						*/
+	/*		iReflectLightпїЅFпїЅж“ѕпїЅпїЅпїЅпїЅпїЅпїЅпїЅЛЊпїЅ								*/
 	/********************************************************************/
 	bool GrayDetection::DetectGrayLine(const int &Threshold, const unsigned int &SampleNumber, int &ReflectLight)
 	{
 		uiSampleNumber = SampleNumber;
 
-		/*	”ЅЋЛЊх‚р”z—с‚ЙЉi”[‚µ‚Д‚ў‚­	*/
+		/*	пїЅпїЅпїЅЛЊпїЅпїЅпїЅпїЅzпїЅпїЅпїЅЙЉiпїЅ[пїЅпїЅпїЅД‚пїЅпїЅпїЅ	*/
 		if (iaReflectLight.size() < uiSampleNumber) {
 			iaReflectLight.push_back(ReflectLight);
 		}
 
-		/*	”ЅЋЛЊх‚рЌXђV‚µ‚Д‚ў‚­	*/
+		/*	пїЅпїЅпїЅЛЊпїЅпїЅпїЅпїЅXпїЅVпїЅпїЅпїЅД‚пїЅпїЅпїЅ	*/
 		else if (iaReflectLight.size() == uiSampleNumber) {
 			iaReflectLight.erase(iaReflectLight.begin());
 			iaReflectLight.push_back(ReflectLight);
 		}
 
-		/*	ЉDђFЊџ’m‚рЌs‚¤	*/
+		/*	пїЅDпїЅFпїЅпїЅпїЅmпїЅпїЅпїЅsпїЅпїЅ	*/
 		if (iaReflectLight.size() == uiSampleNumber) {
 			if (Count(Threshold) == iGrayDetectionDuration) {
 				return true;
@@ -87,14 +87,14 @@ namespace DETECTION
 	}
 
 	/************************************************************/
-	/*	ЉDђFЊџ’m‚р‚·‚й(‚»‚М2)									*/
-	/*	”»’и–@ЃF												*/
-	/*		ЃEЋж“ѕ‚µ‚Ѕ”ЅЋЛЊх‚Єи‡’l“а‚И‚зѓJѓEѓ“ѓgѓAѓbѓv‚·‚йЃB	*/
-	/*		ЃEи‡’lЉO‚И‚зѓJѓEѓ“ѓg‚р0‚Й‚·‚йЃB						*/
-	/*		ЃEѓJѓEѓ“ѓg‚ЄЋќ‘±ЋћЉФ€ИЏг‚Й‚И‚Б‚Ѕ‚зtrue‚р•Ф‚·ЃB		*/
-	/*	€шђ”ЃF													*/
-	/*		ThresholdЃFЉDђFЊџ’m‚Ми‡’l							*/
-	/*		ReflectLightЃFЋж“ѕ‚µ‚Ѕ”ЅЋЛЊх						*/
+	/*	пїЅDпїЅFпїЅпїЅпїЅmпїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅ2)									*/
+	/*	пїЅпїЅпїЅпїЅпїЅ@пїЅF												*/
+	/*		пїЅEпїЅж“ѕпїЅпїЅпїЅпїЅпїЅпїЅпїЅЛЊпїЅпїЅпїЅи‡’lпїЅпїЅпїЅИ‚пїЅпїЅJпїЅEпїЅпїЅпїЅgпїЅAпїЅbпїЅvпїЅпїЅпїЅпїЅпїЅB	*/
+	/*		пїЅEи‡’lпїЅOпїЅИ‚пїЅпїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅ0пїЅЙ‚пїЅпїЅпїЅпїЅB						*/
+	/*		пїЅEпїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅФ€ИЏпїЅпїЅЙ‚И‚пїЅпїЅпїЅпїЅпїЅtrueпїЅпїЅпїЅФ‚пїЅпїЅB		*/
+	/*	пїЅпїЅпїЅпїЅпїЅF													*/
+	/*		ThresholdпїЅFпїЅDпїЅFпїЅпїЅпїЅmпїЅпїЅи‡’l							*/
+	/*		ReflectLightпїЅFпїЅж“ѕпїЅпїЅпїЅпїЅпїЅпїЅпїЅЛЊпїЅ						*/
 	/************************************************************/
 	bool GrayDetection::DetectGrayLine2(const int &Threshold, const int &ReflectLight)
 	{

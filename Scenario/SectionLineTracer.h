@@ -27,5 +27,6 @@ namespace Scenario
   //メンバ関数宣言
  public:
    virtual void GetRobotAttributeValue(int* RobotAttributeValue);     //走行の属性値を取得する
-  }
+ };
 }
+#endif

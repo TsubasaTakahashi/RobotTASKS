@@ -1,34 +1,34 @@
 /****************************/
-/*	ЉT—vЃFЉDђFЊџ’mѓNѓ‰ѓX	*/
-/*	Ќмђ¬ЋТЃF“‡ђм			*/
-/*	Ќмђ¬“ъЃF2018/08/14		*/
-/*	ЏCђі“ъЃF2018/08/25		*/
+/*	пїЅTпїЅvпїЅFпїЅDпїЅFпїЅпїЅпїЅmпїЅNпїЅпїЅпїЅX	*/
+/*	пїЅмђ¬пїЅТЃFпїЅпїЅпїЅпїЅ			*/
+/*	пїЅмђ¬пїЅпїЅпїЅF2018/08/14		*/
+/*	пїЅCпїЅпїЅпїЅпїЅпїЅF2018/08/25		*/
 /****************************/
 #pragma once
 #include <vector>
 
 using namespace std;
 
-namespace DETECTION
+namespace Detection
 {
 	class GrayDetection
 	{
 	private:
-		int iGrayDetectionDuration;			/*	ЉDђFЊџ’m‚МЋќ‘±ЋћЉФ	*/
-		int iWidth;							/*	ЉDђFЊџ’m‚Ми‡’l‚М•ќ	*/
-		vector<int> iaReflectLight;			/*	ЌЎ‚Ь‚Е‚М”ЅЋЛЊх		*/
-		const int iDefalutCounterValue = 0;	/*	ѓJѓEѓ“ѓ^Ѓ[‚МЏ‰Љъ’l	*/
-		unsigned int uiSampleNumber;		/*	ѓTѓ“ѓvѓ‹“_ђ”		*/
-		int iAverage = 0;					/*	•Ѕ‹П’l				*/
+		int iGrayDetectionDuration;			/*	пїЅDпїЅFпїЅпїЅпїЅmпїЅМЋпїЅпїЅпїЅпїЅпїЅпїЅпїЅ	*/
+		int iWidth;							/*	пїЅDпїЅFпїЅпїЅпїЅmпїЅпїЅи‡’lпїЅМ•пїЅ	*/
+		vector<int> iaReflectLight;			/*	пїЅпїЅпїЅЬ‚Е‚М”пїЅпїЅЛЊпїЅ		*/
+		const int iDefalutCounterValue = 0;	/*	пїЅJпїЅEпїЅпїЅпїЅ^пїЅ[пїЅМЏпїЅпїЅпїЅпїЅl	*/
+		unsigned int uiSampleNumber;		/*	пїЅTпїЅпїЅпїЅvпїЅпїЅпїЅ_пїЅпїЅ		*/
+		int iAverage = 0;					/*	пїЅпїЅпїЅП’l				*/
 
-		int CalculateAverage(void);						/*	•Ѕ‹П’l‚рЊvЋZ‚·‚й	*/
-		int Count(const int &iGrayDetectionThreshold);	/*	ѓJѓEѓ“ѓg‚·‚й		*/
+		int CalculateAverage(void);						/*	пїЅпїЅпїЅП’lпїЅпїЅпїЅvпїЅZпїЅпїЅпїЅпїЅ	*/
+		int Count(const int &iGrayDetectionThreshold);	/*	пїЅJпїЅEпїЅпїЅпїЅgпїЅпїЅпїЅпїЅ		*/
 
 	public:
-		int iCount;	/*	ѓЌѓO—p‚МѓJѓEѓ“ѓg’l	*/
+		int iCount;	/*	пїЅпїЅпїЅOпїЅpпїЅМѓJпїЅEпїЅпїЅпїЅgпїЅl	*/
 
-		GrayDetection(const int &Duration, const int &Width);											/*	ѓRѓ“ѓXѓgѓ‰ѓNѓ^	*/
-		bool DetectGrayLine(const int &Threshold, const unsigned int &SampleNumber, int &ReflectLight);	/*	ЉDђFЊџ’m(‚»‚М1)	*/
-		bool DetectGrayLine2(const int &Threshold, const int &ReflectLight);							/*	ЉDђFЊџ’m(‚»‚М2)	*/
+		GrayDetection(const int &Duration, const int &Width);											/*	пїЅRпїЅпїЅпїЅXпїЅgпїЅпїЅпїЅNпїЅ^	*/
+		bool DetectGrayLine(const int &Threshold, const unsigned int &SampleNumber, int &ReflectLight);	/*	пїЅDпїЅFпїЅпїЅпїЅm(пїЅпїЅпїЅпїЅ1)	*/
+		bool DetectGrayLine2(const int &Threshold, const int &ReflectLight);							/*	пїЅDпїЅFпїЅпїЅпїЅm(пїЅпїЅпїЅпїЅ2)	*/
 	};
 }  /* namespace DETECTION	*/
