@@ -20,7 +20,7 @@ namespace Scenario
 
          }
 
-  virtual void SectionScenarioTracer::GetRobotAttributeValue(int* RobotAttributeValue)
+void SectionScenarioTracer::GetRobotAttributeValue(int* RobotAttributeValue)
   {
     RobotAttributeValue[0] = mForward;
     RobotAttributeValue[1] = mTailAngle;

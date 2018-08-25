@@ -25,7 +25,6 @@ namespace RobotControl
 		double dbCorrectVal = 0.0;
 		int iCorrectVal = 0;
 
-		static double dbRefIntegral = 0.0;
 		double dbRefP = 0.0;
 		double dbRefI = 0.0;
 		double dbRefD = 0.0;
@@ -34,11 +33,11 @@ namespace RobotControl
 
 	  mLastDiffVal = iCurrentVal - iTargetVal; /* 現在の反射光値の取得 */
 
-	  dbRefIntegral += ((mBeforeLastDiffVal + mLastDiffVal) / 2.0) * mDeltaT; /* 積分値の取得 */
+	  mCumulativeSum += ((mBeforeLastDiffVal + mLastDiffVal) / 2.0) * mDeltaT; /* 積分値の取得 */
 
 	  dbRefP = mPparameter * mLastDiffVal; /* p制御値の取得 */
 
-	  dbRefI = mIparameter * dbRefIntegral; /* i制御値の取得 */
+	  dbRefI = mIparameter * mCumulativeSum; /* i制御値の取得 */
 
 	  dbRefD = mDparameter * ((mBeforeLastDiffVal - mLastDiffVal) / mDeltaT); /* d制御値の取得 */
 

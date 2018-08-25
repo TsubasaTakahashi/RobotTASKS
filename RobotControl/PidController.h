@@ -20,7 +20,7 @@ class PidController
 
 		int mLastDiffVal;
 		int mBeforeLastDiffVal;
-		int mCumulativeSum;
+		double mCumulativeSum;
 
 		double mPidGain; /* PID調整用のゲイン */
 		double mPidOffset; /* PID調整用のオフセット */
