@@ -20,7 +20,7 @@ namespace Hardware
 
 	int SensorManager::getBrightness()
 	{
-		return (int)mColorSensor->getBrightness();
+		return mColorSensor->getBrightness();
 	}
 
 	void SensorManager::getWheelMotorRa(int* wheelMotorRa)
@@ -31,17 +31,17 @@ namespace Hardware
 
 	int SensorManager::getTailMotorRa()
 	{
-		return (int)mTailRaSensor->getCount();
+		return mTailRaSensor->getCount();
 	}
 
 	int SensorManager::getRobotAv()
 	{
-		return (int)mGyroSensor->getAnglerVelocity();
+		return mGyroSensor->getAnglerVelocity());
 	}
 
 	int SensorManager::getBatteryVoltage()
 	{
-		return (int)mBatterySensor.getBatteryVoltage();
+		return mBatterySensor.getBatteryVoltage();
 	}
 
 }  // namespace ハード

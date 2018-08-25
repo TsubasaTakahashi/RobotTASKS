@@ -24,14 +24,14 @@ namespace Detection
 		absDiffWheelAngR = abs(mMotorAngR[1] - mMotorAngR[0]);
 
 		/* 現在の値と過去の値の差の絶対値がスレッショルド以下なら、カウンタを1増やす */
-		if(absDiffWheelAngL =< threshold) {
+		if(absDiffWheelAngL <= threshold) {
 			wheelStopCount[0]++;
 		}
 		else {
 			wheelStopCount[0] = 0;
 		}
 
-		if(absDiffWheelAngR =< threshold) {
+		if(absDiffWheelAngR <= threshold) {
 			wheelStopCount[1]++;
 		}
 		else {

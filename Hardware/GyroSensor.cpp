@@ -9,8 +9,8 @@ GyroSensor::GyroSensor(ePortS port)
 Sensor(port, GYRO_SENSOR),
 mOffset(DEFAULT_OFFSET)
 {
-	ev3_gyro_sensor_reset(getPort());
-	(void)ev3_gyro_sensor_get_rate(getPort());
+	ev3api::ev3_gyro_sensor_reset(getPort());
+	(void)ev3api::ev3_gyro_sensor_get_rate(getPort());
 }
 
 //=============================================================================
@@ -24,14 +24,14 @@ void GyroSensor::setOffset(int16_t offset)
 // Reset gyro sensor.
 void GyroSensor::reset(void)
 {
-	ev3_gyro_sensor_reset(getPort());
+	ev3api::ev3_gyro_sensor_reset(getPort());
 }
 
 //=============================================================================
 // get anguler velocity [deg/sec]
 int16_t GyroSensor::getAnglerVelocity(void) const
 {
-	return ev3_gyro_sensor_get_rate(getPort()) - mOffset;
+	return ev3api::ev3_gyro_sensor_get_rate(getPort()) - mOffset;
 }
 
 }  // namespace ハード

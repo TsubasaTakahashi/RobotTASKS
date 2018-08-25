@@ -22,9 +22,9 @@ class SensorManager
 		~SensorManager(void);
 
 	private:
-		ColorSensor* mColorSensor;
+		ColorSensor& mColorSensor;
 		GyroSensor& mGyroSensor;
-		BatterySensor& mBatterySensor;
+		BatterySensor* mBatterySensor;
 
 		MotorRaSensor& mLWheelRaSensor;
 		MotorRaSensor& mRWheelRaSensor;
