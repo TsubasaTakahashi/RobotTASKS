@@ -28,7 +28,7 @@ class DetectionManager
 	public:
 		bool GrayDetect(int threshold);
 
-		bool StepDetect(bool* detection, int threshold);
+		void StepDetect(bool* detection, int threshold);
 
 		bool DistanceDetect(int threshold);
 

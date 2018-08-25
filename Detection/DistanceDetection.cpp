@@ -14,9 +14,9 @@ namespace Detection
 		double dbDistance = 0.0;
 
 		avWheelMotorRa = ((lWheelMotorRa - mLWheelMotorRaOffset) + (rWheelMotorRa - mRWheelMotorRaOffset)) / 2;
-		dbDistance = (double)mTireRadius * (int)avWheelMotorRa * M_PI / 180.0;
+		dbDistance = (double)mTireRadius * (double)avWheelMotorRa * M_PI / 180.0;
 
-		return (int)avWheelMotorRa;
+		return (int)dbDistance;
 	}
 
 	void DistanceDetection::SetStartWheelCount(int lWheelMotorRa, int rWheelMotorRa)

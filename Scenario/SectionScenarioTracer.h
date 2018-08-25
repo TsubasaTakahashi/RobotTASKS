@@ -1,5 +1,5 @@
-#ifndef Scenario_SectionSenarioTracer_H
-#define Scenario_SectionSenarioTracer_H
+#ifndef Scenario_SectionScenarioTracer_H
+#define Scenario_SectionScenarioTracer_H
 
 #include "SectionInfo.h"
 
@@ -8,7 +8,7 @@ namespace Scenario
   class SectionScenarioTracer : public SectionInfo
   {
   public:                          //コンストラクタ
-    explicit SectionSenarioTracer
+    explicit SectionScenarioTracer
     (
       int Forward,             //フォワード値＿引数
       int TailAngle,           //尻尾の角度＿引数

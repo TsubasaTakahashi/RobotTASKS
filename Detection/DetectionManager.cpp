@@ -28,7 +28,7 @@ namespace Detection
 		return detection;
 	}
 
-	bool DetectionManager::StepDetect(bool* detection, int threshold)
+	void DetectionManager::StepDetect(bool* detection, int threshold)
 	{
 		int* wheelMotorRa;
 
@@ -49,7 +49,7 @@ namespace Detection
 		bool detection = false;
 
 		wheelMotorRa = (int* )malloc(sizeof(int)*2);
-		mSensorManager->getWheelMotorRa(int* wheelMotorRa);
+		mSensorManager->getWheelMotorRa(wheelMotorRa);
 
 		int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
     int rightWheelEnc  = wheelMotorRa[1]; // 右モータ回転角度
