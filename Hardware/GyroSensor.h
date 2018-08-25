@@ -2,7 +2,8 @@
 #define Hardware_GyroSensor_H
 
 #include "ev3api.h"
-//using namespace ev3api;
+#include "Sensor.h"
+using namespace ev3api;
 
 namespace Hardware
 {

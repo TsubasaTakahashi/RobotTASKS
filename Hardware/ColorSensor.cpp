@@ -8,7 +8,7 @@ namespace Hardware
 ColorSensor::ColorSensor(ePortS port)
 :Sensor(port, COLOR_SENSOR)
 {
-    (void)ev3api::ev3_color_sensor_get_reflect(getPort());
+    (void)ev3_color_sensor_get_reflect(getPort());
 }
 
 //=============================================================================
@@ -23,14 +23,14 @@ ColorSensor::~ColorSensor(void)
 // Get ambient value in the ambient sensor modes.
 uint8_t ColorSensor::getAmbient() const
 {
-    return ev3api::ev3_color_sensor_get_ambient(getPort());
+    return ev3_color_sensor_get_ambient(getPort());
 }
 
 //=============================================================================
 // Get brightness in the light sensor modes.
 int8_t ColorSensor::getBrightness(void) const
 {
-    return ev3api::ev3_color_sensor_get_reflect(getPort());
+    return ev3_color_sensor_get_reflect(getPort());
 }
 
 }  // namespace ハード

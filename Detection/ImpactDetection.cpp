@@ -1,4 +1,4 @@
-#include "ImpactDetecton.h"
+#include "ImpactDetection.h"
 
 namespace Detection
 {
@@ -8,6 +8,7 @@ namespace Detection
 									{
 										mRobotAv = (int*)malloc(sizeof(int) * timeWidth);
 									}
+									
 	~ImpactDetection(void)
 	{
 		free(mRobotAv);
