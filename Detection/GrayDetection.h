@@ -1,31 +1,34 @@
-/************************************/
-/*	æ¦‚è¦ï¼šç°è‰²æ¤œçŸ¥ã‚¯ãƒ©ã‚¹ã®ãƒ˜ãƒƒãƒ€	*/
-/*	ä½œæˆè€…ï¼šå³¶å·					*/
-/*	ä½œæˆæ—¥ï¼š2018/08/14				*/
-/*	ä¿®æ­£æ—¥ï¼š2018/08/16				*/
-/************************************/
+/****************************/
+/*	ŠT—vFŠDFŒŸ’mƒNƒ‰ƒX	*/
+/*	ì¬ÒF“‡ì			*/
+/*	ì¬“úF2018/08/14		*/
+/*	C³“úF2018/08/25		*/
+/****************************/
 #pragma once
 #include <vector>
 
 using namespace std;
 
-namespace Detection
+namespace DETECTION
 {
 	class GrayDetection
 	{
-		private:
-			vector<int> iaReflectLight;				/*	ä»Šã¾ã§ã®åå°„å…‰		*/
-			const unsigned int iSampleNumber = 25;	/*	ã‚µãƒ³ãƒ—ãƒ«ç‚¹æ•°		*/
-			const int iGrayDetectionDuration = 200;	/*	ç°è‰²æ¤œçŸ¥ã®æŒç¶šæ™‚é–“	*/
-			const int iWidth = 15;					/*	ç°è‰²æ¤œçŸ¥ã®é–¾å€¤ã®å¹…	*/
-			int iAverage = 0;						/*	å¹³å‡å€¤				*/
-			const int iDefalutCounterValue = 0;		/*	ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®åˆæœŸå€¤	*/
+	private:
+		int iGrayDetectionDuration;			/*	ŠDFŒŸ’m‚Ì‘±ŠÔ	*/
+		int iWidth;							/*	ŠDFŒŸ’m‚Ìè‡’l‚Ì•	*/
+		vector<int> iaReflectLight;			/*	¡‚Ü‚Å‚Ì”½ËŒõ		*/
+		const int iDefalutCounterValue = 0;	/*	ƒJƒEƒ“ƒ^[‚Ì‰Šú’l	*/
+		unsigned int uiSampleNumber;		/*	ƒTƒ“ƒvƒ‹“_”		*/
+		int iAverage = 0;					/*	•½‹Ï’l				*/
 
-			int CalculateAverage(void);							/*	å¹³å‡å€¤ã‚’è¨ˆç®—ã™ã‚‹	*/
-			int Count(const int &iGrayDetectionThreshold);		/*	ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹		*/
+		int CalculateAverage(void);						/*	•½‹Ï’l‚ğŒvZ‚·‚é	*/
+		int Count(const int &iGrayDetectionThreshold);	/*	ƒJƒEƒ“ƒg‚·‚é		*/
 
-		public:
-			bool Detect(const int &iGrayDetectionThreshold, int &iReflectLight);	/*	ç°è‰²æ¤œçŸ¥(ãã®1)	*/
-			bool Detect2(const int &iGrayDetectionThreshold, int &iReflectLight);	/*	ç°è‰²æ¤œçŸ¥(ãã®2)	*/
+	public:
+		int iCount;	/*	ƒƒO—p‚ÌƒJƒEƒ“ƒg’l	*/
+
+		GrayDetection(const int &Duration, const int &Width);											/*	ƒRƒ“ƒXƒgƒ‰ƒNƒ^	*/
+		bool DetectGrayLine(const int &Threshold, const unsigned int &SampleNumber, int &ReflectLight);	/*	ŠDFŒŸ’m(‚»‚Ì1)	*/
+		bool DetectGrayLine2(const int &Threshold, const int &ReflectLight);							/*	ŠDFŒŸ’m(‚»‚Ì2)	*/
 	};
 }  /* namespace DETECTION	*/
