@@ -15,8 +15,8 @@ APPL_CXXOBJS += \
 	MotorRaSensor.o \
 	Motor.o \
 	PidController.o\
-	PwmVoltageCorr.o\
-	LineTraceController.o\
+	PwmVoltageCorrection.o\
+	LineTracerController.o\
 	BalanceController.o\
 	TailContoroller.o\
 	RobotController.o\

@@ -1,7 +1,5 @@
 #include "MotorRaSensor.h"
 
-using namespace ev3api;
-
 namespace Hardware
 {
 // Constructor

@@ -18,7 +18,7 @@ class SectionInfo               //Japanese -> English
 	virtual ~SectionInfo(void);   //デストラクタ
 
 	//メンバ変数宣言
-	private:
+	protected:
 		int mForward;              //フォワード値
 		int mTailAngle;            //尻尾の角度
 		int mBalance;              //姿勢

@@ -1,15 +1,15 @@
-#include "PwmVoltageCorr.h"
+#include "PwmVoltageCorrection.h"
 
 namespace RobotControl
 {
-  PwmVoltageCorr::PwmVoltageCorr(int refVoltage,
-                Hardware::SensorManager sensorManager)
+  PwmVoltageCorrection::PwmVoltageCorrection(int refVoltage,
+                Hardware::SensorManager* sensorManager)
         :mRefVoltage(refVoltage),
         mSensorManager(sensorManager){
 
         }
 
-  int PwmVoltageCorr::PwmVolCorr(int nCorrPWM)
+  int PwmVoltageCorrection::PwmVoltageCorrect(int nCorrPWM)
   {
     int motorVoltage = 0;
     double corrPwm = 0;

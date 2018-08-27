@@ -5,13 +5,13 @@
 
 namespace RobotControl
 {
-class PwmVolCorr
+class PwmVoltageCorrection
 {
 	public:
-		explicit PwmVolCorr(int refVoltage,
+		explicit PwmVoltageCorrection(int refVoltage,
 												Hardware::SensorManager* sensorManager);
 
-		~PwmVolCorr(void);
+		~PwmVoltageCorrection(void);
 
 	private:
 		int mRefVoltage;
@@ -19,7 +19,7 @@ class PwmVolCorr
 		Hardware::SensorManager* mSensorManager;
 
 	public:
-		void PwmVolCorr(int nCorrPWM);
+		int PwmVoltageCorrect(int nCorrPWM);
 
 };
 
