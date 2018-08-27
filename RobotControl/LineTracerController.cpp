@@ -2,7 +2,7 @@
 
 namespace RobotControl
 {
-	LineTracerController::LineTracerController(PidController* pidCtrl
+	LineTracerController::LineTracerController(PidController* pidCtrl,
 								Hardware::SensorManager* sensorManager)
 							:mLineTracerPidCtrl(pidCtrl),
 							mSensorManager(sensorManager){

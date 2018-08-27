@@ -3,6 +3,7 @@
 
 #include "SensorManager.h" //"ハード/センサ管理.h"
 #include "BalancerCpp.h"
+#include <stdlib.h>
 
 namespace RobotControl
 {

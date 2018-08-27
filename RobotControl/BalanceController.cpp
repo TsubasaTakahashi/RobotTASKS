@@ -12,7 +12,7 @@ namespace RobotControl
 
 		}
 
-	int BalanceController::GetWheelPwm(int* wheelPwm)
+	void BalanceController::GetWheelPwm(int* wheelPwm)
 	{
 		int bufWheelPwm[2];
 		bufWheelPwm[0] = mLeftWheelPwm;
@@ -24,23 +24,23 @@ namespace RobotControl
 	void BalanceController::CalcWheelPwm(int forward, int turn)
 	{
 		int* wheelMotorRa;
-		int angle = mSensorManager.getRobotAv();  // ジャイロセンサ値
+		int angle = mSensorManager->getRobotAv();  // ジャイロセンサ値
 
 		wheelMotorRa = (int* )malloc(sizeof(int)*2);
-		mSensorManager.getWheelMotorRa(int* wheelMotorRa);
+		mSensorManager->getWheelMotorRa(wheelMotorRa);
 
-    int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
-    int rightWheelEnc = wheelMotorRa[1]; // 右モータ回転角度
+		int leftWheelEnc = wheelMotorRa[0]; // 左モータ回転角度
+		int rightWheelEnc = wheelMotorRa[1]; // 右モータ回転角度
 
-    mBalancer -> setCommand(mForward, mTurn);
+		mBalancer -> setCommand(forward, turn);
 
-    int battery = mSensorManager.getBatteryVoltage();
+		int battery = mSensorManager->getBatteryVoltage();
 
-    mBalancer -> update(angle, rightWheelEnc, leftWheelEnc, battery);
+		mBalancer -> update(angle, rightWheelEnc, leftWheelEnc, battery);
 
-    // 左右モータのPWM値を算出する
-  	mLeftWheelPwm = (mBalancer->getPwmLeft());
-  	mRightWheelPwm = (mBalancer->getPwmRight());
+		// 左右モータのPWM値を算出する
+		mLeftWheelPwm = (mBalancer->getPwmLeft());
+		mRightWheelPwm = (mBalancer->getPwmRight());
 
 		free(wheelMotorRa);
 	}

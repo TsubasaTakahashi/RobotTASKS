@@ -9,7 +9,7 @@ namespace RobotControl
 class LineTracerController
 {
 	public:
-		explicit LineTracerController(PidController* pidCtrl
+		explicit LineTracerController(PidController* pidCtrl,
 														Hardware::SensorManager* sensorManager);
 
 	private:
