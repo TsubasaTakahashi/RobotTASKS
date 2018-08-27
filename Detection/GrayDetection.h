@@ -26,7 +26,7 @@ namespace Detection
 
 	public:
 		GrayDetection(const int &Duration, const int &Width);											/*	コンストラクタ	*/
-		bool Detect(const int &Threshold, const unsigned int &SampleNumber, const int &ReflectLight);	/*	検知する(その1)	*/
-		bool Detect2(const int &Threshold, const int &ReflectLight);									/*	検知する(その2)	*/
+		bool Detect2(const int &Threshold, const unsigned int &SampleNumber, const int &ReflectLight);	/*	検知する(その1)	*/
+		bool Detect(const int &Threshold, const int &ReflectLight);									/*	検知する(その2)	*/
 	};
 }  /* namespace DETECTION	*/

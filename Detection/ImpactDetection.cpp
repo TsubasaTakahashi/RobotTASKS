@@ -4,7 +4,6 @@
 /*	作成日：2018/08/25		*/
 /*	修正日：2018/08/25		*/
 /****************************/
-#pragma once
 #include "ImpactDetection.h"
 
 namespace Detection

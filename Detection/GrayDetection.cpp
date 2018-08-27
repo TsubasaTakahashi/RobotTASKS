@@ -4,7 +4,6 @@
 /*	作成日：2018/08/14		*/
 /*	修正日：2018/08/25		*/
 /****************************/
-#pragma once
 #include "GrayDetection.h"
 
 namespace Detection
@@ -66,7 +65,7 @@ namespace Detection
 	/*		Threshold：灰色検知の閾値									*/
 	/*		ReflectLight：取得した反射光								*/
 	/********************************************************************/
-	bool GrayDetection::Detect(const int &Threshold, const unsigned int &SampleNumber, const int &ReflectLight)
+	bool GrayDetection::Detect2(const int &Threshold, const unsigned int &SampleNumber, const int &ReflectLight)
 	{
 		uiSampleNumber = SampleNumber;
 
@@ -101,7 +100,7 @@ namespace Detection
 	/*		Threshold：灰色検知の閾値							*/
 	/*		ReflectLight：取得した反射光						*/
 	/************************************************************/
-	bool GrayDetection::Detect2(const int &Threshold, const int &ReflectLight)
+	bool GrayDetection::Detect(const int &Threshold, const int &ReflectLight)
 	{
 		static int iCounter = iDefalutCounterValue;
 

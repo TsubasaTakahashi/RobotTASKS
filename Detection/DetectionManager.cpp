@@ -66,7 +66,7 @@ namespace Detection
 		int robotAv = 0;
 
 		robotAv = mSensorManager->getRobotAv();
-		detection = mImpactDetection->Detect(threshold, robotAv);
+		detection = mImpactDetection->Detect(threshold, 100, robotAv);
 
 		return detection;
 	}

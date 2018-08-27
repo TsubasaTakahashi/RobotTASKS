@@ -1,3 +1,5 @@
+#pragma once
+
 #include "app.h"
 #include "SectionManager.h"
 #include "RobotController.h"
