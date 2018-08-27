@@ -1,5 +1,3 @@
-#pragma once
-
 #include "app.h"
 #include "SectionManager.h"
 #include "RobotController.h"
@@ -69,9 +67,9 @@
 void *__dso_handle = 0;
 
 // using宣言
-using Hardware::ColorSensor;
-using Hardware::GyroSensor;
-using Hardware::Motor;
+using Hardware::ColorSensorTASKS;
+using Hardware::GyroSensorTASKS;
+using Hardware::MotorTASKS;
 using Hardware::MotorRaSensor;
 using Hardware::BatterySensor;
 using Scenario::SectionLineTracer;
@@ -101,11 +99,11 @@ static RobotControl::TailController      *gTailCtrl; //尻尾制御
 // オブジェクトの定義:ハードウェアパッケージ
 static Hardware::SensorManager            *gSensorManager; //センサ管理
 static Hardware::BatterySensor            *gBatterySensor; //バッテリセンサ
-ColorSensor   gColorSensor(PORT_3); //カラーセンサ
-GyroSensor    gGyroSensor(PORT_4); //
-Motor         gLeftWheel(PORT_C);
-Motor         gRightWheel(PORT_B);
-Motor         gTailMotor(PORT_A);
+ColorSensorTASKS   gColorSensorTASKS(PORT_3); //カラーセンサ
+GyroSensorTASKS    gGyroSensorTASKS(PORT_4); //
+MotorTASKS         gLeftWheel(PORT_C);
+MotorTASKS         gRightWheel(PORT_B);
+MotorTASKS         gTailMotor(PORT_A);
 MotorRaSensor gLWheelRaSensor(PORT_C);
 MotorRaSensor gRWheelRaSensor(PORT_B);
 MotorRaSensor gTailRaSensor(PORT_A);
@@ -168,8 +166,8 @@ static void user_system_create() {
     // オブジェクトの作成
     gBatterySensor = new Hardware::BatterySensor();
     gSensorManager = new Hardware::SensorManager(gBatterySensor,
-                                                 gColorSensor,
-                                                 gGyroSensor,
+                                                 gColorSensorTASKS,
+                                                 gGyroSensorTASKS,
                                                  gLWheelRaSensor,
                                                  gRWheelRaSensor,
                                                  gTailRaSensor);

@@ -18,15 +18,13 @@ namespace Scenario
       int mTurnValue               //ターン値
     );
 
-  virtual ~SectionScenarioTracer(void);    //デストラクタ
-
   //メンバ変数宣言
   private:
     int mTurnValue;              //ターン値
 
   //メンバ関数宣言
  public:
-   virtual void GetRobotAttributeValue(int* RobotAttributeValue);     //走行の属性値を取得する
+   void GetRobotAttributeValue(int* RobotAttributeValue);     //走行の属性値を取得する
  };
 }
 #endif

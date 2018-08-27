@@ -1,5 +1,5 @@
-#ifndef Hardware_ColorSensor_H
-#define Hardware_ColorSensor_H
+#ifndef Hardware_ColorSensorTASKS_H
+#define Hardware_ColorSensorTASKS_H
 
 #include "ev3api.h"
 #include "Sensor.h"
@@ -7,7 +7,7 @@ using namespace ev3api;
 
 namespace Hardware
 {
-class ColorSensor: public Sensor
+class ColorSensorTASKS: public Sensor
 {
 	public:
 		/**
@@ -15,14 +15,14 @@ class ColorSensor: public Sensor
 		* @param port カラーセンサポート番号
 		* @return -
 		*/
-		explicit ColorSensor(ePortS port);
+		explicit ColorSensorTASKS(ePortS port);
 
 		/**
 		* デストラクタ
 		* @param -
 		* @return -
 		*/
-		virtual ~ColorSensor(void);
+		~ColorSensorTASKS(void);
 
 		/**
 		* 環境光の強さを測定する

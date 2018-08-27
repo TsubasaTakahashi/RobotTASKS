@@ -11,8 +11,6 @@ class PwmVoltageCorrection
 		explicit PwmVoltageCorrection(int refVoltage,
 												Hardware::SensorManager* sensorManager);
 
-		~PwmVoltageCorrection(void);
-
 	private:
 		int mRefVoltage;
 

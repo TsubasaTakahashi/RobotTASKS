@@ -9,11 +9,11 @@ APPL_CXXOBJS += \
 	ImpactDetection.o \
 	StepDetection.o \
 	SensorManager.o \
-	ColorSensor.o \
-	GyroSensor.o \
+	ColorSensorTASKS.o \
+	GyroSensorTASKS.o \
 	BatterySensor.o\
 	MotorRaSensor.o \
-	Motor.o \
+	MotorTASKS.o \
 	PidController.o\
 	PwmVoltageCorrection.o\
 	LineTracerController.o\
@@ -32,8 +32,8 @@ ifdef CONFIG_EV3RT_APPLICATION
 
 # Include libraries
 #今回は既存のハードウェアクラスを用いないためコメントアウト
-#include $(EV3RT_SDK_LIB_DIR)/libcpp-ev3/Makefile
-include $(EV3RT_SDK_LIB_DIR)/../Makefile.slib
+include $(EV3RT_SDK_LIB_DIR)/libcpp-ev3/Makefile
+#include $(EV3RT_SDK_LIB_DIR)/../Makefile.slib
 
 endif
 

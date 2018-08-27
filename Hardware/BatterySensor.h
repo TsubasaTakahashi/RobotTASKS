@@ -10,8 +10,6 @@ class BatterySensor
 	public:
 		explicit BatterySensor(void);
 
-		~BatterySensor(void);
-
 		int getBatteryVoltage();
 
 };

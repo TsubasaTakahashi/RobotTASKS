@@ -1,6 +1,6 @@
 センサ管理->SensorManager
-カラーセンサ->ColorSensor
-ジャイロセンサ->GyroSensor
+カラーセンサ->ColorSensorTASKS
+ジャイロセンサ->GyroSensorTASKS
 バッテリセンサ->BatterySensor
 モータ回転角度(Rotation Angle)センサ->MotorRaSensor
 モータ->Motor

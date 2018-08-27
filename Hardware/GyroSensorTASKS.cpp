@@ -1,10 +1,10 @@
-#include "GyroSensor.h"
+#include "GyroSensorTASKS.h"
 
 namespace Hardware
 {
 //=============================================================================
 // Constructor
-GyroSensor::GyroSensor(ePortS port)
+GyroSensorTASKS::GyroSensorTASKS(ePortS port)
 :
 Sensor(port, GYRO_SENSOR),
 mOffset(DEFAULT_OFFSET)
@@ -15,21 +15,21 @@ mOffset(DEFAULT_OFFSET)
 
 //=============================================================================
 // set sensor offset data at 0 [deg/sec]
-void GyroSensor::setOffset(int16_t offset)
+void GyroSensorTASKS::setOffset(int16_t offset)
 {
 	mOffset = offset;
 }
 
 //=============================================================================
 // Reset gyro sensor.
-void GyroSensor::reset(void)
+void GyroSensorTASKS::reset(void)
 {
 	ev3_gyro_sensor_reset(getPort());
 }
 
 //=============================================================================
 // get anguler velocity [deg/sec]
-int16_t GyroSensor::getAnglerVelocity(void) const
+int16_t GyroSensorTASKS::getAnglerVelocity(void) const
 {
 	return ev3_gyro_sensor_get_rate(getPort()) - mOffset;
 }

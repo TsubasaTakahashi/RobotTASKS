@@ -1,21 +1,21 @@
-#ifndef Hardware_Motor_H
-#define Hardware_Motor_H
+#ifndef Hardware_MotorTASKS_H
+#define Hardware_MotorTASKS_H
 
 #include "Port.h"
 #include "ev3api.h"
 
 namespace Hardware
 {
-class Motor
+class MotorTASKS
 {
 
 	public:
 		static const int PWM_MAX = 100;
 		static const int PWM_MIN = 100;
 
-		explicit Motor(ePortM port, bool brake = true, motor_type_t type = LARGE_MOTOR);
+		explicit MotorTASKS(ePortM port, bool brake = true, motor_type_t type = LARGE_MOTOR);
 
-		~Motor(void);
+		~MotorTASKS(void);
 
 		/**
 		* モータリセット<br>

@@ -1,9 +1,9 @@
 #ifndef Hardware_SensorManager_H
 #define Hardware_SensorManager_H
 
-#include "Motor.h"	//"ハード/モータ.h"
-#include "ColorSensor.h" //"ハード/カラーセンサ.h"
-#include "GyroSensor.h" //#include "ハード/ジャイロセンサ.h"
+#include "MotorTASKS.h"	//"ハード/モータ.h"
+#include "ColorSensorTASKS.h" //"ハード/カラーセンサ.h"
+#include "GyroSensorTASKS.h" //#include "ハード/ジャイロセンサ.h"
 #include "BatterySensor.h" //"ハード/バッテリセンサ.h"
 #include "MotorRaSensor.h" //"ハード/モータ回転角度センサ.h"
 
@@ -13,19 +13,17 @@ class SensorManager
 {
 	public:
 		explicit SensorManager(BatterySensor* batterySensor,
-                           ColorSensor&   colorSensor,
-                           GyroSensor&    gyroSensor,
+                           ColorSensorTASKS&   colorSensor,
+                           GyroSensorTASKS&    gyroSensor,
                            MotorRaSensor& lWheelRaSensor,
                            MotorRaSensor& rWheelRaSensor,
                            MotorRaSensor& tailRaSensor);
 
-		~SensorManager(void);
-
 	private:
 		BatterySensor* mBatterySensor;
-		ColorSensor& mColorSensor;
-		GyroSensor& mGyroSensor;
-		
+		ColorSensorTASKS& mColorSensorTASKS;
+		GyroSensorTASKS& mGyroSensorTASKS;
+
 		MotorRaSensor& mLWheelRaSensor;
 		MotorRaSensor& mRWheelRaSensor;
 		MotorRaSensor& mTailRaSensor;

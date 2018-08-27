@@ -6,9 +6,9 @@ namespace RobotControl
                           LineTracerController* lineTrCtrl,
                           TailController* tailCtrl,
                           PwmVoltageCorrection* pwmVolCorr,
-                          Hardware::Motor& leftWheel,
-                          Hardware::Motor& rightWheel,
-                          Hardware::Motor& tailMotor)
+                          Hardware::MotorTASKS& leftWheel,
+                          Hardware::MotorTASKS& rightWheel,
+                          Hardware::MotorTASKS& tailMotor)
                           :mBalanceCtrl(balanceCtrl),
                           mLineTrCtrl(lineTrCtrl),
                           mTailCtrl(tailCtrl),

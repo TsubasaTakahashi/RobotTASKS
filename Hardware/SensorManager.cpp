@@ -4,14 +4,14 @@ namespace Hardware
 {
 
 	SensorManager::SensorManager(BatterySensor* batterySensor,
-								ColorSensor&  colorSensor,
-								GyroSensor& gyroSensor,
+								ColorSensorTASKS&  colorSensor,
+								GyroSensorTASKS& gyroSensor,
 								MotorRaSensor& lWheelRaSensor,
 								MotorRaSensor& rWheelRaSensor,
 								MotorRaSensor& tailRaSensor)
 				:mBatterySensor(batterySensor),
-				 mColorSensor(colorSensor),
-				 mGyroSensor(gyroSensor),
+				 mColorSensorTASKS(colorSensor),
+				 mGyroSensorTASKS(gyroSensor),
 				 mLWheelRaSensor(lWheelRaSensor),
 				 mRWheelRaSensor(rWheelRaSensor),
 				 mTailRaSensor(tailRaSensor) {
@@ -20,7 +20,7 @@ namespace Hardware
 
 	int SensorManager::getBrightness()
 	{
-		return mColorSensor.getBrightness();
+		return mColorSensorTASKS.getBrightness();
 	}
 
 	void SensorManager::getWheelMotorRa(int* wheelMotorRa)
@@ -36,7 +36,7 @@ namespace Hardware
 
 	int SensorManager::getRobotAv()
 	{
-		return mGyroSensor.getAnglerVelocity();
+		return mGyroSensorTASKS.getAnglerVelocity();
 	}
 
 	int SensorManager::getBatteryVoltage()

@@ -1,10 +1,10 @@
-#include "Motor.h"
+#include "MotorTASKS.h"
 
 namespace Hardware
 {
 
 // Constructor
-Motor::Motor(ePortM port, bool brake, motor_type_t type)
+MotorTASKS::MotorTASKS(ePortM port, bool brake, motor_type_t type)
 :mPort(static_cast<motor_port_t>(port)),
  mBrake(brake),
  mPWM(0),
@@ -14,12 +14,12 @@ Motor::Motor(ePortM port, bool brake, motor_type_t type)
 }
 
 // Destructor
-Motor::~Motor(void)
+MotorTASKS::~MotorTASKS(void)
 {
     ev3_motor_stop(mPort, true); // set brake to stop the motor immidiately
 }
 
-void Motor::setPWM(int pwm)
+void MotorTASKS::setPWM(int pwm)
 {
     mPWM = (pwm>PWM_MAX)? PWM_MAX:((pwm<PWM_MIN)? PWM_MIN:pwm);
 
@@ -33,7 +33,7 @@ void Motor::setPWM(int pwm)
     }
 }
 
-void Motor::setBrake(bool brake)
+void MotorTASKS::setBrake(bool brake)
 {
     mBrake = brake;
     setPWM(mPWM);

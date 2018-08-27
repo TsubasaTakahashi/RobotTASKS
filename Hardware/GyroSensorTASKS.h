@@ -1,5 +1,5 @@
-#ifndef Hardware_GyroSensor_H
-#define Hardware_GyroSensor_H
+#ifndef Hardware_GyroSensorTASKS_H
+#define Hardware_GyroSensorTASKS_H
 
 #include "ev3api.h"
 #include "Sensor.h"
@@ -7,7 +7,7 @@ using namespace ev3api;
 
 namespace Hardware
 {
-class GyroSensor: public Sensor
+class GyroSensorTASKS: public Sensor
 {
 	public:
 		/**
@@ -21,7 +21,7 @@ class GyroSensor: public Sensor
 		* @param port ジャイロセンサ接続ポート
 		* @return -
 		*/
-		explicit GyroSensor(ePortS port);
+		explicit GyroSensorTASKS(ePortS port);
 
 		/**
 		* 角速度に対するオフセットを設定する<br>

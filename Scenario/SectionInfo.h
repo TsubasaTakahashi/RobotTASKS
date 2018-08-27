@@ -15,8 +15,6 @@ class SectionInfo               //Japanese -> English
 	 	 	 int SensorThreshold      //検査の閾値＿引数
 		 );
 
-	virtual ~SectionInfo(void);   //デストラクタ
-
 	//メンバ変数宣言
 	protected:
 		int mForward;              //フォワード値
