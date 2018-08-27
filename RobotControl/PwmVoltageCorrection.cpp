@@ -14,7 +14,7 @@ namespace RobotControl
     int motorVoltage = 0;
     double corrPwm = 0;
 
-    motorVoltage = mSensorManager.getBatteryVoltage();
+    motorVoltage = mSensorManager->getBatteryVoltage();
 
     corrPwm = (double)nCorrPWM * (double)mRefVoltage / (double)motorVoltage;
 

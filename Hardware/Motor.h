@@ -54,8 +54,8 @@ class Motor
 private:
   motor_port_t mPort;
   bool mBrake;
+	int mPWM;
   motor_type_t mType;
-  int mPWM;
   //int32_t mOffset;
 
 };
