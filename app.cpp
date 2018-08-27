@@ -26,8 +26,8 @@
 #define PWM_REF_VOLTAGE 300 //mv
 
 //検知用パラメータ
-#define IMP_DET_T_THRESHOLD = 15; //衝撃検知　持続時間
-#define IMP_DET_T_WIDTH = 30;
+#define IMP_DET_T_THRESHOLD 15 //衝撃検知　持続時間
+#define IMP_DET_T_WIDTH 30
 
 //検知の対応
 #define DISTANCE_DET 0
@@ -75,7 +75,7 @@ using Hardware::Motor;
 using Hardware::MotorRaSensor;
 using Hardware::BatterySensor;
 using Scenario::SectionLineTracer;
-using Scenario::SectionSenarioTracer;
+using Scenario::SectionScenarioTracer;
 using Scenario::SectionInfo;
 
 //using ev3api::TouchSensor;
@@ -93,10 +93,10 @@ static RobotControl::LineTracerController *gLineTrCtrl; //ライントレース�
 static RobotControl::PidController        *gPidLine; //ライントレース用PID制御
 static RobotControl::PidController        *gPidTail; //尻尾制御用PID制御
 
-static RobotControl::PwmVoltageCorr       *gPwmVolCorr; //PWM 電圧補正
+static RobotControl::PwmVoltageCorrection       *gPwmVolCorr; //PWM 電圧補正
 
 static RobotControl::RobotController      *gRobotCtrl; //走行体制御
-static RobotControl::TailContoroller      *gTailCtrl; //尻尾制御
+static RobotControl::TailController      *gTailCtrl; //尻尾制御
 
 // オブジェクトの定義:ハードウェアパッケージ
 static Hardware::SensorManager            *gSensorManager; //センサ管理
@@ -125,7 +125,7 @@ static Balancer        *gBalancer;
 
 //区間例
 static SectionLineTracer    gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, IMPACT_DET, IMPACT_DET_THRESHOLD, TARGET_VAL_LINETRACE); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
-static SectionSenarioTracer gSection_2(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
+static SectionScenarioTracer gSection_2(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
 ///区間の数だけオブジェクトを生成する
 
 //ここに区間を格納する
@@ -152,7 +152,8 @@ static int gPwmRefVoltage = PWM_REF_VOLTAGE;
 //Detection
 static int gImpactDetTimeThreshold = IMP_DET_T_THRESHOLD;
 static int gImpactDetTimeWidth = IMP_DET_T_WIDTH;
-
+static int gDuration = 20;
+static int gWidth = 0;
 //
 static int gActDuration = 15; //段差検知
 static int gTireRadius = TIRE_RADIUS;
@@ -174,16 +175,16 @@ static void user_system_create() {
                                                  gTailRaSensor);
 
     gDistDet       = new Detection::DistanceDetection(gTireRadius);
-    gGrayDet       = new Detection::GrayDetection();
+    gGrayDet       = new Detection::GrayDetection(gDuration,gWidth);
     gImpactDet     = new Detection::ImpactDetection(gImpactDetTimeThreshold, gImpactDetTimeWidth);
     gStepDet       = new Detection::StepDetection(gActDuration);
     gDetManager    = new Detection::DetectionManager(gSensorManager,
                                                      gDistDet,
                                                      gGrayDet,
-                                                     gImpactDet,
-                                                     gStepDet);
+                                                     gStepDet,
+                                                     gImpactDet);
 
-   gPwmVolCorr = new RobotControl::PwmVoltageCorr(gPwmRefVoltage,
+   gPwmVolCorr = new RobotControl::PwmVoltageCorrection(gPwmRefVoltage,
                                                   gSensorManager);
 
    gPidLine = new RobotControl::PidController(gLtPParameter,
@@ -201,9 +202,9 @@ static void user_system_create() {
 
    gBalanceCtrl = new RobotControl::BalanceController(gSensorManager, gBalancer); //姿勢制御
    gLineTrCtrl = new RobotControl::LineTracerController(gPidLine, gSensorManager); //ライントレース制御
-   gTailCtrl  = new RobotControl::TailContoroller(gPidTail, gSensorManager); //尻尾制御
+   gTailCtrl  = new RobotControl::TailController(gPidTail, gSensorManager); //尻尾制御
 
-   gRobotCtrl = new RobotControl::RobotController(gBalanceCtrl, gLineTrCtrl, gTailCtrl
+   gRobotCtrl = new RobotControl::RobotController(gBalanceCtrl, gLineTrCtrl, gTailCtrl,
                                                   gPwmVolCorr,
                                                   gLeftWheel,
                                                   gRightWheel,
@@ -212,8 +213,8 @@ static void user_system_create() {
 
     gSectManager = new Scenario::SectionManager(gSection,
                                               //(int)ARRAY_LENGTH(gSection),
-                                              gDetManager,
-                                              gRobotCtrl);
+                                              gRobotCtrl,
+                                              gDetManager);
 
     // シナリオを構築する
     //for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {

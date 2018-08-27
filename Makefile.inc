@@ -18,12 +18,12 @@ APPL_CXXOBJS += \
 	PwmVoltageCorrection.o\
 	LineTracerController.o\
 	BalanceController.o\
-	TailContoroller.o\
+	TailController.o\
 	RobotController.o\
 	SectionManager.o\
 	SectionInfo.o\
 	SectionLineTracer.o\
-	SectionSenarioTracer.o\
+	SectionScenarioTracer.o\
 	BalancerCpp.o
 
 SRCLANG := c++

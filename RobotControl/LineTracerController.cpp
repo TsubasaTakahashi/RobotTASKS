@@ -15,7 +15,7 @@ namespace RobotControl
 		int currentBrightness = 0;
 
 		currentBrightness = mSensorManager->getBrightness();
-		turnVal = mTailPidCtrl->CalcControlVal(currentBrightness, brightnessThreshold);
+		turnVal = mLineTracerPidCtrl->CalcControlVal(currentBrightness, brightnessThreshold);
 
 		return turnVal;
 	}

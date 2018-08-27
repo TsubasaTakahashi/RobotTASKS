@@ -34,7 +34,7 @@ namespace Scenario
 		if(detType == IMPACT_DET){
 			bool sectionTransition[2] = {false};
 
-			mDetManager.StepDetect(sectionTransition, detThreshold);
+			mDetManager -> StepDetect(sectionTransition, detThreshold);
 
 			if((sectionTransition[0] == true) && (sectionTransition[1] == true)){ //検知がされた場合区間を遷移させる
 				mSectionStatus++;
@@ -45,15 +45,15 @@ namespace Scenario
 			bool sectionTransition = false; //シナリオ遷移判定
 
 			if(detType == DISTANCE_DET){
-				sectionTransition = mDetManager.DistanceDetect(detThreshold);
+				sectionTransition = mDetManager -> DistanceDetect(detThreshold);
 			}
 			else
 			if(detType == GRAY_DET){
-				sectionTransition = mDetManager.GrayDetect(detThreshold);
+				sectionTransition = mDetManager -> GrayDetect(detThreshold);
 			}
 			else
 			if(detType == IMPACT_DET){
-				sectionTransition = mDetManager.ImpactDetect(detThreshold);
+				sectionTransition = mDetManager -> ImpactDetect(detThreshold);
 			}
 
 
@@ -98,13 +98,13 @@ namespace Scenario
 		SectionManager::JudgeSectionTransition(detection, detectionThreshold);
 
 		if(typeid(mSectionInfo[mSectionStatus]) == typeid(SectionLineTracer)){
-			mRobotCtrller.RunLineTracer(foward, originalVal, tailAngle, balance);
+			mRobotCtrller -> RunLineTracer(foward, originalVal, tailAngle, balance);
 		}
 		else if(typeid(mSectionInfo[mSectionStatus]) == typeid(SectionScenarioTracer)){
-			mRobotCtrller.RunSpecifiedVal(foward, originalVal, tailAngle, balance);
+			mRobotCtrller -> RunSpecifiedVal(foward, originalVal, tailAngle, balance);
 		}
 
-		free(SectionVal);
+		free(sectionVal);
 
 	}
 }  // namespace Scenario

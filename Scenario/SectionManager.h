@@ -21,12 +21,13 @@
 //属性値の数を規定
 #define SEC_ATRB_VAL 6 //走行区間の属性値の数
 
-#include <typeinfo.h>
+#include <typeinfo>
 #include "RobotController.h"    //"走行体制御/走行制御.h"
 #include "DetectionManager.h"   //検知管理
 #include "SectionInfo.h" //区間情報
 #include "SectionLineTracer.h" //ライントレース走行区間
 #include "SectionScenarioTracer.h" //指定値走行区間
+#include <stdlib.h>
 
 namespace Scenario
 {
@@ -40,7 +41,7 @@ public:
 		Detection::DetectionManager* detManager
 	);
 
-~SectionManager(void)          //デストラクタ
+~SectionManager(void);          //デストラクタ
 
 private:
 	int mSectionStatus;          //区間状態

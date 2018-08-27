@@ -10,12 +10,8 @@ namespace Scenario
      int UsedSensor,          //使用する検知＿引数
      int SensorThreshold,      //検査の閾値＿引数
      int TurnValue     //反射光の閾値
-         ):mForward(Forward),
-         mTailAngle(TailAngle),
-         mBalance(Balance),
-         mUsedSensor(UsedSensor),
-         mSensorThreshold(SensorThreshold),
-         mTurnValue(TurnValue)
+         ):SectionInfo(Forward, TailAngle, Balance, UsedSensor, SensorThreshold),
+        mTurnValue(TurnValue)
          {
 
          }

@@ -2,7 +2,7 @@
 
 namespace RobotControl
 {
-	BalanceController::BalanceController(SensorManager* sensorManager,
+	BalanceController::BalanceController(Hardware::SensorManager* sensorManager,
 									Balancer*	balancer)
 		:mSensorManager(sensorManager),
 		mBalancer(balancer),
@@ -14,11 +14,8 @@ namespace RobotControl
 
 	void BalanceController::GetWheelPwm(int* wheelPwm)
 	{
-		int bufWheelPwm[2];
-		bufWheelPwm[0] = mLeftWheelPwm;
-		bufWheelPwm[1] = mRightWheelPwm;
-
-		wheelPwm = bufWheelPwm;
+		wheelPwm[0] = mLeftWheelPwm;
+		wheelPwm[1] = mRightWheelPwm;
 	}
 
 	void BalanceController::CalcWheelPwm(int forward, int turn)

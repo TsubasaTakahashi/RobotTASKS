@@ -10,15 +10,14 @@ namespace RobotControl
 class BalanceController
 {
 	public:
-		explicit BalanceController(SensorManager* sensorManager,
+		explicit BalanceController(Hardware::SensorManager* sensorManager,
 															Balancer*	balancer);
 
 	private:
+		Hardware::SensorManager* mSensorManager;
+		Balancer*	mBalancer;
 		int mLeftWheelPwm;
 		int mRightWheelPwm;
-
-		SensorManager* mSensorManager;
-		Balancer*	mBalancer;
 
 	public:
 		void GetWheelPwm(int* wheelPwm);

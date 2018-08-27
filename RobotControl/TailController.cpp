@@ -2,20 +2,20 @@
 
 namespace RobotControl
 {
-  TailController::TailController(PidController* pidCtrl
+  TailController::TailController(PidController* pidCtrl,
                 Hardware::SensorManager* sensorManager)
-              :mPidCtrl(pidCtrl),
+              :mTailPidCtrl(pidCtrl),
               mSensorManager(sensorManager){
 
               };
 
-  int TailContoroller::AjustTailAngle(int targetTailAng)
+  int TailController::AjustTailAngle(int targetTailAng)
   {
     int tailPwm = 0;
     int currentTailAng = 0;
 
-    currentTailAng = mSensorManager.getTailMotorRa();
-    tailPwm = mTailPidCtrl.CalcControlVal(currentTailAng, targetTailAng);
+    currentTailAng = mSensorManager -> getTailMotorRa();
+    tailPwm = mTailPidCtrl -> CalcControlVal(currentTailAng, targetTailAng);
 
     return tailPwm;
   }

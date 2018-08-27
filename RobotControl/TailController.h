@@ -6,10 +6,10 @@
 
 namespace RobotControl
 {
-class TailContoroller
+class TailController
 {
 	public:
-		explicit TailContoroller(PidController* pidCtrl
+		explicit TailController(PidController* pidCtrl,
 														Hardware::SensorManager* sensorManager);
 
 	private:
