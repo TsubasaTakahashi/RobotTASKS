@@ -6,7 +6,7 @@ namespace Scenario
 //区間情報を得る
 
 	SectionManager::SectionManager(
-		SectionInfo* sectionInfo,   //現在の区間情報
+		SectionInfo** sectionInfo,   //現在の区間情報
 		RobotControl::RobotController* robotCtrl,
 		Detection::DetectionManager* detManager
 	):mSectionStatus(0),
@@ -84,7 +84,7 @@ namespace Scenario
 
 		sectionVal = (int* )malloc(sizeof(int) * SEC_ATRB_VAL);
 
-		mSectionInfo[mSectionStatus].GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
+		mSectionInfo[mSectionStatus]->GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
 
 		foward = sectionVal[FORWARD_AT_SI];
 		tailAngle = sectionVal[TAIL_ANGLE_AT_SI];
@@ -95,10 +95,10 @@ namespace Scenario
 
 		SectionManager::JudgeSectionTransition(detection, detectionThreshold);
 
-		if(typeid(mSectionInfo[mSectionStatus]) == typeid(SectionLineTracer)){
+		if(typeid(*mSectionInfo[mSectionStatus]) == typeid(SectionLineTracer)){
 			mRobotCtrller -> RunLineTracer(foward, originalVal, tailAngle, balance);
 		}
-		else if(typeid(mSectionInfo[mSectionStatus]) == typeid(SectionScenarioTracer)){
+		else if(typeid(*mSectionInfo[mSectionStatus]) == typeid(SectionScenarioTracer)){
 			mRobotCtrller -> RunSpecifiedVal(foward, originalVal, tailAngle, balance);
 		}
 

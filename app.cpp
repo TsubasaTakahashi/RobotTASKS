@@ -127,7 +127,7 @@ static SectionScenarioTracer gSection_2(NORMAL_N, TAIL_ANGLE_DRIVE, BALANCE_ON, 
 ///区間の数だけオブジェクトを生成する
 
 //ここに区間を格納する
-static SectionInfo gSection[] = {gSection_1, gSection_2}; //例
+static SectionInfo* gSection[] = {&gSection_1, &gSection_2}; //例
 
 //
 static double gLtPParameter = LT_PROPORTIONAL_FACTOR;
@@ -311,9 +311,10 @@ void tracer_task(intptr_t exinf) {
         wup_tsk(MAIN_TASK);  // バックボタン押下
     } else {
         if(BtFile != NULL){
-          fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n
-          gRobotCtrl wheelPwm[0] = %d, wheelPwm[1] = %d, tailMotorPwm = %d, corrleftWheelPwm = %d, corrRightWheelPwm = %d, corrTailMotorPwm = %d\n",
-          gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5],
+          fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n",
+          gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5]);
+
+          fprintf(BtFile, "gRobotCtrl wheelPwm[0] = %d, wheelPwm[1] = %d, tailMotorPwm = %d, corrleftWheelPwm = %d, corrRightWheelPwm = %d, corrTailMotorPwm = %d\n",
           gRobotCtrl->mDbg[0], gRobotCtrl->mDbg[1], gRobotCtrl->mDbg[2], gRobotCtrl->mDbg[3], gRobotCtrl->mDbg[4], gRobotCtrl->mDbg[5]);
         }
         gSectManager -> Run();  // 倒立走行

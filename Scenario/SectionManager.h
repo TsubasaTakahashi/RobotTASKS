@@ -36,7 +36,7 @@ class SectionManager
 	//コンストラクタ
 public:
 	explicit SectionManager(
-		SectionInfo* sectionInfo,   //現在の区間情報
+		SectionInfo** sectionInfo,   //現在の区間情報
 		RobotControl::RobotController* robotCtrl,
 		Detection::DetectionManager* detManager
 	);
@@ -45,7 +45,7 @@ public:
 
 private:
 	int mSectionStatus;          //区間状態
-	SectionInfo* mSectionInfo;   //現在の区間情報
+	SectionInfo** mSectionInfo;   //現在の区間情報
 	RobotControl::RobotController* mRobotCtrller;
 	Detection::DetectionManager* mDetManager;
 
