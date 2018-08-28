@@ -21,6 +21,8 @@ class RobotController
 														Hardware::MotorTASKS& rightWheel,
 														Hardware::MotorTASKS& tailMotor);
 
+		int mDbg[6];
+
 	private:
 		BalanceController* mBalanceCtrl;
 		LineTracerController* mLineTrCtrl;

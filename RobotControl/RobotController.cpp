@@ -47,6 +47,14 @@ namespace RobotControl
     mLeftWheel.setPWM(corrleftWheelPwm);
     mRightWheel.setPWM(corrRightWheelPwm);
     mTailMotor.setPWM(corrTailMotorPwm);
+
+    mDbg[0] = wheelPwm[0];
+    mDbg[1] = wheelPwm[1];
+    mDbg[2] = tailMotorPwm;
+    mDbg[3] = corrleftWheelPwm;
+    mDbg[4] = corrRightWheelPwm;
+    mDbg[5] = corrTailMotorPwm;
+
     free(wheelPwm);
   }
 
@@ -82,6 +90,15 @@ namespace RobotControl
     mLeftWheel.setPWM(corrleftWheelPwm);
     mRightWheel.setPWM(corrRightWheelPwm);
     mTailMotor.setPWM(corrTailMotorPwm);
+
+    mDbg[0] = wheelPwm[0];
+    mDbg[1] = wheelPwm[1];
+    mDbg[2] = tailMotorPwm;
+    mDbg[3] = corrleftWheelPwm;
+    mDbg[4] = corrRightWheelPwm;
+    mDbg[5] = corrTailMotorPwm;
+
+
     free(wheelPwm);
 
   }
