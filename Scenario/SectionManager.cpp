@@ -75,8 +75,6 @@ namespace Scenario
 		//「現在の区間情報」に対応して
 		//「フォワード値」、「尻尾の角度」、「姿勢」を
 		int* sectionVal; //区間情報の属性値を格納する
-
-
 		int foward = 0;               //フォワード値
 		int tailAngle = 0;           //尻尾の角度
 		int balance = 0;               //姿勢

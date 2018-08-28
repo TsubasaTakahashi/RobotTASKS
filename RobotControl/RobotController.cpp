@@ -19,7 +19,7 @@ namespace RobotControl
   {
   }
 
-  void RobotController::RunSpecifiedVal(int foward, int turn, int tailAngle, bool balance){
+  void RobotController::RunSpecifiedVal(int foward, int turn, int tailAngle, int balance){
     int* wheelPwm;
     int tailMotorPwm = 0;
     int corrleftWheelPwm = 0;
@@ -28,12 +28,13 @@ namespace RobotControl
 
 
     wheelPwm = (int *)malloc(sizeof(int) * 2);
-    if(balance == true){
+    if(balance == 1){ // 姿勢ON
       mBalanceCtrl -> CalcWheelPwm(foward, turn); //姿勢制御の補正もいれてPWM値を算出する
       mBalanceCtrl -> GetWheelPwm(wheelPwm);
     }
     else{
       //foward, turnから PWM 値を計算する
+      //尻尾走行に切り替えるとき
     }
 
     tailMotorPwm = mTailCtrl -> AjustTailAngle(tailAngle);
@@ -50,7 +51,7 @@ namespace RobotControl
   }
 
 
-  void RobotController::RunLineTracer(int foward, int brightnessThreshold, int tailAngle, bool balance)
+  void RobotController::RunLineTracer(int foward, int brightnessThreshold, int tailAngle, int balance)
   {
     int turn = 0;
     int tailMotorPwm = 0;
@@ -62,12 +63,13 @@ namespace RobotControl
     turn = mLineTrCtrl -> AjustTurnVal(brightnessThreshold);
 
     wheelPwm = (int *)malloc(sizeof(int) * 2);
-    if(balance == true){
+    if(balance == 1){ //姿勢ON
       mBalanceCtrl -> CalcWheelPwm(foward, turn); //姿勢制御の補正もいれてPWM値を算出する
       mBalanceCtrl -> GetWheelPwm(wheelPwm);
     }
     else{
       //foward, turnから PWM 値を計算する
+      //尻尾走行に切り替えるとき
     }
 
     tailMotorPwm = mTailCtrl -> AjustTailAngle(tailAngle);

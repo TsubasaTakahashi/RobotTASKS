@@ -31,9 +31,9 @@ class RobotController
 		Hardware::MotorTASKS& mTailMotor;
 
 	public:
-		void RunSpecifiedVal(int foward, int turn, int tailAngle, bool balance);
+		void RunSpecifiedVal(int foward, int turn, int tailAngle, int balance);
 
-		void RunLineTracer(int foward, int brightnessThreshold, int tailAngle, bool balance);
+		void RunLineTracer(int foward, int brightnessThreshold, int tailAngle, int balance);
 
 };
 

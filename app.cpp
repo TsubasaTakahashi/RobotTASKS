@@ -21,13 +21,13 @@
 #define DELTA_T 0.004  /* ループタスクの1回の処理時間 */
 
 //PID電圧補正用パラメータ
-#define PWM_REF_VOLTAGE 300 //mv
+#define PWM_REF_VOLTAGE 8000 //mv
 
 //検知用パラメータ
 #define IMP_DET_T_THRESHOLD 15 //衝撃検知　持続時間
-#define IMP_DET_T_WIDTH 30
+#define IMP_DET_T_WIDTH 30 //閾値の幅
 
-//検知の対応
+//検知の対応番号
 #define DISTANCE_DET 0
 #define GRAY_DET 1
 #define IMPACT_DET 2
@@ -122,8 +122,8 @@ static Scenario::SectionManager       *gSectManager;
 static Balancer        *gBalancer;
 
 //区間例
-static SectionLineTracer    gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, IMPACT_DET, IMPACT_DET_THRESHOLD, TARGET_VAL_LINETRACE); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
-static SectionScenarioTracer gSection_2(0, 0, 0, 0, 0, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
+static SectionLineTracer     gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, 300, TARGET_VAL_LINETRACE); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
+static SectionScenarioTracer gSection_2(NORMAL_N, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, -100, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
 ///区間の数だけオブジェクトを生成する
 
 //ここに区間を格納する
@@ -150,8 +150,9 @@ static int gPwmRefVoltage = PWM_REF_VOLTAGE;
 //Detection
 static int gImpactDetTimeThreshold = IMP_DET_T_THRESHOLD;
 static int gImpactDetTimeWidth = IMP_DET_T_WIDTH;
-static int gDuration = 20;
-static int gWidth = 0;
+
+static int gGrayDetDuration = 20;
+static int gGrayDetWidth = 0;
 //
 static int gActDuration = 15; //段差検知
 static int gTireRadius = TIRE_RADIUS;
@@ -173,7 +174,7 @@ static void user_system_create() {
                                                  gTailRaSensor);
 
     gDistDet       = new Detection::DistanceDetection(gTireRadius);
-    gGrayDet       = new Detection::GrayDetection(gDuration,gWidth);
+    gGrayDet       = new Detection::GrayDetection(gGrayDetDuration, gGrayDetWidth);
     gImpactDet     = new Detection::ImpactDetection(gImpactDetTimeThreshold, gImpactDetTimeWidth);
     gStepDet       = new Detection::StepDetection(gActDuration);
     gDetManager    = new Detection::DetectionManager(gSensorManager,

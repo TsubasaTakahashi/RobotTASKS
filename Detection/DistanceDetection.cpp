@@ -27,7 +27,7 @@ namespace Detection
 
 	bool DistanceDetection::Detect(int threshold, int lWheelMotorRa, int rWheelMotorRa)
 	{
-		int distance;
+		int distance = 0;
 
 		if(mReset == 0){ //初期タイヤ位置セット
 			SetStartWheelCount(lWheelMotorRa, rWheelMotorRa);
