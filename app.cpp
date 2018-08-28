@@ -312,7 +312,7 @@ void tracer_task(intptr_t exinf) {
     } else {
         if(BtFile != NULL){
           fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n",
-          gSectManager.mDbg[0], gSectManager.mDbg[1], gSectManager.mDbg[2], gSectManager.mDbg[3], gSectManager.mDbg[4], gSectManager.mDbg[5]);
+          gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5]);
         }
         gSectManager -> Run();  // 倒立走行
     }
