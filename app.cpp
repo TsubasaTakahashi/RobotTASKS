@@ -311,8 +311,10 @@ void tracer_task(intptr_t exinf) {
         wup_tsk(MAIN_TASK);  // バックボタン押下
     } else {
         if(BtFile != NULL){
-          fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n",
-          gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5]);
+          fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n
+          gRobotCtrl wheelPwm[0] = %d, wheelPwm[1] = %d, tailMotorPwm = %d, corrleftWheelPwm = %d, corrRightWheelPwm = %d, corrTailMotorPwm = %d\n",
+          gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5],
+          gRobotCtrl->mDbg[0], gRobotCtrl->mDbg[1], gRobotCtrl->mDbg[2], gRobotCtrl->mDbg[3], gRobotCtrl->mDbg[4]);
         }
         gSectManager -> Run();  // 倒立走行
     }
