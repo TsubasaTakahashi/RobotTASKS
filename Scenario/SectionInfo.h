@@ -17,6 +17,7 @@ class SectionInfo               //Japanese -> English
 
 	//メンバ変数宣言
 	protected:
+	//public: //デバック用
 		int mForward;              //フォワード値
 		int mTailAngle;            //尻尾の角度
 		int mBalance;              //姿勢

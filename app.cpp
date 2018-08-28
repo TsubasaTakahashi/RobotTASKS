@@ -157,6 +157,9 @@ static int gGrayDetWidth = 0;
 static int gActDuration = 15; //段差検知
 static int gTireRadius = TIRE_RADIUS;
 
+static FILE     *BtFile = NULL;     /* Bluetoothファイルハンドル */
+static int      bt_cmd = 0;     /* Bluetoothコマンド 1:リモートスタート */
+
 /**
  * EV3システム生成
  */
@@ -220,6 +223,10 @@ static void user_system_create() {
     //    gScenario->add(&gScenes[i]);
     //}
 
+    /* Open Bluetooth file */
+    BtFile = ev3_serial_open_file(EV3_SERIAL_BT);
+    //assert(BtFile != NULL);
+
     // 初期化完了通知
     ev3_led_set_color(LED_ORANGE);
 }
@@ -256,6 +263,8 @@ static void user_system_destroy() {
     delete gStepDet;
 
     delete gSectManager;
+
+    fclose(BtFile);
 }
 
 /**
@@ -271,6 +280,11 @@ void ev3_cyc_tracer(intptr_t exinf) {
 void main_task(intptr_t unused) {
     user_system_create();  // センサやモータの初期化処理
 
+    if(BtFile != NULL){
+      /* Bluetooth通信タスクの起動 */
+      act_tsk(BT_TASK);
+    }
+
     // 周期ハンドラ開始
     ev3_sta_cyc(EV3_CYC_TRACER);
 
@@ -278,6 +292,11 @@ void main_task(intptr_t unused) {
 
     // 周期ハンドラ停止
     ev3_stp_cyc(EV3_CYC_TRACER);
+
+    if(BtFile != NULL){
+      //Bluetooth 処理停止
+      ter_tsk(BT_TASK);
+    }
 
     user_system_destroy();  // 終了処理
 
@@ -291,8 +310,36 @@ void tracer_task(intptr_t exinf) {
     if (ev3_button_is_pressed(BACK_BUTTON)) {
         wup_tsk(MAIN_TASK);  // バックボタン押下
     } else {
+        if(BtFile != NULL){
+          fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n",
+          gSectManager.mDbg[0], gSectManager.mDbg[1], gSectManager.mDbg[2], gSectManager.mDbg[3], gSectManager.mDbg[4], gSectManager.mDbg[5]);
+        }
         gSectManager -> Run();  // 倒立走行
     }
 
     ext_tsk();
+}
+
+//*****************************************************************************
+// 関数名 : bt_task
+// 引数 : unused
+// 返り値 : なし
+// 概要 : Bluetooth通信によるリモートスタート。 Tera Termなどのターミナルソフトから、
+//       ASCIIコードで1を送信すると、リモートスタートする。
+//*****************************************************************************
+void bt_task(intptr_t unused)
+{
+  while(1)
+    {
+      uint8_t c = fgetc(BtFile); /* 受信 */
+      switch(c)
+        {
+        case '1':
+          bt_cmd = 1;
+          break;
+        default:
+          break;
+        }
+      fputc(c, BtFile); /* エコーバック */
+    }
 }

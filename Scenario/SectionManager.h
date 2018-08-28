@@ -41,6 +41,8 @@ public:
 		Detection::DetectionManager* detManager
 	);
 
+	int mDbg[6];
+
 private:
 	int mSectionStatus;          //区間状態
 	SectionInfo* mSectionInfo;   //現在の区間情報
