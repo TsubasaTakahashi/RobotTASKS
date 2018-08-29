@@ -84,7 +84,7 @@ namespace Scenario
 
 		sectionVal = (int* )malloc(sizeof(int) * SEC_ATRB_VAL);
 
-		mSectionInfo[mSectionStatus]->GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
+		*mSectionInfo[mSectionStatus].GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
 
 		foward = sectionVal[FORWARD_AT_SI];
 		tailAngle = sectionVal[TAIL_ANGLE_AT_SI];
