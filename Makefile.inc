@@ -22,9 +22,10 @@ APPL_CXXOBJS += \
 	RobotController.o\
 	SectionManager.o\
 	SectionInfo.o\
-	SectionLineTracer.o\
-	SectionScenarioTracer.o\
 	BalancerCpp.o
+#	SectionLineTracer.o\
+#	SectionScenarioTracer.o\
+
 
 SRCLANG := c++
 

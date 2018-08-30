@@ -6,7 +6,7 @@ namespace Scenario
 //区間情報を得る
 
 	SectionManager::SectionManager(
-		SectionInfo** sectionInfo,   //現在の区間情報
+		SectionInfo* sectionInfo,   //現在の区間情報
 		RobotControl::RobotController* robotCtrl,
 		Detection::DetectionManager* detManager
 	):mSectionStatus(0),
@@ -80,34 +80,52 @@ namespace Scenario
 		int balance = 0;               //姿勢
 		int detection = 0;           //使用する検知
 		int detectionThreshold = 0;      //検査の閾値
-		int originalVal = 0; //ライントレース走行区間: 反射光の閾値, 指定値走行区間: ターン値
+		//int originalVal = 0; //ライントレース走行区間: 反射光の閾値, 指定値走行区間: ターン値
+		int targetBright = 0;
+		int turn = 0;
+		int LineOrScenario;
 
 		sectionVal = (int* )malloc(sizeof(int) * SEC_ATRB_VAL);
 
-		*mSectionInfo[mSectionStatus].GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
+		mSectionInfo[mSectionStatus].GetRobotAttributeValue(sectionVal); //区間情報から属性値を取得する
 
 		foward = sectionVal[FORWARD_AT_SI];
 		tailAngle = sectionVal[TAIL_ANGLE_AT_SI];
 		balance = sectionVal[BALANCE_AT_SI];
 		detection = sectionVal[USED_SENSOR_AT_SI];
 		detectionThreshold = sectionVal[SENSOR_THRESHOLD_AT_SI];
-		originalVal = sectionVal[ORIGINAL_VAL];
+		//originalVal = sectionVal[ORIGINAL_VAL];
+		targetBright = sectionVal[6];
+		turn = sectionVal[7];
+		LineOrScenario = sectionVal[5];
 
 		SectionManager::JudgeSectionTransition(detection, detectionThreshold);
 
+		/*
 		if(typeid(*mSectionInfo[mSectionStatus]) == typeid(SectionLineTracer)){
 			mRobotCtrller -> RunLineTracer(foward, originalVal, tailAngle, balance);
 		}
 		else if(typeid(*mSectionInfo[mSectionStatus]) == typeid(SectionScenarioTracer)){
 			mRobotCtrller -> RunSpecifiedVal(foward, originalVal, tailAngle, balance);
 		}
+		*/
+
+		if(LineOrScenario == 0){
+			mRobotCtrller -> RunLineTracer(foward, targetBright, tailAngle, balance);
+		}
+		else if(LineOrScenario == 1){
+			mRobotCtrller -> RunSpecifiedVal(foward, turn, tailAngle, balance);
+		}
+
+
+		//mDbgClassName = const_cast<char *>(typeid(*mSectionInfo[mSectionStatus]).name());
 
 		mDbg[0] = foward;
 		mDbg[1] = tailAngle;
 		mDbg[2] = balance;
 		mDbg[3] = detection;
 		mDbg[4] = detectionThreshold;
-		mDbg[5] = originalVal;
+		mDbg[5] = targetBright;
 
 		free(sectionVal);
 

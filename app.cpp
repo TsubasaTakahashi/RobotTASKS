@@ -62,6 +62,9 @@
 
 #define TIRE_RADIUS 5 /* タイヤの半径[cm] */
 
+const static int LINE_TRACE = 0;
+const static int SCENARIO_TRACE = 1;
+
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
 void *__dso_handle = 0;
@@ -122,12 +125,15 @@ static Scenario::SectionManager       *gSectManager;
 static Balancer        *gBalancer;
 
 //区間例
-static SectionLineTracer     gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, 300, TARGET_VAL_LINETRACE); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
-static SectionScenarioTracer gSection_2(NORMAL_N, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, -100, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
+//static SectionLineTracer     gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, 300, TARGET_VAL_LINETRACE); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, 反射光の閾値
+//static SectionScenarioTracer gSection_2(NORMAL_N, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, -100, 0); //フォワード値, 尻尾の角度, 姿勢, 使用する検知, 検知の閾値, ターン値
 ///区間の数だけオブジェクトを生成する
+//static SectionInfo* gSection[] = {&gSection_1, &gSection_2}; //例
 
-//ここに区間を格納する
-static SectionInfo* gSection[] = {&gSection_1, &gSection_2}; //例
+//しかたなしの改変
+static SectionInfo gSection_1(NORMAL, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, 300, LINE_TRACE, TARGET_VAL_LINETRACE, 0); // 反射光の閾値
+static SectionInfo gSection_2(NORMAL_N, TAIL_ANGLE_DRIVE, BALANCE_ON, DISTANCE_DET, -100, SCENARIO_TRACE, 0, 0); //ターン値
+static SectionInfo gSection[] = {gSection_1, gSection_2};
 
 //
 static double gLtPParameter = LT_PROPORTIONAL_FACTOR;
@@ -316,6 +322,8 @@ void tracer_task(intptr_t exinf) {
 
           fprintf(BtFile, "gRobotCtrl wheelPwm[0] = %d, wheelPwm[1] = %d, tailMotorPwm = %d, corrleftWheelPwm = %d, corrRightWheelPwm = %d, corrTailMotorPwm = %d\n",
           gRobotCtrl->mDbg[0], gRobotCtrl->mDbg[1], gRobotCtrl->mDbg[2], gRobotCtrl->mDbg[3], gRobotCtrl->mDbg[4], gRobotCtrl->mDbg[5]);
+
+          //fprintf(BtFile, "classname = %s\n", gSectManager->mDbgClassName);
         }
         gSectManager -> Run();  // 倒立走行
     }

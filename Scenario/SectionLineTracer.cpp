@@ -11,8 +11,7 @@ namespace Scenario
      int SensorThreshold,      //検査の閾値＿引数
      int ReflectedThreshold     //反射光の閾値
 
-   ):SectionInfo(Forward,             //フォワード値＿引数
-TailAngle, Balance, UsedSensor, SensorThreshold),
+   ):SectionInfo(Forward, TailAngle, Balance, UsedSensor, SensorThreshold),
          mReflectedThreshold(ReflectedThreshold)
          {
 

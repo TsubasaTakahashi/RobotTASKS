@@ -19,7 +19,7 @@
 #define STEP_DET 3
 
 //属性値の数を規定
-#define SEC_ATRB_VAL 6 //走行区間の属性値の数
+#define SEC_ATRB_VAL 8 //走行区間の属性値の数
 
 #include <typeinfo>
 #include "RobotController.h"    //"走行体制御/走行制御.h"
@@ -36,16 +36,18 @@ class SectionManager
 	//コンストラクタ
 public:
 	explicit SectionManager(
-		SectionInfo** sectionInfo,   //現在の区間情報
+		SectionInfo* sectionInfo,   //現在の区間情報
 		RobotControl::RobotController* robotCtrl,
 		Detection::DetectionManager* detManager
 	);
 
 	int mDbg[6];
 
+	char* mDbgClassName;
+
 private:
 	int mSectionStatus;          //区間状態
-	SectionInfo** mSectionInfo;   //現在の区間情報
+	SectionInfo* mSectionInfo;   //現在の区間情報
 	RobotControl::RobotController* mRobotCtrller;
 	Detection::DetectionManager* mDetManager;
 
