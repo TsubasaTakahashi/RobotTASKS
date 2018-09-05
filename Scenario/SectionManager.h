@@ -41,8 +41,6 @@ public:
 		Detection::DetectionManager* detManager
 	);
 
-	int mDbg[6];
-
 	char* mDbgClassName;
 
 private:

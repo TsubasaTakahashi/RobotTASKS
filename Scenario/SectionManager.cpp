@@ -117,15 +117,7 @@ namespace Scenario
 			mRobotCtrller -> RunSpecifiedVal(foward, turn, tailAngle, balance);
 		}
 
-
 		//mDbgClassName = const_cast<char *>(typeid(*mSectionInfo[mSectionStatus]).name());
-
-		mDbg[0] = foward;
-		mDbg[1] = tailAngle;
-		mDbg[2] = balance;
-		mDbg[3] = detection;
-		mDbg[4] = detectionThreshold;
-		mDbg[5] = targetBright;
 
 		free(sectionVal);
 

@@ -24,6 +24,8 @@ class BalanceController
 
 		void CalcWheelPwm(int forward, int turn);
 
+		void init();
+
 };
 
 }  // namespace 走行体制御

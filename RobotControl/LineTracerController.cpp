@@ -17,6 +17,16 @@ namespace RobotControl
 		currentBrightness = mSensorManager->getBrightness();
 		turnVal = mLineTracerPidCtrl->CalcControlVal(currentBrightness, brightnessThreshold);
 
+		int dbg[2] = {0};
+		mSensorManager->getWheelMotorRa(dbg);
+		mDbg_0 = mSensorManager->getBrightness();
+		mDbg_1 = mSensorManager->getTailMotorRa();
+		mDbg_2 = mSensorManager->getRobotAv();
+		mDbg_3 = mSensorManager->getBatteryVoltage();
+		mDbg_4 = dbg[0];
+		mDbg_5 = dbg[1];
+		mDbg_6 = turnVal;
+
 		return turnVal;
 	}
 }  // namespace 走行体制御

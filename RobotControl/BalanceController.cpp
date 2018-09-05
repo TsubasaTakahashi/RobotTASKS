@@ -42,4 +42,15 @@ namespace RobotControl
 		free(wheelMotorRa);
 	}
 
+	void BalanceController::init() {
+    int offset = mSensorManager->getRobotAv();  // ジャイロセンサ値
+
+    // モータエンコーダをリセットする
+    //mLeftWheel.reset();
+    //mRightWheel.reset();
+
+    // 倒立振子制御初期化
+    mBalancer->init(offset);
+}
+
 }  // namespace 走行体制御

@@ -17,6 +17,7 @@ namespace RobotControl
                           mRightWheel(rightWheel),
                           mTailMotor(tailMotor)
   {
+    //mBalanceCtrl -> init();
   }
 
   void RobotController::RunSpecifiedVal(int foward, int turn, int tailAngle, int balance){
@@ -48,12 +49,12 @@ namespace RobotControl
     mRightWheel.setPWM(corrRightWheelPwm);
     mTailMotor.setPWM(corrTailMotorPwm);
 
-    mDbg[0] = wheelPwm[0];
-    mDbg[1] = wheelPwm[1];
-    mDbg[2] = tailMotorPwm;
-    mDbg[3] = corrleftWheelPwm;
-    mDbg[4] = corrRightWheelPwm;
-    mDbg[5] = corrTailMotorPwm;
+    mDbg_0 = wheelPwm[0];
+    mDbg_1 = wheelPwm[1];
+    mDbg_2 = tailMotorPwm;
+    mDbg_3 = corrleftWheelPwm;
+    mDbg_4 = corrRightWheelPwm;
+    mDbg_5 = corrTailMotorPwm;
 
     free(wheelPwm);
   }
@@ -68,8 +69,14 @@ namespace RobotControl
     int corrTailMotorPwm = 0;
     int* wheelPwm;
 
+    mDbg_6 = foward;
+    mDbg_7 = brightnessThreshold;
+    mDbg_8 = tailAngle;
+    mDbg_9 = balance;
+
     turn = mLineTrCtrl -> AjustTurnVal(brightnessThreshold);
 
+    mDbg_10 = turn;
     wheelPwm = (int *)malloc(sizeof(int) * 2);
     if(balance == 1){ //姿勢ON
       mBalanceCtrl -> CalcWheelPwm(foward, turn); //姿勢制御の補正もいれてPWM値を算出する
@@ -91,12 +98,13 @@ namespace RobotControl
     mRightWheel.setPWM(corrRightWheelPwm);
     mTailMotor.setPWM(corrTailMotorPwm);
 
-    mDbg[0] = wheelPwm[0];
-    mDbg[1] = wheelPwm[1];
-    mDbg[2] = tailMotorPwm;
-    mDbg[3] = corrleftWheelPwm;
-    mDbg[4] = corrRightWheelPwm;
-    mDbg[5] = corrTailMotorPwm;
+    mDbg_0 = wheelPwm[0];
+    mDbg_1 = wheelPwm[1];
+    mDbg_2 = tailMotorPwm;
+    mDbg_3 = corrleftWheelPwm;
+    mDbg_4 = corrRightWheelPwm;
+    mDbg_5 = corrTailMotorPwm;
+    //mDbg_10 = turn;
 
 
     free(wheelPwm);

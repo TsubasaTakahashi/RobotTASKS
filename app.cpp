@@ -9,13 +9,13 @@
 #define LT_PROPORTIONAL_FACTOR 0.9 /* 比例係数 */
 #define LT_DIFFERENTIAL_FACTOR 0.0 /* 微分制御 */
 #define LT_INTEGRATION_FACTOR 0.0 /* 積分制御 */
-#define LT_PID_GAIN 0.0
+#define LT_PID_GAIN 1.0
 #define LT_PID_OFFSET 0.0
 //尻尾制御用
 #define TAIL_PROPORTIONAL_FACTOR 0.5 /* 比例係数 */
 #define TAIL_DIFFERENTIAL_FACTOR 0.0 /* 微分制御 */
 #define TAIL_INTEGRATION_FACTOR 0.0 /* 積分制御 */
-#define TAIL_PID_GAIN 0.0
+#define TAIL_PID_GAIN 1.0
 #define TAIL_PID_OFFSET 0.0
 
 #define DELTA_T 0.004  /* ループタスクの1回の処理時間 */
@@ -317,12 +317,17 @@ void tracer_task(intptr_t exinf) {
         wup_tsk(MAIN_TASK);  // バックボタン押下
     } else {
         if(BtFile != NULL){
-          fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n",
-          gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5]);
+          //fprintf(BtFile, "SectionManager foward = %d, tailAngle = %d, balance = %d, detection = %d, detectionThreshold = %d, originalVal = %d\n",
+          //gSectManager->mDbg[0], gSectManager->mDbg[1], gSectManager->mDbg[2], gSectManager->mDbg[3], gSectManager->mDbg[4], gSectManager->mDbg[5]);
 
-          fprintf(BtFile, "gRobotCtrl wheelPwm[0] = %d, wheelPwm[1] = %d, tailMotorPwm = %d, corrleftWheelPwm = %d, corrRightWheelPwm = %d, corrTailMotorPwm = %d\n",
-          gRobotCtrl->mDbg[0], gRobotCtrl->mDbg[1], gRobotCtrl->mDbg[2], gRobotCtrl->mDbg[3], gRobotCtrl->mDbg[4], gRobotCtrl->mDbg[5]);
+          fprintf(BtFile, "gRobotCtrl wheelPwm[0] = %d, wheelPwm[1] = %d, tailMotorPwm = %d, corrleftWheelPwm = %d, corrRightWheelPwm = %d, corrTailMotorPwm = %d, foward = %d, brightnessThreshold = %d, tailAngle = %d, balance = %d, turn = %d\n",
+          gRobotCtrl->mDbg_0, gRobotCtrl->mDbg_1, gRobotCtrl->mDbg_2, gRobotCtrl->mDbg_3, gRobotCtrl->mDbg_4, gRobotCtrl->mDbg_5, gRobotCtrl->mDbg_6, gRobotCtrl->mDbg_7, gRobotCtrl->mDbg_8, gRobotCtrl->mDbg_9, gRobotCtrl->mDbg_10);
 
+          //fprintf(BtFile, "LineCtrl sensor getBrightness = %d, getTailMotorRa = %d, getRobotAv = %d, getBatteryVoltage = %d, getWheelMotorRa[0] = %d, getWheelMotorRa[1] = %d, turn = %d\n",
+          //gLineTrCtrl->mDbg_0, gLineTrCtrl->mDbg_1, gLineTrCtrl->mDbg_2, gLineTrCtrl->mDbg_3, gLineTrCtrl->mDbg_4, gLineTrCtrl->mDbg_5, gLineTrCtrl->mDbg_6);
+
+          fprintf(BtFile, "mLineTracerPidCtrl mBeforeLastDiffVal = %d, mLastDiffVal = %d, mCumulativeSum = %d, dbRefP = %d, dbRefI = %d, dbRefD = %d, dbCorrectVal = %d, iCorrectVal = %d\n",
+          gPidLine->mDbg_0, gPidLine->mDbg_1, gPidLine->mDbg_2, gPidLine->mDbg_3, gPidLine->mDbg_4, gPidLine->mDbg_5, gPidLine->mDbg_6, gPidLine->mDbg_7);
           //fprintf(BtFile, "classname = %s\n", gSectManager->mDbgClassName);
         }
         gSectManager -> Run();  // 倒立走行
