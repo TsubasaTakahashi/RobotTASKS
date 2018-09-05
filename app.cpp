@@ -174,6 +174,7 @@ static void user_system_create() {
     tslp_tsk(2);
 
     // オブジェクトの作成
+    gBalancer      = new Balancer();
     gBatterySensor = new Hardware::BatterySensor();
     gSensorManager = new Hardware::SensorManager(gBatterySensor,
                                                  gColorSensorTASKS,
@@ -329,6 +330,9 @@ void tracer_task(intptr_t exinf) {
           fprintf(BtFile, "mLineTracerPidCtrl mBeforeLastDiffVal = %d, mLastDiffVal = %d, mCumulativeSum = %d, dbRefP = %d, dbRefI = %d, dbRefD = %d, dbCorrectVal = %d, iCorrectVal = %d\n",
           gPidLine->mDbg_0, gPidLine->mDbg_1, gPidLine->mDbg_2, gPidLine->mDbg_3, gPidLine->mDbg_4, gPidLine->mDbg_5, gPidLine->mDbg_6, gPidLine->mDbg_7);
           //fprintf(BtFile, "classname = %s\n", gSectManager->mDbgClassName);
+
+          fprintf(BtFile, "BalanceController angle = %d, wheelMotorRa[0] = %d, wheelMotorRa[1] = %d, battery = %d, mLeftWheelPwm = %d, mRightWheelPwm = %d\n",
+          gBalanceCtrl->mDbg_0, gBalanceCtrl->mDbg_1, gBalanceCtrl->mDbg_2, gBalanceCtrl->mDbg_3, gBalanceCtrl->mDbg_4, gBalanceCtrl->mDbg_5);
         }
         gSectManager -> Run();  // 倒立走行
     }

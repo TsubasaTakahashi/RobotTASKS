@@ -15,12 +15,18 @@ namespace RobotControl
                           mPwmVolCorr(pwmVolCorr),
                           mLeftWheel(leftWheel),
                           mRightWheel(rightWheel),
-                          mTailMotor(tailMotor)
+                          mTailMotor(tailMotor),
+                          mIsInitialized(false)
   {
-    //mBalanceCtrl -> init();
+
   }
 
   void RobotController::RunSpecifiedVal(int foward, int turn, int tailAngle, int balance){
+  //  if (mIsInitialized == false) {
+    //    mBalanceCtrl->init();
+      //  mIsInitialized = true;
+    //}
+
     int* wheelPwm;
     int tailMotorPwm = 0;
     int corrleftWheelPwm = 0;
@@ -62,6 +68,11 @@ namespace RobotControl
 
   void RobotController::RunLineTracer(int foward, int brightnessThreshold, int tailAngle, int balance)
   {
+    //if (mIsInitialized == false) {
+      //  mBalanceCtrl->init();
+      //  mIsInitialized = true;
+    //}
+
     int turn = 0;
     int tailMotorPwm = 0;
     int corrleftWheelPwm = 0;

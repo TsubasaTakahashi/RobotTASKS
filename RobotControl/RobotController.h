@@ -41,6 +41,7 @@ class RobotController
 		Hardware::MotorTASKS& mLeftWheel;
 		Hardware::MotorTASKS& mRightWheel;
 		Hardware::MotorTASKS& mTailMotor;
+		bool mIsInitialized;
 
 	public:
 		void RunSpecifiedVal(int foward, int turn, int tailAngle, int balance);

@@ -39,6 +39,13 @@ namespace RobotControl
 		mLeftWheelPwm = (mBalancer->getPwmLeft());
 		mRightWheelPwm = (mBalancer->getPwmRight());
 
+		mDbg_0 = angle;
+		mDbg_1 = wheelMotorRa[0];
+		mDbg_2 = wheelMotorRa[1];
+		mDbg_3 = battery;
+		mDbg_4 = mLeftWheelPwm;
+		mDbg_5 = mRightWheelPwm;
+
 		free(wheelMotorRa);
 	}
 
